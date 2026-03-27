@@ -1,6 +1,7 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -100,6 +101,8 @@ let draftAttendance = {};
 let draftTasks = [];
 let selectedAttendanceDates = new Set();
 let attendanceMonthCursor = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+let managerAlertsState = [];
+let managerPersonalMessagesState = [];
 
 function activateManagerModule(targetId) {
   managerModules.forEach((moduleEl) => {
@@ -369,6 +372,7 @@ function renderAttendanceCalendar() {
 }
 
 function renderManagerAlerts(updates) {
+  managerAlertsState = updates;
   managerAlertList.innerHTML = "";
 
   if (!updates.length) {
@@ -389,6 +393,10 @@ function renderManagerAlerts(updates) {
       </div>
       <p class="manager-alert-message">${item.message}</p>
       <p class="manager-alert-meta">Posted ${formatWhen(item.createdAt)} by ${item.createdBy || "Manager"}</p>
+      <div class="manager-card-actions">
+        <button type="button" class="btn btn-outline manager-action-btn" data-action="edit-alert" data-id="${item.id}">Edit</button>
+        <button type="button" class="btn btn-ghost manager-action-btn danger" data-action="delete-alert" data-id="${item.id}">Delete</button>
+      </div>
     `;
     managerAlertList.appendChild(card);
   });
@@ -409,6 +417,7 @@ function renderManagerPersonalMessages(messages) {
     return;
   }
 
+  managerPersonalMessagesState = messages;
   messages.forEach((item) => {
     const card = document.createElement("article");
     card.className = "manager-alert-item";
@@ -420,9 +429,35 @@ function renderManagerPersonalMessages(messages) {
       <p class="update-date">To: ${item.recipientEmail}</p>
       <p class="manager-alert-message">${item.message}</p>
       <p class="manager-alert-meta">Sent ${formatWhen(item.createdAt)} by ${item.createdBy || "Manager"}</p>
+      <div class="manager-card-actions">
+        <button type="button" class="btn btn-outline manager-action-btn" data-action="edit-personal" data-id="${item.id}">Edit</button>
+        <button type="button" class="btn btn-ghost manager-action-btn danger" data-action="delete-personal" data-id="${item.id}">Delete</button>
+      </div>
     `;
     managerPersonalMsgList.appendChild(card);
   });
+}
+
+function getTaskStatusClass(status) {
+  return `status-${String(status || "Pending").toLowerCase().replace(/\s+/g, "-")}`;
+}
+
+function applyManagerTaskStatusClasses(selectEl, status) {
+  if (!(selectEl instanceof HTMLSelectElement)) {
+    return;
+  }
+
+  const knownClasses = ["status-pending", "status-in-progress", "status-done"];
+  selectEl.classList.remove(...knownClasses);
+
+  const statusClass = getTaskStatusClass(status);
+  selectEl.classList.add(statusClass);
+
+  const row = selectEl.closest("tr");
+  if (row) {
+    row.classList.remove(...knownClasses);
+    row.classList.add(statusClass);
+  }
 }
 
 function renderManagerTasks() {
@@ -430,27 +465,38 @@ function renderManagerTasks() {
 
   if (!draftTasks.length) {
     const row = document.createElement("tr");
-    row.innerHTML = '<td colspan="5">No tasks assigned for selected employee.</td>';
+    row.innerHTML = '<td colspan="6">No tasks assigned for selected employee.</td>';
     managerTasksBody.appendChild(row);
     return;
   }
 
   draftTasks.forEach((task) => {
+    const statusClass = getTaskStatusClass(task.status);
     const row = document.createElement("tr");
+    row.className = `manager-task-row ${statusClass}`;
     row.innerHTML = `
       <td>${task.title}</td>
       <td>${task.assignedDate}</td>
       <td>${task.dueDate}</td>
       <td>
-        <select class="manager-task-status" data-id="${task.id}">
+        <select class="manager-task-status ${statusClass}" data-id="${task.id}">
           <option value="Pending" ${task.status === "Pending" ? "selected" : ""}>Pending</option>
           <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
           <option value="Done" ${task.status === "Done" ? "selected" : ""}>Done</option>
         </select>
       </td>
       <td>${task.updatedAt || "--"}</td>
+      <td>
+        <div class="manager-task-actions">
+          <button type="button" class="btn btn-outline manager-task-edit" data-id="${task.id}">Edit</button>
+          <button type="button" class="btn btn-ghost manager-task-delete" data-id="${task.id}">Delete</button>
+        </div>
+      </td>
     `;
     managerTasksBody.appendChild(row);
+
+    const statusSelect = row.querySelector(".manager-task-status");
+    applyManagerTaskStatusClasses(statusSelect, task.status);
   });
 }
 
@@ -463,6 +509,7 @@ function listenManagerAlerts() {
       const updates = snapshot.docs.map((item) => {
         const data = item.data();
         return {
+          id: item.id,
           title: data.title || "Alert",
           message: data.message || "",
           priority: data.priority || "normal",
@@ -492,6 +539,7 @@ function listenManagerPersonalMessages() {
       const messages = snapshot.docs.map((item) => {
         const data = item.data();
         return {
+          id: item.id,
           recipientEmail: data.recipientEmail || "--",
           title: data.title || "Message",
           message: data.message || "",
@@ -1056,6 +1104,8 @@ managerTasksBody.addEventListener("change", (event) => {
     return;
   }
 
+  applyManagerTaskStatusClasses(target, target.value);
+
   draftTasks = draftTasks.map((task) => {
     if (task.id !== id) {
       return task;
@@ -1072,6 +1122,237 @@ managerTasksBody.addEventListener("change", (event) => {
       })
     };
   });
+});
+
+managerTasksBody.addEventListener("click", (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) {
+    return;
+  }
+
+  const editBtn = target.closest(".manager-task-edit");
+  if (editBtn instanceof HTMLElement) {
+    const taskId = editBtn.getAttribute("data-id");
+    const existing = draftTasks.find((task) => task.id === taskId);
+    if (!existing) {
+      return;
+    }
+
+    const nextTitle = window.prompt("Edit task title", existing.title);
+    if (nextTitle === null) {
+      return;
+    }
+
+    const nextAssignedDate = window.prompt("Edit assigned date (YYYY-MM-DD)", existing.assignedDate);
+    if (nextAssignedDate === null) {
+      return;
+    }
+
+    const nextDueDate = window.prompt("Edit due date (YYYY-MM-DD)", existing.dueDate);
+    if (nextDueDate === null) {
+      return;
+    }
+
+    if (!nextTitle.trim() || !nextAssignedDate.trim() || !nextDueDate.trim()) {
+      setTaskAssignStatus("Task title and both dates are required.", "error");
+      return;
+    }
+
+    draftTasks = draftTasks.map((task) => {
+      if (task.id !== taskId) {
+        return task;
+      }
+      return {
+        ...task,
+        title: nextTitle.trim(),
+        assignedDate: nextAssignedDate.trim(),
+        dueDate: nextDueDate.trim(),
+        updatedAt: new Date().toLocaleString([], {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      };
+    });
+
+    renderManagerTasks();
+    setTaskAssignStatus("Task updated. Click Save Task Updates to persist.", "success");
+    return;
+  }
+
+  const deleteBtn = target.closest(".manager-task-delete");
+  if (deleteBtn instanceof HTMLElement) {
+    const taskId = deleteBtn.getAttribute("data-id");
+    const shouldDelete = window.confirm("Delete this task?");
+    if (!shouldDelete) {
+      return;
+    }
+
+    draftTasks = draftTasks.filter((task) => task.id !== taskId);
+    renderManagerTasks();
+    setTaskAssignStatus("Task removed. Click Save Task Updates to persist.", "success");
+  }
+});
+
+managerAlertList?.addEventListener("click", async (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) {
+    return;
+  }
+
+  const actionBtn = target.closest(".manager-action-btn");
+  if (!(actionBtn instanceof HTMLElement)) {
+    return;
+  }
+
+  const action = actionBtn.getAttribute("data-action");
+  const id = actionBtn.getAttribute("data-id");
+  if (!action || !id) {
+    return;
+  }
+
+  if (action === "delete-alert") {
+    if (!window.confirm("Delete this company notification?")) {
+      return;
+    }
+    try {
+      await deleteDoc(doc(db, "companyUpdates", id));
+      setAlertStatus("Notification deleted.", "success");
+    } catch (error) {
+      console.error(error);
+      setAlertStatus("Could not delete notification.", "error");
+    }
+    return;
+  }
+
+  if (action === "edit-alert") {
+    const existing = managerAlertsState.find((item) => item.id === id);
+    if (!existing) {
+      setAlertStatus("Notification not found.", "error");
+      return;
+    }
+
+    const title = window.prompt("Edit notification title", existing.title || "");
+    if (title === null) {
+      return;
+    }
+    const message = window.prompt("Edit notification message", existing.message || "");
+    if (message === null) {
+      return;
+    }
+    const priorityInput = window.prompt("Priority (normal/high)", existing.priority || "normal");
+    if (priorityInput === null) {
+      return;
+    }
+
+    const priority = ["normal", "high"].includes(priorityInput.toLowerCase())
+      ? priorityInput.toLowerCase()
+      : "normal";
+
+    if (!title.trim() || !message.trim()) {
+      setAlertStatus("Title and message cannot be empty.", "error");
+      return;
+    }
+
+    try {
+      await setDoc(
+        doc(db, "companyUpdates", id),
+        {
+          title: title.trim(),
+          message: message.trim(),
+          priority,
+          updatedAt: serverTimestamp(),
+          updatedBy: managerSession?.email || "manager"
+        },
+        { merge: true }
+      );
+      setAlertStatus("Notification updated.", "success");
+    } catch (error) {
+      console.error(error);
+      setAlertStatus("Could not update notification.", "error");
+    }
+  }
+});
+
+managerPersonalMsgList?.addEventListener("click", async (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement)) {
+    return;
+  }
+
+  const actionBtn = target.closest(".manager-action-btn");
+  if (!(actionBtn instanceof HTMLElement)) {
+    return;
+  }
+
+  const action = actionBtn.getAttribute("data-action");
+  const id = actionBtn.getAttribute("data-id");
+  if (!action || !id) {
+    return;
+  }
+
+  if (action === "delete-personal") {
+    if (!window.confirm("Delete this personal notification?")) {
+      return;
+    }
+    try {
+      await deleteDoc(doc(db, "personalNotifications", id));
+      setPersonalMsgStatus("Personal notification deleted.", "success");
+    } catch (error) {
+      console.error(error);
+      setPersonalMsgStatus("Could not delete personal notification.", "error");
+    }
+    return;
+  }
+
+  if (action === "edit-personal") {
+    const existing = managerPersonalMessagesState.find((item) => item.id === id);
+    if (!existing) {
+      setPersonalMsgStatus("Personal notification not found.", "error");
+      return;
+    }
+
+    const title = window.prompt("Edit personal notification title", existing.title || "");
+    if (title === null) {
+      return;
+    }
+    const message = window.prompt("Edit personal notification message", existing.message || "");
+    if (message === null) {
+      return;
+    }
+    const priorityInput = window.prompt("Priority (normal/high/urgent)", existing.priority || "normal");
+    if (priorityInput === null) {
+      return;
+    }
+
+    const normalizedPriority = priorityInput.toLowerCase();
+    const priority = ["normal", "high", "urgent"].includes(normalizedPriority) ? normalizedPriority : "normal";
+
+    if (!title.trim() || !message.trim()) {
+      setPersonalMsgStatus("Title and message cannot be empty.", "error");
+      return;
+    }
+
+    try {
+      await setDoc(
+        doc(db, "personalNotifications", id),
+        {
+          title: title.trim(),
+          message: message.trim(),
+          priority,
+          updatedAt: serverTimestamp(),
+          updatedBy: managerSession?.email || "manager"
+        },
+        { merge: true }
+      );
+      setPersonalMsgStatus("Personal notification updated.", "success");
+    } catch (error) {
+      console.error(error);
+      setPersonalMsgStatus("Could not update personal notification.", "error");
+    }
+  }
 });
 
 saveManagerTasksBtn.addEventListener("click", async () => {

@@ -1,4 +1,5 @@
 import { config } from "./config.js";
+import { displayOfferLetterPreview } from "./offer-letter-generator.js";
 
 const yearEl = document.getElementById("year");
 const leadForm = document.getElementById("lead-form");
@@ -299,7 +300,7 @@ function initOfferLetterFlow() {
 
     const rzp = new window.Razorpay({
       key: RAZORPAY_KEY_ID,
-      amount: 5000,
+      amount: 100,
       currency: "INR",
       name: "Onixera Technologies",
       description: "Internship Offer Letter Fee",
@@ -312,8 +313,13 @@ function initOfferLetterFlow() {
       },
       handler: (response) => {
         const paymentId = response?.razorpay_payment_id || `PAY-${Date.now()}`;
-        downloadOfferLetter(details, paymentId);
-        setOfferLetterStatus("Payment successful. Offer letter generated.", "success");
+        // Display personalized offer letter with new generator
+        displayOfferLetterPreview({
+          name: details.name,
+          domain: details.domain,
+          duration: details.duration
+        });
+        setOfferLetterStatus("Payment successful! Your offer letter is ready.", "success");
         offerLetterForm.reset();
       },
       modal: {

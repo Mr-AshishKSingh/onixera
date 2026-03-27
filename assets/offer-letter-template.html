@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Letter - Onixera Technologies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+            padding: 40px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3d4a8f 0%, #2d3a7f 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #3d4a8f;
+            font-size: 20px;
+            margin-right: 20px;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 12px;
+            opacity: 0.95;
+        }
+        
+        .letter-no {
+            font-size: 11px;
+            margin-top: 10px;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #1a1a1a;
+        }
+        
+        .company-info {
+            margin-bottom: 30px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .company-info p {
+            margin: 3px 0;
+        }
+        
+        .recipient {
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .recipient p {
+            margin: 3px 0;
+        }
+        
+        .subject {
+            margin: 20px 0;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .content {
+            font-size: 13px;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+        
+        .content p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+        
+        .terms-list {
+            margin: 20px 0;
+            font-size: 13px;
+            line-height: 1.8;
+            list-style-position: outside;
+            margin-left: 20px;
+        }
+        
+        .terms-list li {
+            margin: 8px 0;
+        }
+        
+        .responsibilities {
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        
+        .responsibilities h3 {
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+        }
+        
+        .responsibilities ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .responsibilities li {
+            margin: 5px 0;
+        }
+        
+        .closing {
+            margin-top: 30px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .signature {
+            margin-top: 40px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .signature-block {
+            margin-top: 10px;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            .header {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-container">
+                <div class="header-logo">ONXR</div>
+                <div class="header-content">
+                    <h1>ONIXERA TECHNOLOGIES</h1>
+                    <p>B93B Noida Sector 02 UttarPradesh India</p>
+                </div>
+            </div>
+            <div class="letter-no">Letter No : 001ONIXT</div>
+        </div>
+        
+        <!-- Title -->
+        <div class="title">OFFER LETTER</div>
+        
+        <!-- Company Info -->
+        <div class="company-info">
+            <p><strong>Onixera Technologies</strong></p>
+            <p>B93B Noida Sector 02 UttarPradesh India</p>
+            <p>hr.ashish@onixeratechnologies.com</p>
+            <p id="date">02/03/2026</p>
+        </div>
+        
+        <!-- Recipient -->
+        <div class="recipient">
+            <p>To,</p>
+            <p id="studentName">{{NAME}}</p>
+        </div>
+        
+        <!-- Subject -->
+        <div class="subject">
+            <p>Subject: Offer of Employment – <span id="domain">{{DOMAIN}}</span></p>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <p>We are pleased to offer you the position of <strong><span id="positionName">{{DOMAIN}}</span></strong> at Onixera Technologies, subject to the terms and conditions mentioned below:</p>
+        </div>
+        
+        <!-- Terms List -->
+        <ol class="terms-list">
+            <li>Position: <span id="position">{{DOMAIN}}</span></li>
+            <li>Reporting To: Director / CEO</li>
+            <li>Work Location: B93B Sector 02 Noida UttarPradesh India 201301</li>
+            <li>Joining Date: <span id="joiningDate">date</span></li>
+            <li>Salary / CTC: ₹ Salary</li>
+            <li>Probation Period: <span id="duration">{{DURATION}}</span></li>
+            <li>Working Hours: 9 AM to 5 PM , Monday to Friday .</li>
+        </ol>
+        
+        <!-- Responsibilities -->
+        <div class="responsibilities">
+            <h3>Your key responsibilities will include:</h3>
+            <ol>
+                <li>add by own</li>
+            </ol>
+        </div>
+        
+        <!-- Closing -->
+        <div class="closing">
+            <p>We look forward to having you on our team.</p>
+        </div>
+        
+        <!-- Signature -->
+        <div class="signature">
+            <p>Sincerely,</p>
+            <div class="signature-block">
+                <p><strong>Ashish Kumar Singh</strong></p>
+                <p>officialwork.ashish@gmail.com</p>
+                <p>7457008912</p>
+                <p>Onixera Technologies</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

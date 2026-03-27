@@ -66,6 +66,7 @@ const state = {
 };
 
 let attendanceMonthCursor = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+const NEW_NOTIFICATION_WINDOW_MS = 24 * 60 * 60 * 1000;
 
 function toEmployeeDocKey(value) {
   return String(value || "").trim().toLowerCase();
@@ -83,9 +84,27 @@ function renderFallbackUpdates() {
     title: item.title,
     message: item.message,
     when: item.date,
-    priority: item.priority || "normal"
+    priority: item.priority || "normal",
+    createdAtMs: 0,
+    read: true
   }));
   renderLiveUpdates(state.announcements);
+}
+
+function isNewNotification(item) {
+  if (!item) {
+    return false;
+  }
+
+  if (item.read === false) {
+    return true;
+  }
+
+  if (!Number.isFinite(item.createdAtMs) || item.createdAtMs <= 0) {
+    return false;
+  }
+
+  return Date.now() - item.createdAtMs <= NEW_NOTIFICATION_WINDOW_MS;
 }
 
 function openAnnouncementReader(item, index) {
@@ -124,7 +143,7 @@ function renderLiveUpdates(items) {
   items.forEach((item) => {
     const index = updatesList.children.length;
     const li = document.createElement("li");
-    li.className = "update-item";
+    li.className = isNewNotification(item) ? "update-item is-new" : "update-item";
     li.innerHTML = `
       <button class="update-item-btn" type="button" data-announcement-index="${index}" aria-expanded="false">
         <p class="update-title">${item.title}</p>
@@ -152,6 +171,7 @@ function listenCompanyUpdates() {
     (snapshot) => {
       const updates = snapshot.docs.map((item) => {
         const data = item.data();
+        const createdAtDate = data.createdAt?.toDate ? data.createdAt.toDate() : null;
         const when = data.createdAt?.toDate
           ? data.createdAt.toDate().toLocaleString([], {
               day: "2-digit",
@@ -166,7 +186,9 @@ function listenCompanyUpdates() {
           title: data.title || "Alert",
           message: data.message || "",
           when,
-          priority: data.priority || "normal"
+          priority: data.priority || "normal",
+          createdAtMs: createdAtDate ? createdAtDate.getTime() : 0,
+          read: data.read === false ? false : true
         };
       });
 
@@ -196,7 +218,7 @@ function renderPersonalNotifications(items) {
 
   items.forEach((item) => {
     const card = document.createElement("article");
-    card.className = "personal-notif-card";
+    card.className = isNewNotification(item) ? "personal-notif-card is-new" : "personal-notif-card";
     card.innerHTML = `
       <div class="personal-notif-head">
         <p class="personal-notif-title">${item.title}</p>
@@ -242,7 +264,9 @@ function listenPersonalNotifications() {
             message: data.message || "",
             priority: data.priority || "normal",
             when,
-            sortValue: createdAtDate ? createdAtDate.getTime() : 0
+            sortValue: createdAtDate ? createdAtDate.getTime() : 0,
+            createdAtMs: createdAtDate ? createdAtDate.getTime() : 0,
+            read: data.read === false ? false : true
           };
         })
         .sort((a, b) => b.sortValue - a.sortValue);
@@ -298,6 +322,28 @@ function renderAttendanceCalendar() {
   }
 }
 
+function getTaskStatusClass(status) {
+  return `status-${String(status || "Pending").toLowerCase().replace(/\s+/g, "-")}`;
+}
+
+function applyTaskStatusClasses(selectEl, status) {
+  if (!(selectEl instanceof HTMLSelectElement)) {
+    return;
+  }
+
+  const knownClasses = ["status-pending", "status-in-progress", "status-done"];
+  selectEl.classList.remove(...knownClasses);
+
+  const statusClass = getTaskStatusClass(status);
+  selectEl.classList.add(statusClass);
+
+  const row = selectEl.closest("tr");
+  if (row) {
+    row.classList.remove(...knownClasses);
+    row.classList.add(statusClass);
+  }
+}
+
 function renderTasks() {
   tasksBody.innerHTML = "";
 
@@ -309,13 +355,15 @@ function renderTasks() {
   }
 
   state.tasks.forEach((task) => {
+    const statusClass = getTaskStatusClass(task.status);
     const tr = document.createElement("tr");
+    tr.className = `employee-task-row ${statusClass}`;
     tr.innerHTML = `
       <td>${task.title}</td>
       <td>${task.assignedDate}</td>
       <td>${task.dueDate}</td>
       <td>
-        <select class="task-status" data-id="${task.id}">
+        <select class="task-status ${statusClass}" data-id="${task.id}">
           <option value="Pending" ${task.status === "Pending" ? "selected" : ""}>Pending</option>
           <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
           <option value="Done" ${task.status === "Done" ? "selected" : ""}>Done</option>
@@ -324,6 +372,9 @@ function renderTasks() {
       <td>${task.updatedAt || "--"}</td>
     `;
     tasksBody.appendChild(tr);
+
+    const statusSelect = tr.querySelector(".task-status");
+    applyTaskStatusClasses(statusSelect, task.status);
   });
 }
 
@@ -455,6 +506,8 @@ tasksBody.addEventListener("change", (event) => {
   if (!id) {
     return;
   }
+
+  applyTaskStatusClasses(target, target.value);
 
   state.tasks = state.tasks.map((task) => {
     if (task.id !== id) {
