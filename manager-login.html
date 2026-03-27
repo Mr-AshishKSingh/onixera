@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onixera Technologies | Manager Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="login-body">
+    <main class="login-main section-reveal">
+      <a class="back-link" href="./index.html">← Back to Home</a>
+      <section class="login-card employee-login-card">
+        <a class="brand login-brand" href="./index.html" aria-label="Onixera Technologies home">
+          <img
+            class="brand-logo"
+            src="./assets/light.png"
+            alt="Onixera Technologies logo"
+            onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
+          />
+          <span class="brand-mark" style="display: none">O</span>
+          <span class="brand-text">Onixera Technologies</span>
+        </a>
+        <p class="eyebrow">Manager Portal</p>
+        <h1>Manager Login</h1>
+        <p>Manager can mark attendance and publish it for employee dashboards.</p>
+
+        <form id="manager-login-form" class="login-form" novalidate>
+          <label>
+            Manager Email
+            <input type="email" id="manager-email" required />
+          </label>
+          <label>
+            Password
+            <input type="password" id="manager-password" minlength="6" required />
+          </label>
+          <button type="submit" class="btn btn-solid full-width">Open Manager Dashboard</button>
+        </form>
+
+        <p class="demo-note">Only authorized manager credentials can access this portal.</p>
+        <p id="manager-auth-status" class="form-status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script type="module" src="./js/manager-login.js"></script>
+  </body>
+</html>

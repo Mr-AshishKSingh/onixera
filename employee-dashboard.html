@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onixera Technologies | Employee Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="employee-body">
+    <header class="site-header employee-header" id="top">
+      <a class="brand" href="./index.html" aria-label="Onixera home">
+        <img
+          class="brand-logo"
+          src="./assets/light.png"
+          alt="Onixera Technologies logo"
+          onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
+        />
+        <span class="brand-mark" style="display: none">O</span>
+        <span class="brand-text">Onixera Employee Dashboard</span>
+      </a>
+      <div class="dashboard-actions">
+        <span id="employee-name" class="employee-name">Employee</span>
+        <button
+          id="employee-logout"
+          class="btn btn-outline"
+          type="button"
+          onclick="localStorage.removeItem('onixeraEmployeeSession');localStorage.removeItem('onixeraManagerSession');window.location.href='./employee-login.html';"
+        >
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="employee-main">
+      <aside class="employee-sidebar section-reveal" aria-label="Employee details">
+        <section class="employee-panel employee-profile-panel">
+          <div class="employee-avatar" id="employee-avatar" aria-hidden="true">E</div>
+          <p class="eyebrow">Employee Details</p>
+          <h2 id="detail-name">Employee Name</h2>
+          <p class="employee-role" id="detail-role">Team Member</p>
+
+          <dl class="employee-detail-list">
+            <div>
+              <dt>Employee ID</dt>
+              <dd id="detail-id">--</dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd id="detail-email">--</dd>
+            </div>
+            <div>
+              <dt>Department</dt>
+              <dd id="detail-department">--</dd>
+            </div>
+            <div>
+              <dt>Domain</dt>
+              <dd id="detail-domain">--</dd>
+            </div>
+            <div>
+              <dt>Salary</dt>
+              <dd id="detail-salary">--</dd>
+            </div>
+            <div>
+              <dt>Joined On</dt>
+              <dd id="detail-joined">--</dd>
+            </div>
+          </dl>
+        </section>
+      </aside>
+
+      <div class="employee-content">
+        <section id="personal-notifications-section" class="employee-panel personal-notifications-panel section-reveal" aria-label="Personal notifications" hidden>
+          <div class="section-head">
+            <p class="eyebrow">Important Messages</p>
+            <h2>Personal Notifications</h2>
+          </div>
+          <div id="personal-notifications-list" class="personal-notifications-list"></div>
+        </section>
+
+        <section class="employee-panel section-reveal" aria-label="Company updates">
+          <div class="section-head">
+            <p class="eyebrow">Company Updates</p>
+            <h2>Latest Announcements</h2>
+          </div>
+          <ul id="company-updates" class="updates-list"></ul>
+          <article id="announcement-reader" class="announcement-reader" hidden>
+            <div class="announcement-reader-head">
+              <h3 id="announcement-reader-title">Announcement</h3>
+              <button id="announcement-reader-close" class="btn btn-ghost announcement-close" type="button">
+                Close
+              </button>
+            </div>
+            <p id="announcement-reader-meta" class="announcement-reader-meta">--</p>
+            <p id="announcement-reader-message" class="announcement-reader-message">Select an announcement to read.</p>
+          </article>
+        </section>
+
+        <section class="employee-panel section-reveal" aria-label="Attendance tracker">
+          <div class="section-head">
+            <p class="eyebrow">Attendance</p>
+            <h2>Your Attendance This Week</h2>
+          </div>
+          <div class="calendar-toolbar">
+            <button class="btn btn-ghost" id="employee-attendance-prev-month" type="button">Previous</button>
+            <p class="calendar-month" id="employee-attendance-month-label">Month</p>
+            <button class="btn btn-ghost" id="employee-attendance-next-month" type="button">Next</button>
+          </div>
+          <div class="attendance-calendar" id="employee-attendance-calendar" aria-label="Employee attendance calendar"></div>
+        </section>
+
+        <section class="employee-panel section-reveal" aria-label="Assigned work">
+          <div class="section-head">
+            <p class="eyebrow">Assigned Work</p>
+            <h2>Tasks and Deadlines</h2>
+          </div>
+          <div class="table-wrap">
+            <table class="employee-table" id="tasks-table">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Assigned Date</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Last Update</th>
+                </tr>
+              </thead>
+              <tbody id="tasks-body"></tbody>
+            </table>
+          </div>
+          <p id="task-status-msg" class="form-status" aria-live="polite"></p>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="./js/employee-dashboard.js"></script>
+  </body>
+</html>

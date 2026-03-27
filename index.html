@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onixera Technologies | Software, Marketing, Student Services</title>
+    <meta
+      name="description"
+      content="Onixera Technologies builds software for businesses, delivers digital marketing services, and supports students with research papers and free software resources."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <section class="intro-gate" id="intro-gate" aria-label="Onixera intro">
+      <div class="intro-surface">
+        <div class="intro-shutter intro-shutter-left" aria-hidden="true"></div>
+        <div class="intro-shutter intro-shutter-right" aria-hidden="true"></div>
+
+        <div class="intro-content">
+          <img
+            class="intro-logo"
+            src="./assets/light.png"
+            alt="Onixera Technologies emblem"
+            onerror="this.style.display='none';"
+          />
+          <p class="intro-title">Onixera Technologies</p>
+          <p class="intro-subtitle">Software. Marketing. Student Services.</p>
+          <p class="intro-hint">Scroll to enter</p>
+          <button class="intro-enter" id="intro-enter" type="button">Enter Site</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+      <a class="brand" href="#top">
+        <img
+          class="brand-logo"
+          src="./assets/light.png"
+          alt="Onixera Technologies logo"
+          onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
+        />
+        <span class="brand-mark" style="display: none">O</span>
+        <span class="brand-text">Onixera Technologies</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#students">Students</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a class="btn btn-ghost" href="./manager-login.html">Manager Login</a>
+        <a class="btn btn-ghost" href="./employee-login.html">Employee Login</a>
+        <a class="btn btn-outline" href="./login.html">Client Login</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero section-reveal">
+        <p class="eyebrow">Build. Grow. Empower.</p>
+        <div class="hero-head">
+          <h1>
+            Modern Software and Digital Growth Solutions
+            <span>for companies and students</span>
+          </h1>
+          <img
+            class="hero-logo"
+            src="./assets/light.png"
+            alt="Onixera Technologies logo"
+            onerror="this.style.display='none';"
+          />
+        </div>
+        <p class="hero-copy">
+          We help businesses launch high-performance digital products, run smart marketing
+          campaigns, and support students through research, project guidance, and software access.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-solid" href="#contact">Start Your Project</a>
+          <a class="btn btn-ghost" href="#services">Explore Services</a>
+        </div>
+        <p class="hero-note">Trusted by startups, local businesses, and student communities.</p>
+        <ul class="hero-metrics" aria-label="Company highlights">
+          <li>
+            <strong>50+</strong>
+            <span>Client Projects</span>
+          </li>
+          <li>
+            <strong>8+</strong>
+            <span>Digital Domains</span>
+          </li>
+          <li>
+            <strong>24/7</strong>
+            <span>Support Priority</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="trust-strip section-reveal" aria-label="Core strengths">
+        <p>End-to-End Product Delivery</p>
+        <p>Data-Driven Marketing Execution</p>
+        <p>Student-Centric Academic Support</p>
+        <p>Reliable Post-Launch Assistance</p>
+      </section>
+
+      <section class="client-proof section-reveal" aria-label="Trusted by organizations">
+        <div class="section-head">
+          <p class="eyebrow">Trusted Partners</p>
+          <h2>Teams We Support Across Domains</h2>
+        </div>
+        <div class="logo-wall" role="list" aria-label="Client categories">
+          <span role="listitem">EdTech Startups</span>
+          <span role="listitem">Retail Brands</span>
+          <span role="listitem">Healthcare Clinics</span>
+          <span role="listitem">Local Enterprises</span>
+          <span role="listitem">Student Communities</span>
+          <span role="listitem">Coaching Institutes</span>
+        </div>
+      </section>
+
+      <section class="services section-reveal" id="services">
+        <div class="section-head">
+          <p class="eyebrow">What We Do</p>
+          <h2>Services Built for Real Results</h2>
+        </div>
+        <div class="card-grid">
+          <article class="service-card">
+            <h3>Custom Software Development</h3>
+            <p>
+              From web platforms to business automation tools, we create tailored software that
+              scales with your goals.
+            </p>
+          </article>
+          <article class="service-card">
+            <h3>Digital Marketing</h3>
+            <p>
+              Performance marketing, social media growth, content strategy, and conversion-focused
+              campaigns for modern brands.
+            </p>
+          </article>
+          <article class="service-card">
+            <h3>Product Consulting</h3>
+            <p>
+              We help founders and teams shape product roadmaps, UX strategy, and launch plans that
+              reduce risk and increase impact.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="students section-reveal" id="students">
+        <div class="section-head">
+          <p class="eyebrow">For Students</p>
+          <h2>Academic and Career Support Programs</h2>
+        </div>
+        <div class="student-layout">
+          <div class="student-panel">
+            <h3>Research Paper Assistance</h3>
+            <p>
+              Topic ideation, structure guidance, editing support, and publication-oriented quality
+              checks for students and scholars.
+            </p>
+          </div>
+          <div class="student-panel">
+            <h3>Free Software Access</h3>
+            <p>
+              We curate and provide useful no-cost tools to help students build skills,
+              productivity, and practical project experience.
+            </p>
+          </div>
+          <div class="student-panel accent">
+            <h3>Project Mentorship</h3>
+            <p>
+              End-to-end support for final-year projects, portfolio work, and internship-ready
+              deliverables.
+            </p>
+          </div>
+        </div>
+        <div class="student-offer-cta">
+          <p>Need an internship offer letter quickly? Generate it online after a secure ₹50 payment.</p>
+          <button class="btn btn-solid" id="open-offer-letter-modal" type="button" onclick="window.openOfferLetterModalFallback && window.openOfferLetterModalFallback()">Generate Your Offer Letter</button>
+        </div>
+      </section>
+
+      <section class="about section-reveal" id="about">
+        <div class="section-head">
+          <p class="eyebrow">Who We Are</p>
+          <h2>A Partner Focused on Long-Term Value</h2>
+        </div>
+        <p>
+          Onixera Technologies combines engineering, design, and growth strategy to solve practical
+          business challenges. We work closely with founders, teams, and students to deliver clear,
+          measurable outcomes with speed and quality.
+        </p>
+      </section>
+
+      <section class="testimonials section-reveal" aria-label="Client feedback">
+        <div class="section-head">
+          <p class="eyebrow">Client Voice</p>
+          <h2>What Partners Say About Working With Us</h2>
+        </div>
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <p>
+              "Onixera helped us launch our student portal in record time. Their team was
+              responsive, practical, and highly reliable post-launch."
+            </p>
+            <p class="testimonial-author">Operations Lead, Regional Institute</p>
+          </article>
+          <article class="testimonial-card">
+            <p>
+              "Our ad performance and landing page conversions improved significantly within weeks.
+              Execution quality and reporting were consistently strong."
+            </p>
+            <p class="testimonial-author">Founder, D2C Brand</p>
+          </article>
+          <article class="testimonial-card">
+            <p>
+              "Their mentoring and project support made a big difference for our final-year team.
+              Guidance was clear and genuinely useful."
+            </p>
+            <p class="testimonial-author">Student Project Coordinator</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="process section-reveal" id="process">
+        <div class="section-head">
+          <p class="eyebrow">How We Work</p>
+          <h2>A Clear 3-Step Delivery Process</h2>
+        </div>
+        <div class="process-grid">
+          <article class="process-card">
+            <span class="process-step">01</span>
+            <h3>Discovery and Planning</h3>
+            <p>
+              We define goals, audience needs, and project scope with practical milestones and
+              execution clarity.
+            </p>
+          </article>
+          <article class="process-card">
+            <span class="process-step">02</span>
+            <h3>Execution and Iteration</h3>
+            <p>
+              Our team builds, tests, and refines software or campaigns using measurable feedback
+              loops and weekly updates.
+            </p>
+          </article>
+          <article class="process-card">
+            <span class="process-step">03</span>
+            <h3>Launch and Support</h3>
+            <p>
+              We help you launch confidently, track outcomes, and optimize performance through
+              ongoing support.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact section-reveal" id="contact">
+        <div class="section-head">
+          <p class="eyebrow">Get In Touch</p>
+          <h2>Tell Us What You Need</h2>
+        </div>
+        <p class="contact-direct">
+          Email:
+          <a href="mailto:hr.ashish@onixeratechnologies.com">hr.ashish@onixeratechnologies.com</a>
+          | Mobile:
+          <a href="tel:+917457008912">7457008912</a>
+        </p>
+        <form id="lead-form" class="lead-form" novalidate>
+          <label>
+            Full Name
+            <input type="text" id="name" name="name" required />
+          </label>
+          <label>
+            Email Address
+            <input type="email" id="email" name="email" required />
+          </label>
+          <label>
+            Service Interest
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option value="Software Development">Software Development</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="Student Support">Student Support</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label>
+            Message
+            <textarea id="message" name="message" rows="4" required></textarea>
+          </label>
+          <button class="btn btn-solid" type="submit">Submit Request</button>
+          <p id="form-status" class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-meta" aria-label="Operational trust indicators">
+        <p><strong>Response SLA:</strong> Within 24 business hours</p>
+        <p><strong>Delivery Updates:</strong> Weekly progress checkpoints</p>
+        <p><strong>Support Model:</strong> Launch + Post-launch assistance</p>
+      </div>
+      <div class="footer-grid">
+        <div>
+          <p class="footer-title">Onixera Technologies</p>
+          <p class="footer-copy">
+            Building software, driving digital growth, and supporting students with practical,
+            high-quality solutions.
+          </p>
+        </div>
+        <div>
+          <p class="footer-heading">Quick Links</p>
+          <div class="footer-links">
+            <a href="#services">Services</a>
+            <a href="#students">Students</a>
+            <a href="#contact">Contact</a>
+            <a href="./manager-login.html">Manager Login</a>
+            <a href="./employee-login.html">Employee Login</a>
+            <a href="./login.html">Client Login</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-heading">Business Focus</p>
+          <p class="footer-copy">Custom Software</p>
+          <p class="footer-copy">Digital Marketing</p>
+          <p class="footer-copy">Research &amp; Student Projects</p>
+        </div>
+        <div>
+          <p class="footer-heading">Contact</p>
+          <p class="footer-copy">
+            <a href="mailto:hr.ashish@onixeratechnologies.com">hr.ashish@onixeratechnologies.com</a>
+          </p>
+          <p class="footer-copy"><a href="tel:+917457008912">+91 7457008912</a></p>
+        </div>
+      </div>
+      <p class="footer-bottom">© <span id="year"></span> Onixera Technologies. All rights reserved.</p>
+    </footer>
+
+    <div class="offer-letter-modal" id="offer-letter-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="offer-letter-title">
+      <div class="offer-letter-modal-backdrop" id="offer-letter-backdrop" onclick="window.closeOfferLetterModalFallback && window.closeOfferLetterModalFallback()"></div>
+      <div class="offer-letter-dialog">
+        <div class="offer-letter-head">
+          <h3 id="offer-letter-title">Generate Internship Offer Letter</h3>
+          <button class="btn btn-ghost" id="close-offer-letter-modal" type="button" aria-label="Close offer letter form" onclick="window.closeOfferLetterModalFallback && window.closeOfferLetterModalFallback()">Close</button>
+        </div>
+        <form id="offer-letter-form" class="offer-letter-form" novalidate>
+          <label>
+            Full Name
+            <input id="offer-name" name="offerName" type="text" maxlength="100" required />
+          </label>
+          <label>
+            Domain
+            <input id="offer-domain" name="offerDomain" type="text" maxlength="80" required />
+          </label>
+          <label>
+            Internship Duration
+            <input id="offer-duration" name="offerDuration" type="text" maxlength="40" placeholder="e.g. 3 Months" required />
+          </label>
+          <label>
+            Start Date
+            <input id="offer-start-date" name="offerStartDate" type="date" required />
+          </label>
+          <label>
+            End Date
+            <input id="offer-end-date" name="offerEndDate" type="date" required />
+          </label>
+          <button class="btn btn-solid" type="submit">Pay ₹50 & Generate Letter</button>
+          <p id="offer-letter-status" class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const introGate = document.getElementById("intro-gate");
+        const enterBtn = document.getElementById("intro-enter");
+
+        if (!introGate) {
+          return;
+        }
+
+        document.body.classList.add("intro-locked");
+
+        let opened = false;
+        const openIntroGate = function () {
+          if (opened) {
+            return;
+          }
+
+          opened = true;
+          document.body.classList.remove("intro-locked");
+          document.body.classList.add("intro-open");
+          introGate.setAttribute("aria-hidden", "true");
+
+          window.setTimeout(function () {
+            if (introGate.parentElement) {
+              introGate.parentElement.removeChild(introGate);
+            }
+          }, 1000);
+        };
+
+        window.__openIntroGate = openIntroGate;
+
+        enterBtn && enterBtn.addEventListener("click", openIntroGate);
+        introGate.addEventListener("click", openIntroGate);
+
+        window.addEventListener(
+          "wheel",
+          function (event) {
+            if (event.deltaY > 0) {
+              openIntroGate();
+            }
+          },
+          { passive: true }
+        );
+
+        window.setTimeout(openIntroGate, 6000);
+      })();
+    </script>
+    <script>
+      (function () {
+        function getOfferModal() {
+          return document.getElementById("offer-letter-modal");
+        }
+
+        window.openOfferLetterModalFallback = function () {
+          const modal = getOfferModal();
+          if (!modal) {
+            return;
+          }
+          modal.hidden = false;
+          modal.setAttribute("aria-hidden", "false");
+          document.body.classList.add("modal-open");
+        };
+
+        window.closeOfferLetterModalFallback = function () {
+          const modal = getOfferModal();
+          if (!modal) {
+            return;
+          }
+          modal.hidden = true;
+          modal.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("modal-open");
+        };
+      })();
+    </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
