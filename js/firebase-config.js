@@ -2,16 +2,10 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/fireba
 import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
+import { config } from "./config.js";
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyAYjuraNFNgL12qxbrWLoGCokqEEyNLn8Y",
-  authDomain: "onixera-952b6.firebaseapp.com",
-  projectId: "onixera-952b6",
-  storageBucket: "onixera-952b6.firebasestorage.app",
-  messagingSenderId: "215096125933",
-  appId: "1:215096125933:web:ffcfbd8c52f62dc3121fe4",
-  measurementId: "G-XKQSZZZ4EX"
-};
+// Use config values (which are loaded from env variables via config.js)
+export const firebaseConfig = config.firebase;
 
 const app = initializeApp(firebaseConfig);
 

@@ -1,3 +1,5 @@
+import { config } from "./config.js";
+
 const yearEl = document.getElementById("year");
 const leadForm = document.getElementById("lead-form");
 const statusEl = document.getElementById("form-status");
@@ -10,8 +12,8 @@ const offerLetterBackdrop = document.getElementById("offer-letter-backdrop");
 const offerLetterForm = document.getElementById("offer-letter-form");
 const offerLetterStatusEl = document.getElementById("offer-letter-status");
 
-// Replace with your live key before production use.
-const RAZORPAY_KEY_ID = "rzp_test_YourKeyHere";
+// Razorpay key loaded from config.js (which reads from environment variables)
+const RAZORPAY_KEY_ID = config.razorpay.keyId;
 
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();

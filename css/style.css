@@ -1803,6 +1803,7 @@ body.employee-body .section-head h2 {
   .site-header {
     gap: 0.75rem;
     flex-wrap: wrap;
+    padding: 0.9rem 1.1rem;
   }
 
   .services,
@@ -1815,7 +1816,7 @@ body.employee-body .section-head h2 {
   .client-proof,
   .trust-strip,
   .site-footer {
-    padding: 1.1rem;
+    padding: 1.2rem;
   }
 
   .brand-text {
@@ -1830,7 +1831,7 @@ body.employee-body .section-head h2 {
   }
 
   .hero-logo {
-    max-width: 190px;
+    max-width: 200px;
     margin-bottom: 0;
   }
 
@@ -1839,7 +1840,8 @@ body.employee-body .section-head h2 {
   }
 
   .manager-options-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
   }
 
   .manager-main {
@@ -1848,6 +1850,19 @@ body.employee-body .section-head h2 {
 
   .manager-sidebar {
     position: static;
+  }
+
+  /* Improved input/button sizing */
+  input,
+  select,
+  textarea {
+    padding: 0.7rem 0.8rem;
+    min-height: 40px;
+  }
+
+  .btn {
+    min-height: 40px;
+    padding: 0.65rem 1rem;
   }
 }
 
@@ -1858,6 +1873,81 @@ body.employee-body .section-head h2 {
     width: min(94vw, 100%);
   }
 
+  /* Improved spacing and padding for mobile */
+  .site-header {
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+  }
+
+  .hero,
+  .services,
+  .students,
+  .about,
+  .testimonials,
+  .process,
+  .contact,
+  .client-proof {
+    padding: 1rem;
+  }
+
+  /* Better typography for mobile */
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .brand-text {
+    font-size: 0.85rem;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  /* Improve form mobile experience */
+  .lead-form,
+  .login-form {
+    gap: 0.7rem;
+  }
+
+  .lead-form {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-form label:nth-of-type(3),
+  .lead-form label:nth-of-type(4),
+  .lead-form button,
+  .lead-form .form-status {
+    grid-column: auto;
+  }
+
+  /* Touch-friendly input sizing */
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    padding: 0.65rem 0.8rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* Better button sizing on mobile */
+  .btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Dashboard improvements */
   .employee-main {
     margin-top: 1.2rem;
     grid-template-columns: 1fr;
@@ -1870,23 +1960,14 @@ body.employee-body .section-head h2 {
   .dashboard-actions {
     width: 100%;
     justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
   .header-actions {
     width: 100%;
-  }
-
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .header-actions {
     display: grid;
+    grid-template-columns: 1fr;
     gap: 0.55rem;
   }
 
@@ -1897,10 +1978,16 @@ body.employee-body .section-head h2 {
   .calendar-toolbar {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .calendar-toolbar button {
+    width: 100%;
   }
 
   .attendance-calendar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
   }
 
   .calendar-head {
@@ -1910,27 +1997,143 @@ body.employee-body .section-head h2 {
   .employee-name {
     width: 100%;
     text-align: center;
-  }
-
-  .dashboard-actions {
-    display: grid;
-    gap: 0.55rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.88rem;
   }
 
   .manager-options-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hero {
-    padding: 1rem;
+    gap: 0.8rem;
   }
 
   .trust-strip {
     grid-template-columns: 1fr;
+    gap: 0.6rem;
+    padding: 0.9rem;
+  }
+
+  .trust-strip p {
+    border-right: 0;
+    text-align: left;
+    padding-right: 0;
+    font-size: 0.88rem;
   }
 
   .intro-logo {
     width: min(72vw, 320px);
+  }
+
+  .hero-logo {
+    max-width: 180px;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .hero-metrics li {
+    padding: 0.7rem 0.85rem;
+  }
+
+  .hero-metrics strong {
+    font-size: 1.3rem;
+  }
+
+  .hero-metrics span {
+    font-size: 0.85rem;
+  }
+
+  /* Modal improvements */
+  .offer-letter-dialog {
+    width: min(90vw, 600px);
+    padding: 1rem;
+  }
+
+  .offer-letter-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .offer-letter-head h3 {
+    font-size: 1.15rem;
+  }
+
+  /* Table responsiveness */
+  .employee-table {
+    min-width: auto;
+    font-size: 0.85rem;
+  }
+
+  .employee-table th,
+  .employee-table td {
+    padding: 0.6rem 0.5rem;
+  }
+
+  /* Better card spacing */
+  .service-card,
+  .student-panel,
+  .testimonial-card {
+    padding: 0.9rem;
+  }
+
+  .service-card h3,
+  .student-panel h3 {
+    font-size: 1.05rem;
+  }
+
+  /* Updates list on mobile */
+  .updates-list {
+    max-height: 300px;
+    gap: 0.6rem;
+  }
+
+  .update-item {
+    padding: 0.8rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .update-detail {
+    font-size: 0.87rem;
+  }
+
+  /* Employee detail list */
+  .employee-detail-list dt {
+    font-size: 0.75rem;
+  }
+
+  .employee-detail-list dd {
+    font-size: 0.88rem;
+  }
+
+  /* Footer improvements */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .site-footer {
+    padding: 1rem;
+  }
+
+  /* Better list and text wrapping */
+  label,
+  .eyebrow {
+    font-size: 0.88rem;
+  }
+
+  /* Login page improvements */
+  .login-card {
+    padding: 1.2rem;
+  }
+
+  .login-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .demo-note {
+    font-size: 0.85rem;
   }
 }
 
