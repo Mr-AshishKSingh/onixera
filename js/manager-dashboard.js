@@ -77,7 +77,7 @@ const taskAssignedDateInput = document.getElementById("task-assigned-date");
 const taskDueDateInput = document.getElementById("task-due-date");
 const taskAssignStatusEl = document.getElementById("task-assign-status");
 
-// Debug: Log form element availability
+
 console.log("Form elements loaded:", {
   createEmployeeForm: !!createEmployeeForm,
   createEmployeeStatusEl: !!createEmployeeStatusEl,
@@ -857,6 +857,79 @@ employeeForm.addEventListener("submit", async (event) => {
     setEmployeeProfileStatus("Could not update details. Check Firestore rules.", "error");
   }
 });
+
+// Delete employee handler
+const deleteEmployeeBtn = document.getElementById("delete-employee-btn");
+if (deleteEmployeeBtn) {
+  deleteEmployeeBtn.addEventListener("click", async () => {
+    const selectedEmail = employeeSelect.value;
+    const selected = employees.find((item) => item.email === selectedEmail);
+
+    if (!selected?.uid) {
+      setEmployeeProfileStatus("Please select a valid employee to delete.", "error");
+      return;
+    }
+
+    const confirmMessage = `Are you sure you want to delete ${selected.name} (${selectedEmail})?\n\nThis will:\n• Delete the employee account\n• Remove all attendance records\n• Remove all assigned tasks\n\nThis action cannot be undone.`;
+
+    if (!window.confirm(confirmMessage)) {
+      return;
+    }
+
+    setEmployeeProfileStatus("Deleting employee...");
+
+    try {
+      // Delete user document from Firestore
+      await deleteDoc(doc(db, "users", selected.uid));
+
+      // Delete attendance records
+      const employeeKey = selectedEmail.toLowerCase().trim();
+      await deleteDoc(doc(db, "attendance", employeeKey)).catch(() => {
+        // Attendance record might not exist, ignore error
+      });
+
+      // Delete task records
+      await deleteDoc(doc(db, "employeeTasks", selectedEmail)).catch(() => {
+        // Task record might not exist, ignore error
+      });
+
+      // Remove from employee select dropdown
+      const option = Array.from(employeeSelect.options).find(
+        (opt) => opt.value === selectedEmail
+      );
+      if (option) {
+        option.remove();
+      }
+
+      // Remove from employees array
+      const index = employees.findIndex((emp) => emp.email === selectedEmail);
+      if (index > -1) {
+        employees.splice(index, 1);
+      }
+
+      // Reset form
+      editEmployeeNameInput.value = "";
+      editEmployeeIdInput.value = "";
+      editEmployeeDepartmentInput.value = "";
+      editEmployeeDomainInput.value = "";
+      editEmployeeSalaryInput.value = "";
+      editEmployeeJoinedInput.value = "";
+
+      // Select first available employee or clear
+      if (employeeSelect.options.length > 0) {
+        employeeSelect.selectedIndex = 0;
+        await refreshSelectedEmployeeContext(employeeSelect.value);
+      } else {
+        setSelectedEmployeeLabel("");
+      }
+
+      setEmployeeProfileStatus(`${selected.name} has been deleted successfully.`, "success");
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      setEmployeeProfileStatus(`Failed to delete employee. Error: ${error.message}`, "error");
+    }
+  });
+}
 
 createEmployeeForm.addEventListener("submit", async (event) => {
   event.preventDefault();

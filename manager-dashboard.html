@@ -192,9 +192,14 @@
             Joined On
             <input id="edit-employee-joined" type="date" />
           </label>
-          <button class="btn btn-outline" id="save-employee-profile" type="submit">
-            Save Employee Details
-          </button>
+          <div class="form-actions">
+            <button class="btn btn-outline" id="save-employee-profile" type="submit">
+              Save Employee Details
+            </button>
+            <button class="btn btn-ghost danger" id="delete-employee-btn" type="button">
+              Delete Employee
+            </button>
+          </div>
           <p id="employee-profile-status" class="form-status" aria-live="polite"></p>
         </form>
       </section>

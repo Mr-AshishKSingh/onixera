@@ -183,14 +183,24 @@ function generateTasksForEmployee(email, department) {
     const statuses = ["Pending", "In Progress", "Done"];
     const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
 
+    // Format updatedAt as locale string like the dashboard expects
+    const updatedAtDate = new Date();
+    const updatedAt = updatedAtDate.toLocaleString([], {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
     tasks.push({
+      id: `task-${Date.now()}-${Math.random()}`,
       title: template.title,
       description: template.description,
       assignedDate: formatDate(assignedDate),
       dueDate: formatDate(dueDate),
       status: randomStatus,
-      assignedTo: email,
-      createdAt: serverTimestamp()
+      updatedAt: updatedAt
     });
   }
 
@@ -231,20 +241,22 @@ async function seedEmployees() {
       // 3. Generate and save attendance records
       console.log(`📅 Generating attendance for 2 months`);
       const attendanceRecords = generateAttendanceRecords(email);
-      const employeeKey = email.split("@")[0]; // Use email prefix as key
+      const employeeKey = email.toLowerCase().trim();
       await setDoc(doc(db, "attendance", employeeKey), {
-        email: email,
+        employeeEmail: employeeKey,
         records: attendanceRecords,
-        lastUpdated: serverTimestamp()
+        updatedBy: "system-seed",
+        updatedAt: serverTimestamp()
       });
 
       // 4. Generate and save tasks
       console.log(`✅ Assigning tasks for ${employeeData.name}`);
       const tasks = generateTasksForEmployee(email, employeeData.department);
       await setDoc(doc(db, "employeeTasks", email), {
-        email: email,
+        employeeEmail: email,
         tasks: tasks,
-        lastUpdated: serverTimestamp()
+        updatedBy: "system-seed",
+        updatedAt: serverTimestamp()
       });
 
       console.log(`✨ Successfully seeded: ${employeeData.name}\n`);

@@ -1953,6 +1953,19 @@ body.employee-body .section-head h2 {
   min-width: 0;
 }
 
+.form-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+@media screen and (max-width: 560px) {
+  .form-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
 .manager-alert-list {
   display: grid;
   gap: 0.65rem;
