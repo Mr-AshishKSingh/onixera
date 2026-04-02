@@ -53,6 +53,7 @@
       <nav class="nav-links" aria-label="Primary">
         <a href="#services">Services</a>
         <a href="#students">Students</a>
+        <a href="#jobs">Jobs</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -189,6 +190,73 @@
         </div>
       </section>
 
+      <section class="jobs section-reveal" id="jobs">
+        <div class="section-head">
+          <p class="eyebrow">Careers</p>
+          <h2>Join Our Team</h2>
+        </div>
+        <p class="contact-direct">
+          We are hiring across engineering, design, marketing, and business operations. Apply below
+          and our HR team will review your profile.
+        </p>
+
+        <form id="job-application-form" class="jobs-form" novalidate>
+          <label>
+            Full Name
+            <input type="text" id="job-name" name="jobName" maxlength="100" required />
+          </label>
+          <label>
+            Email Address
+            <input type="email" id="job-email" name="jobEmail" maxlength="120" required />
+          </label>
+          <label>
+            Phone Number
+            <input type="tel" id="job-phone" name="jobPhone" maxlength="20" required />
+          </label>
+          <label>
+            Job Role
+            <select id="job-role" name="jobRole" required>
+              <option value="">Select role</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Backend Developer">Backend Developer</option>
+              <option value="Full Stack Developer">Full Stack Developer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Digital Marketing Executive">Digital Marketing Executive</option>
+              <option value="Business Development">Business Development</option>
+              <option value="Cold Calling Executive">Cold Calling Executive</option>
+              <option value="HR Intern">HR Intern</option>
+            </select>
+          </label>
+          <label>
+            Experience Level
+            <select id="job-experience" name="jobExperience" required>
+              <option value="">Select experience</option>
+              <option value="Fresher">Fresher</option>
+              <option value="0-1 Years">0-1 Years</option>
+              <option value="1-3 Years">1-3 Years</option>
+              <option value="3-5 Years">3-5 Years</option>
+              <option value="5+ Years">5+ Years</option>
+            </select>
+          </label>
+          <label>
+            Resume Link (Google Drive / Portfolio)
+            <input type="url" id="job-resume-link" name="jobResumeLink" maxlength="300" placeholder="https://..." required />
+          </label>
+          <label class="job-full-row">
+            Referral Code
+            <input
+              type="text"
+              id="job-referral-code"
+              name="jobReferralCode"
+              maxlength="50"
+              placeholder="Enter referral code, if any"
+            />
+          </label>
+          <button class="btn btn-solid" type="submit">Apply for Job</button>
+          <p id="job-application-status" class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+
       <section class="about section-reveal" id="about">
         <div class="section-head">
           <p class="eyebrow">Who We Are</p>
@@ -323,6 +391,7 @@
           <div class="footer-links">
             <a href="#services">Services</a>
             <a href="#students">Students</a>
+            <a href="#jobs">Jobs</a>
             <a href="#contact">Contact</a>
             <a href="./manager-login.html">Manager Login</a>
             <a href="./employee-login.html">Employee Login</a>

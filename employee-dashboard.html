@@ -71,6 +71,27 @@
               <dd id="detail-joined">--</dd>
             </div>
           </dl>
+
+          <div class="employee-security-tools" aria-label="Employee security tools">
+            <p class="eyebrow">Security</p>
+            <h3>Change Password</h3>
+            <form id="employee-password-form" class="employee-password-form" novalidate>
+              <label>
+                Current Password
+                <input id="employee-current-password" type="password" minlength="6" required />
+              </label>
+              <label>
+                New Password
+                <input id="employee-new-password" type="password" minlength="6" required />
+              </label>
+              <label>
+                Confirm New Password
+                <input id="employee-confirm-password" type="password" minlength="6" required />
+              </label>
+              <button class="btn btn-solid" type="submit">Update Password</button>
+              <p id="employee-password-status" class="form-status" aria-live="polite"></p>
+            </form>
+          </div>
         </section>
       </aside>
 

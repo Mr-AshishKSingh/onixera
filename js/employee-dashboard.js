@@ -1,4 +1,9 @@
 import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import {
   collection,
   doc,
   getDoc,
@@ -10,7 +15,7 @@ import {
   setDoc,
   where
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-import { db } from "./firebase-config.js";
+import { auth, db } from "./firebase-config.js";
 
 const sessionRaw = localStorage.getItem("onixeraEmployeeSession");
 const employeeNameEl = document.getElementById("employee-name");
@@ -38,6 +43,11 @@ const detailDomainEl = document.getElementById("detail-domain");
 const detailSalaryEl = document.getElementById("detail-salary");
 const detailJoinedEl = document.getElementById("detail-joined");
 const employeeAvatarEl = document.getElementById("employee-avatar");
+const employeePasswordForm = document.getElementById("employee-password-form");
+const employeeCurrentPasswordInput = document.getElementById("employee-current-password");
+const employeeNewPasswordInput = document.getElementById("employee-new-password");
+const employeeConfirmPasswordInput = document.getElementById("employee-confirm-password");
+const employeePasswordStatusEl = document.getElementById("employee-password-status");
 
 if (!sessionRaw) {
   window.location.href = "./employee-login.html";
@@ -386,6 +396,18 @@ function setTaskMessage(text, type) {
   }
 }
 
+function setEmployeePasswordStatus(text, type) {
+  if (!employeePasswordStatusEl) {
+    return;
+  }
+
+  employeePasswordStatusEl.textContent = text;
+  employeePasswordStatusEl.classList.remove("success", "error");
+  if (type) {
+    employeePasswordStatusEl.classList.add(type);
+  }
+}
+
 async function hydrateEmployeeProfile() {
   if (!session?.uid) {
     return;
@@ -588,6 +610,89 @@ logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("onixeraEmployeeSession");
   window.location.href = "./employee-login.html";
 });
+
+if (employeePasswordForm) {
+  employeePasswordForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const currentPassword = employeeCurrentPasswordInput?.value?.trim() || "";
+    const newPassword = employeeNewPasswordInput?.value?.trim() || "";
+    const confirmPassword = employeeConfirmPasswordInput?.value?.trim() || "";
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setEmployeePasswordStatus("Please fill all password fields.", "error");
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      setEmployeePasswordStatus("New password must be at least 6 characters.", "error");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setEmployeePasswordStatus("New password and confirm password do not match.", "error");
+      return;
+    }
+
+    if (newPassword === currentPassword) {
+      setEmployeePasswordStatus("New password must be different from current password.", "error");
+      return;
+    }
+
+    if (!session?.uid) {
+      setEmployeePasswordStatus("Session expired. Please login again.", "error");
+      return;
+    }
+
+    setEmployeePasswordStatus("Updating password...");
+
+    try {
+      const userRef = doc(db, "users", session.uid);
+      const userSnap = await getDoc(userRef);
+      const userData = userSnap.exists() ? userSnap.data() : {};
+
+      const currentUser = auth.currentUser;
+      const canUseFirebaseAuth =
+        Boolean(currentUser?.email) &&
+        String(currentUser.email).toLowerCase() === String(session.email || "").toLowerCase();
+
+      if (canUseFirebaseAuth) {
+        const credential = EmailAuthProvider.credential(currentUser.email, currentPassword);
+        await reauthenticateWithCredential(currentUser, credential);
+        await updatePassword(currentUser, newPassword);
+      } else {
+        // Local credential fallback mode.
+        if (!userData.loginPassword) {
+          setEmployeePasswordStatus("This account cannot be verified for password change. Contact manager.", "error");
+          return;
+        }
+
+        if (userData.loginPassword !== currentPassword) {
+          setEmployeePasswordStatus("Current password is incorrect.", "error");
+          return;
+        }
+      }
+
+      await setDoc(
+        userRef,
+        {
+          loginPassword: newPassword,
+          mustChangePassword: false,
+          updatedAt: serverTimestamp(),
+          passwordUpdatedAt: serverTimestamp(),
+          updatedBy: session.email || "employee"
+        },
+        { merge: true }
+      );
+
+      employeePasswordForm.reset();
+      setEmployeePasswordStatus("Password updated successfully.", "success");
+    } catch (error) {
+      console.error("Password update failed:", error);
+      setEmployeePasswordStatus(error?.message || "Could not update password.", "error");
+    }
+  });
+}
 
 renderFallbackUpdates();
 hydrateEmployeeProfile();

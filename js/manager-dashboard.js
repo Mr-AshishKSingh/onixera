@@ -13,7 +13,12 @@ import {
   setDoc,
   where
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-import { db, firebaseConfig } from "./firebase-config.js";
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword
+} from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { auth, db, firebaseConfig } from "./firebase-config.js";
 
 const managerSessionRaw = localStorage.getItem("onixeraManagerSession");
 const managerNameEl = document.getElementById("manager-name");
@@ -23,6 +28,20 @@ const managerSelectedEmployeeEl = document.getElementById("manager-selected-empl
 const managerOptionButtons = Array.from(document.querySelectorAll(".manager-option-btn"));
 const managerModules = Array.from(document.querySelectorAll(".manager-module"));
 const managerOptionsNoteEl = document.getElementById("manager-options-note");
+const managerViewProfileBtn = document.getElementById("manager-view-profile-btn");
+const managerProfileCard = document.getElementById("manager-profile-card");
+const managerAccountStatusEl = document.getElementById("manager-account-status");
+const managerProfileNameEl = document.getElementById("manager-profile-name");
+const managerProfileEmailEl = document.getElementById("manager-profile-email");
+const managerProfileRoleEl = document.getElementById("manager-profile-role");
+const managerProfileDepartmentEl = document.getElementById("manager-profile-department");
+const managerProfileDomainEl = document.getElementById("manager-profile-domain");
+const managerProfileJoinedEl = document.getElementById("manager-profile-joined");
+const managerPasswordForm = document.getElementById("manager-password-form");
+const managerCurrentPasswordInput = document.getElementById("manager-current-password");
+const managerNewPasswordInput = document.getElementById("manager-new-password");
+const managerConfirmPasswordInput = document.getElementById("manager-confirm-password");
+const managerPasswordStatusEl = document.getElementById("manager-password-status");
 
 const attendanceCalendarEl = document.getElementById("manager-attendance-calendar");
 const attendanceMonthLabelEl = document.getElementById("attendance-month-label");
@@ -57,11 +76,15 @@ const editEmployeeDomainInput = document.getElementById("edit-employee-domain");
 const editEmployeeSalaryInput = document.getElementById("edit-employee-salary");
 const editEmployeeJoinedInput = document.getElementById("edit-employee-joined");
 const employeeProfileStatusEl = document.getElementById("employee-profile-status");
+const managerResetEmployeePasswordInput = document.getElementById("manager-reset-employee-password");
+const managerResetEmployeeConfirmPasswordInput = document.getElementById("manager-reset-employee-confirm-password");
+const managerResetEmployeePasswordBtn = document.getElementById("manager-reset-employee-password-btn");
 
 const createEmployeeForm = document.getElementById("manager-create-employee-form");
 const createEmployeeNameInput = document.getElementById("create-employee-name");
 const createEmployeeEmailInput = document.getElementById("create-employee-email");
 const createEmployeePasswordInput = document.getElementById("create-employee-password");
+const createEmployeeConfirmPasswordInput = document.getElementById("create-employee-confirm-password");
 const createEmployeeIdInput = document.getElementById("create-employee-id");
 const createEmployeeJoinedInput = document.getElementById("create-employee-joined");
 const createEmployeeSalaryInput = document.getElementById("create-employee-salary");
@@ -84,6 +107,7 @@ console.log("Form elements loaded:", {
   createEmployeeNameInput: !!createEmployeeNameInput,
   createEmployeeEmailInput: !!createEmployeeEmailInput,
   createEmployeePasswordInput: !!createEmployeePasswordInput,
+  createEmployeeConfirmPasswordInput: !!createEmployeeConfirmPasswordInput,
   createEmployeeSalaryInput: !!createEmployeeSalaryInput
 });
 
@@ -103,6 +127,7 @@ let selectedAttendanceDates = new Set();
 let attendanceMonthCursor = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 let managerAlertsState = [];
 let managerPersonalMessagesState = [];
+let managerProfileLoaded = false;
 
 function activateManagerModule(targetId) {
   managerModules.forEach((moduleEl) => {
@@ -181,6 +206,30 @@ function setTaskAssignStatus(text, type) {
   taskAssignStatusEl.classList.remove("success", "error");
   if (type) {
     taskAssignStatusEl.classList.add(type);
+  }
+}
+
+function setManagerAccountStatus(text, type) {
+  if (!managerAccountStatusEl) {
+    return;
+  }
+
+  managerAccountStatusEl.textContent = text;
+  managerAccountStatusEl.classList.remove("success", "error");
+  if (type) {
+    managerAccountStatusEl.classList.add(type);
+  }
+}
+
+function setManagerPasswordStatus(text, type) {
+  if (!managerPasswordStatusEl) {
+    return;
+  }
+
+  managerPasswordStatusEl.textContent = text;
+  managerPasswordStatusEl.classList.remove("success", "error");
+  if (type) {
+    managerPasswordStatusEl.classList.add(type);
   }
 }
 
@@ -320,6 +369,46 @@ function formatDateForInput(value) {
   }
 
   return toDateKey(parsed);
+}
+
+function setManagerProfileFields(data) {
+  if (!managerProfileNameEl) {
+    return;
+  }
+
+  const joinedValue = data?.joinedOn
+    ? formatDateForInput(data.joinedOn)
+    : data?.createdAt?.toDate
+      ? toDateKey(data.createdAt.toDate())
+      : "--";
+
+  managerProfileNameEl.textContent = data?.name || managerSession?.name || "--";
+  managerProfileEmailEl.textContent = data?.email || managerSession?.email || "--";
+  managerProfileRoleEl.textContent = data?.role || managerSession?.role || "manager";
+  managerProfileDepartmentEl.textContent = data?.department || "--";
+  managerProfileDomainEl.textContent = data?.domain || "--";
+  managerProfileJoinedEl.textContent = joinedValue || "--";
+}
+
+async function loadManagerProfile() {
+  if (!managerSession?.uid) {
+    setManagerAccountStatus("Manager session not found. Please login again.", "error");
+    return;
+  }
+
+  setManagerAccountStatus("Loading manager profile...");
+
+  try {
+    const snap = await getDoc(doc(db, "users", managerSession.uid));
+    const profileData = snap.exists() ? snap.data() : null;
+    setManagerProfileFields(profileData);
+    managerProfileLoaded = true;
+    setManagerAccountStatus("Profile loaded.", "success");
+  } catch (error) {
+    console.error("Could not load manager profile:", error);
+    setManagerProfileFields(null);
+    setManagerAccountStatus("Could not load manager profile.", "error");
+  }
 }
 
 function getRecordForDate(dateKey) {
@@ -858,6 +947,64 @@ employeeForm.addEventListener("submit", async (event) => {
   }
 });
 
+if (managerResetEmployeePasswordBtn) {
+  managerResetEmployeePasswordBtn.addEventListener("click", async () => {
+    const selectedEmail = employeeSelect.value;
+    const selected = employees.find((item) => item.email === selectedEmail);
+    const nextPassword = managerResetEmployeePasswordInput?.value?.trim() || "";
+    const confirmPassword = managerResetEmployeeConfirmPasswordInput?.value?.trim() || "";
+
+    if (!selected?.uid) {
+      setEmployeeProfileStatus("Please select a valid employee first.", "error");
+      return;
+    }
+
+    if (!nextPassword || !confirmPassword) {
+      setEmployeeProfileStatus("Please enter and confirm the new password.", "error");
+      return;
+    }
+
+    if (nextPassword.length < 6) {
+      setEmployeeProfileStatus("Password must be at least 6 characters.", "error");
+      return;
+    }
+
+    if (nextPassword !== confirmPassword) {
+      setEmployeeProfileStatus("Password and confirm password do not match.", "error");
+      return;
+    }
+
+    setEmployeeProfileStatus("Resetting employee password...");
+
+    try {
+      await setDoc(
+        doc(db, "users", selected.uid),
+        {
+          loginPassword: nextPassword,
+          forceUseLocalAuth: true,
+          mustChangePassword: true,
+          updatedAt: serverTimestamp(),
+          passwordUpdatedAt: serverTimestamp(),
+          updatedBy: managerSession?.email || "manager"
+        },
+        { merge: true }
+      );
+
+      if (managerResetEmployeePasswordInput) {
+        managerResetEmployeePasswordInput.value = "";
+      }
+      if (managerResetEmployeeConfirmPasswordInput) {
+        managerResetEmployeeConfirmPasswordInput.value = "";
+      }
+
+      setEmployeeProfileStatus("Employee password reset successfully. Ask employee to login and change it immediately.", "success");
+    } catch (error) {
+      console.error("Could not reset employee password:", error);
+      setEmployeeProfileStatus("Could not reset employee password. Check Firestore rules.", "error");
+    }
+  });
+}
+
 // Delete employee handler
 const deleteEmployeeBtn = document.getElementById("delete-employee-btn");
 if (deleteEmployeeBtn) {
@@ -937,6 +1084,7 @@ createEmployeeForm.addEventListener("submit", async (event) => {
   const name = createEmployeeNameInput.value.trim();
   const email = toEmployeeDocKey(createEmployeeEmailInput.value);
   const password = createEmployeePasswordInput.value.trim();
+  const confirmPassword = createEmployeeConfirmPasswordInput?.value.trim() || "";
   const employeeId = createEmployeeIdInput.value.trim();
   const joinedOn = createEmployeeJoinedInput.value;
   const domain = createEmployeeDomainInput.value.trim();
@@ -950,6 +1098,11 @@ createEmployeeForm.addEventListener("submit", async (event) => {
 
   if (password.length < 6) {
     setCreateEmployeeStatus("Password must be at least 6 characters.", "error");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    setCreateEmployeeStatus("Password and confirm password do not match.", "error");
     return;
   }
 
@@ -1470,8 +1623,84 @@ managerOptionButtons.forEach((button) => {
   });
 });
 
+if (managerViewProfileBtn && managerProfileCard) {
+  managerViewProfileBtn.addEventListener("click", async () => {
+    const willShow = managerProfileCard.hidden;
+    managerProfileCard.hidden = !willShow;
+    managerViewProfileBtn.textContent = willShow ? "Hide My Profile" : "View My Profile";
+
+    if (willShow && !managerProfileLoaded) {
+      await loadManagerProfile();
+    }
+  });
+}
+
+if (managerPasswordForm) {
+  managerPasswordForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const currentPassword = managerCurrentPasswordInput?.value?.trim() || "";
+    const newPassword = managerNewPasswordInput?.value?.trim() || "";
+    const confirmPassword = managerConfirmPasswordInput?.value?.trim() || "";
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setManagerPasswordStatus("Please fill all password fields.", "error");
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      setManagerPasswordStatus("New password must be at least 6 characters.", "error");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setManagerPasswordStatus("New password and confirm password do not match.", "error");
+      return;
+    }
+
+    if (newPassword === currentPassword) {
+      setManagerPasswordStatus("New password must be different from current password.", "error");
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+    if (!currentUser?.email) {
+      setManagerPasswordStatus("Auth session expired. Please login again.", "error");
+      return;
+    }
+
+    setManagerPasswordStatus("Updating password...");
+
+    try {
+      const credential = EmailAuthProvider.credential(currentUser.email, currentPassword);
+      await reauthenticateWithCredential(currentUser, credential);
+      await updatePassword(currentUser, newPassword);
+
+      if (managerSession?.uid) {
+        await setDoc(
+          doc(db, "users", managerSession.uid),
+          {
+            updatedAt: serverTimestamp(),
+            passwordUpdatedAt: serverTimestamp(),
+            updatedBy: currentUser.email
+          },
+          { merge: true }
+        );
+      }
+
+      managerPasswordForm.reset();
+      setManagerPasswordStatus("Password updated successfully.", "success");
+    } catch (error) {
+      console.error("Could not update manager password:", error);
+      setManagerPasswordStatus(error?.message || "Could not update password.", "error");
+    }
+  });
+}
+
 (async function init() {
   activateManagerModule("");
+
+  await loadManagerProfile();
 
   await loadEmployees();
   if (employeeSelect.value) {

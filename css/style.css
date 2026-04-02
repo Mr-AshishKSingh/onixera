@@ -984,6 +984,18 @@ body.modal-open {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.jobs-form {
+  display: grid;
+  gap: 0.86rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.jobs-form .job-full-row,
+.jobs-form button,
+.jobs-form .form-status {
+  grid-column: 1 / -1;
+}
+
 .lead-form label:nth-of-type(3),
 .lead-form label:nth-of-type(4),
 .lead-form button,
@@ -1235,6 +1247,21 @@ textarea:focus {
   gap: 0.8rem;
 }
 
+
+.employee-security-tools {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(15, 92, 86, 0.24);
+}
+
+.employee-security-tools h3 {
+  margin: 0.3rem 0 0.75rem;
+}
+
+.employee-password-form {
+  display: grid;
+  gap: 0.65rem;
+}
 .employee-detail-list div {
   border: 1.5px solid rgba(15, 92, 86, 0.12);
   border-radius: 10px;
@@ -1694,6 +1721,35 @@ textarea:focus {
   word-break: break-word;
 }
 
+.manager-account-tools {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(15, 92, 86, 0.28);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.manager-profile-card {
+  border: 1.5px solid rgba(15, 92, 86, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.manager-profile-card p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.manager-password-form {
+  display: grid;
+  gap: 0.65rem;
+}
+
 .manager-options {
   border: 1.5px solid rgba(15, 92, 86, 0.14);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 253, 249, 0.98) 100%);
@@ -1958,6 +2014,18 @@ body.employee-body .section-head h2 {
   grid-template-columns: 1fr auto;
   gap: 0.8rem;
   margin-top: 0.5rem;
+}
+
+.manager-employee-password-tools {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed rgba(15, 92, 86, 0.22);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.manager-employee-password-tools h3 {
+  margin: 0.25rem 0 0.4rem;
 }
 
 @media screen and (max-width: 560px) {
@@ -3581,4 +3649,131 @@ body.landing-page .client-proof,
 body.landing-page .trust-strip,
 body.landing-page .site-footer {
   background: #ffffff !important;
+}
+
+@media (max-width: 560px) {
+  .site-header,
+  main,
+  .site-footer {
+    width: min(100vw, 100%);
+  }
+
+  body.landing-page .site-header {
+    margin: 0;
+    top: 0;
+    width: 100vw;
+    border-radius: 0 !important;
+    padding: 0.85rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  body.landing-page .brand {
+    width: 100%;
+  }
+
+  body.landing-page .header-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  body.landing-page .header-actions .btn {
+    width: 100%;
+  }
+
+  body.landing-page .hero,
+  body.landing-page .services,
+  body.landing-page .students,
+  body.landing-page .about,
+  body.landing-page .testimonials,
+  body.landing-page .process,
+  body.landing-page .contact,
+  body.landing-page .client-proof,
+  body.landing-page .trust-strip,
+  body.landing-page .site-footer {
+    padding: 1rem;
+  }
+
+  body.landing-page .hero-head {
+    gap: 0.75rem;
+  }
+
+  body.landing-page .hero h1 {
+    font-size: clamp(1.9rem, 8vw, 2.45rem);
+    line-height: 1.08;
+  }
+
+  body.landing-page .hero-copy {
+    font-size: 1rem;
+    max-width: none;
+  }
+
+  body.landing-page .hero-logo {
+    width: min(42vw, 150px);
+  }
+
+  body.landing-page .hero-cta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  body.landing-page .hero-metrics,
+  body.landing-page .card-grid,
+  body.landing-page .student-layout,
+  body.landing-page .testimonial-grid,
+  body.landing-page .process-grid,
+  body.landing-page .jobs-form,
+  body.landing-page .lead-form,
+  body.landing-page .footer-grid,
+  body.landing-page .logo-wall,
+  body.landing-page .trust-strip {
+    grid-template-columns: 1fr;
+  }
+
+  body.landing-page .trust-strip {
+    gap: 0.5rem;
+  }
+
+  body.landing-page .trust-strip p,
+  body.landing-page .hero-metrics li,
+  body.landing-page .student-offer-cta {
+    padding: 0.85rem;
+  }
+
+  body.landing-page .section-head {
+    margin-bottom: 1rem;
+  }
+
+  body.landing-page .section-head h2 {
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
+  }
+
+  body.landing-page .jobs-form .job-full-row,
+  body.landing-page .jobs-form button,
+  body.landing-page .jobs-form .form-status {
+    grid-column: auto;
+  }
+
+  body.landing-page .jobs-form button,
+  body.landing-page .hero-cta .btn,
+  body.landing-page .header-actions .btn {
+    width: 100%;
+  }
+
+  body.landing-page .trust-strip p {
+    text-align: center;
+  }
+
+  .login-card {
+    width: min(94vw, 100%);
+    padding: 1.1rem;
+  }
+
+  .login-card h1 {
+    font-size: clamp(1.6rem, 8vw, 2rem);
+  }
 }

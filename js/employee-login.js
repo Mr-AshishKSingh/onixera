@@ -54,6 +54,26 @@ async function loginWithLocalCredentials(email, password) {
   localStorage.removeItem("onixeraManagerSession");
 }
 
+async function loadEmployeeProfileByEmail(email) {
+  const q = query(
+    collection(db, "users"),
+    where("role", "==", "employee"),
+    where("email", "==", email),
+    limit(1)
+  );
+
+  const snap = await getDocs(q);
+  if (snap.empty) {
+    return null;
+  }
+
+  const profileDoc = snap.docs[0];
+  return {
+    id: profileDoc.id,
+    ...profileDoc.data()
+  };
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -68,6 +88,16 @@ form.addEventListener("submit", async (event) => {
   setStatus("Signing in...");
 
   try {
+    const employeeProfile = await loadEmployeeProfileByEmail(email);
+    const shouldForceLocal = Boolean(employeeProfile?.forceUseLocalAuth);
+
+    if (shouldForceLocal) {
+      await loginWithLocalCredentials(email, password);
+      setStatus("Login successful.", "success");
+      window.location.href = "./employee-dashboard.html";
+      return;
+    }
+
     const result = await signInWithEmailAndPassword(auth, email, password);
     const userRef = doc(db, "users", result.user.uid);
     const userSnap = await getDoc(userRef);

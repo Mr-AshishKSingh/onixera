@@ -48,6 +48,42 @@
           <select id="manager-employee-select"></select>
         </label>
         <p id="manager-selected-employee" class="manager-selected-employee">No employee selected</p>
+
+        <div class="manager-account-tools" aria-label="Manager account tools">
+          <div class="section-head">
+            <p class="eyebrow">Manager Account</p>
+            <h2>Profile and Security</h2>
+          </div>
+
+          <button id="manager-view-profile-btn" class="btn btn-outline" type="button">View My Profile</button>
+
+          <div id="manager-profile-card" class="manager-profile-card" hidden>
+            <p><strong>Name:</strong> <span id="manager-profile-name">--</span></p>
+            <p><strong>Email:</strong> <span id="manager-profile-email">--</span></p>
+            <p><strong>Role:</strong> <span id="manager-profile-role">--</span></p>
+            <p><strong>Department:</strong> <span id="manager-profile-department">--</span></p>
+            <p><strong>Domain:</strong> <span id="manager-profile-domain">--</span></p>
+            <p><strong>Joined On:</strong> <span id="manager-profile-joined">--</span></p>
+          </div>
+          <p id="manager-account-status" class="form-status" aria-live="polite"></p>
+
+          <form id="manager-password-form" class="manager-password-form" novalidate>
+            <label>
+              Current Password
+              <input id="manager-current-password" type="password" minlength="6" required />
+            </label>
+            <label>
+              New Password
+              <input id="manager-new-password" type="password" minlength="6" required />
+            </label>
+            <label>
+              Confirm New Password
+              <input id="manager-confirm-password" type="password" minlength="6" required />
+            </label>
+            <button class="btn btn-solid" type="submit">Change Password</button>
+            <p id="manager-password-status" class="form-status" aria-live="polite"></p>
+          </form>
+        </div>
       </aside>
 
       <div class="manager-content">
@@ -97,6 +133,10 @@
           <label>
             Password
             <input id="create-employee-password" type="password" minlength="6" required />
+          </label>
+          <label>
+            Confirm Password
+            <input id="create-employee-confirm-password" type="password" minlength="6" required />
           </label>
           <label>
             Employee ID
@@ -200,6 +240,23 @@
               Delete Employee
             </button>
           </div>
+
+          <div class="manager-employee-password-tools">
+            <p class="eyebrow">Access Control</p>
+            <h3>Reset Employee Password</h3>
+            <label>
+              New Temporary Password
+              <input id="manager-reset-employee-password" type="password" minlength="6" />
+            </label>
+            <label>
+              Confirm Temporary Password
+              <input id="manager-reset-employee-confirm-password" type="password" minlength="6" />
+            </label>
+            <button class="btn btn-solid" id="manager-reset-employee-password-btn" type="button">
+              Set Employee Password
+            </button>
+          </div>
+
           <p id="employee-profile-status" class="form-status" aria-live="polite"></p>
         </form>
       </section>

@@ -4,6 +4,8 @@ import { displayOfferLetterPreview } from "./offer-letter-generator.js";
 const yearEl = document.getElementById("year");
 const leadForm = document.getElementById("lead-form");
 const statusEl = document.getElementById("form-status");
+const jobApplicationForm = document.getElementById("job-application-form");
+const jobApplicationStatusEl = document.getElementById("job-application-status");
 const introGate = document.getElementById("intro-gate");
 const introEnterBtn = document.getElementById("intro-enter");
 const openOfferLetterModalBtn = document.getElementById("open-offer-letter-modal");
@@ -113,6 +115,18 @@ function setStatus(text, type) {
   statusEl.classList.remove("success", "error");
   if (type) {
     statusEl.classList.add(type);
+  }
+}
+
+function setJobApplicationStatus(text, type) {
+  if (!jobApplicationStatusEl) {
+    return;
+  }
+
+  jobApplicationStatusEl.textContent = text;
+  jobApplicationStatusEl.classList.remove("success", "error");
+  if (type) {
+    jobApplicationStatusEl.classList.add(type);
   }
 }
 
@@ -399,5 +413,85 @@ async function initLeadForm() {
   });
 }
 
+async function initJobApplicationForm() {
+  if (!jobApplicationForm) {
+    return;
+  }
+
+  let addDoc;
+  let collection;
+  let serverTimestamp;
+  let db;
+
+  try {
+    const firestoreModule = await import(
+      "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js"
+    );
+    const firebaseConfigModule = await import("./firebase-config.js");
+
+    addDoc = firestoreModule.addDoc;
+    collection = firestoreModule.collection;
+    serverTimestamp = firestoreModule.serverTimestamp;
+    db = firebaseConfigModule.db;
+  } catch (error) {
+    console.error("Firebase modules failed to load for jobs:", error);
+  }
+
+  jobApplicationForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!addDoc || !collection || !serverTimestamp || !db) {
+      setJobApplicationStatus("Application service is currently unavailable. Please try again later.", "error");
+      return;
+    }
+
+    const formData = new FormData(jobApplicationForm);
+    const payload = {
+      name: (formData.get("jobName") || "").toString().trim(),
+      email: (formData.get("jobEmail") || "").toString().trim().toLowerCase(),
+      phone: (formData.get("jobPhone") || "").toString().trim(),
+      role: (formData.get("jobRole") || "").toString().trim(),
+      experience: (formData.get("jobExperience") || "").toString().trim(),
+      resumeLink: (formData.get("jobResumeLink") || "").toString().trim(),
+      referralCode: (formData.get("jobReferralCode") || "").toString().trim(),
+      status: "new",
+      source: "website",
+      createdAt: serverTimestamp()
+    };
+
+    if (
+      !payload.name ||
+      !payload.email ||
+      !payload.phone ||
+      !payload.role ||
+      !payload.experience ||
+      !payload.resumeLink
+    ) {
+      setJobApplicationStatus("Please complete all fields before applying.", "error");
+      return;
+    }
+
+    try {
+      // Basic URL validation to avoid invalid resume links.
+      new URL(payload.resumeLink);
+    } catch {
+      setJobApplicationStatus("Please provide a valid resume link URL.", "error");
+      return;
+    }
+
+    setJobApplicationStatus("Submitting your application...");
+
+    try {
+      await addDoc(collection(db, "jobApplications"), payload);
+      jobApplicationForm.reset();
+      setJobApplicationStatus("Application submitted successfully. Our team will contact you soon.", "success");
+    } catch (error) {
+      console.error(error);
+      setJobApplicationStatus("Could not submit right now. Please try again in a moment.", "error");
+    }
+  });
+}
+
 initLeadForm();
+initJobApplicationForm();
 initOfferLetterFlow();
