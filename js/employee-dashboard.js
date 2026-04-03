@@ -77,8 +77,9 @@ function setEmployeeSidebarOpen(isOpen) {
   }
 
   if (employeeSidebarBackdrop) {
-    employeeSidebarBackdrop.hidden = !isOpen;
-    employeeSidebarBackdrop.classList.toggle("is-visible", isOpen);
+    const showBackdrop = employeeSidebarQuery.matches && isOpen;
+    employeeSidebarBackdrop.hidden = !showBackdrop;
+    employeeSidebarBackdrop.classList.toggle("is-visible", showBackdrop);
   }
 }
 

@@ -555,8 +555,9 @@
             navSidebarToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
           }
           if (navSidebarBackdrop) {
-            navSidebarBackdrop.hidden = !isOpen;
-            navSidebarBackdrop.classList.toggle('is-visible', isOpen);
+            const showBackdrop = navSidebarQuery.matches && isOpen;
+            navSidebarBackdrop.hidden = !showBackdrop;
+            navSidebarBackdrop.classList.toggle('is-visible', showBackdrop);
           }
         }
 

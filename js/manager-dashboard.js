@@ -146,8 +146,9 @@ function setManagerSidebarOpen(isOpen) {
   }
 
   if (managerSidebarBackdrop) {
-    managerSidebarBackdrop.hidden = !isOpen;
-    managerSidebarBackdrop.classList.toggle("is-visible", isOpen);
+    const showBackdrop = managerSidebarQuery.matches && isOpen;
+    managerSidebarBackdrop.hidden = !showBackdrop;
+    managerSidebarBackdrop.classList.toggle("is-visible", showBackdrop);
   }
 }
 
