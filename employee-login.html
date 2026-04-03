@@ -4,52 +4,110 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Onixera Technologies | Employee Login</title>
+    <meta name="theme-color" content="#5b5fed" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body class="login-body">
-    <main class="login-main section-reveal">
-      <a class="back-link" href="./index.html">← Back to Home</a>
-      <section class="login-card employee-login-card">
-        <a class="brand login-brand" href="./index.html" aria-label="Onixera Technologies home">
+
+    <!-- Left branded panel -->
+    <div class="login-brand-panel">
+      <div class="login-brand-inner">
+        <div class="login-panel-logo">
           <img
-            class="brand-logo"
             src="./assets/light.png"
             alt="Onixera Technologies logo"
-            onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
+            onerror="this.style.display='none';"
           />
-          <span class="brand-mark" style="display: none">O</span>
-          <span class="brand-text">Onixera Technologies</span>
+          <span>Onixera</span>
+        </div>
+
+        <h1 class="login-panel-headline">
+          Your workspace,<br />
+          <span>always with you</span>
+        </h1>
+        <p class="login-panel-desc">
+          Sign in to your employee account to view your attendance, assigned tasks, company announcements, and personal notifications.
+        </p>
+
+        <div class="login-panel-features">
+          <div class="login-feature">
+            <div class="login-feature-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+            </div>
+            <div class="login-feature-text">
+              <strong>Attendance tracking</strong>
+              <span>View your monthly attendance calendar</span>
+            </div>
+          </div>
+          <div class="login-feature">
+            <div class="login-feature-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+              </svg>
+            </div>
+            <div class="login-feature-text">
+              <strong>Task management</strong>
+              <span>See your assigned work and deadlines</span>
+            </div>
+          </div>
+          <div class="login-feature">
+            <div class="login-feature-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+              </svg>
+            </div>
+            <div class="login-feature-text">
+              <strong>Company announcements</strong>
+              <span>Stay updated with team-wide messages</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="login-form-panel">
+      <div class="login-form-inner section-reveal">
+        <a class="back-link" href="./index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" /></svg>
+          Back to Home
         </a>
+
         <p class="eyebrow">Employee Portal</p>
-        <h1>Employee Login</h1>
-        <p>Sign in to view announcements, attendance, and assigned work updates.</p>
+        <h1 style="font-size:1.85rem;color:var(--text);margin-bottom:0.4rem;">Employee Login</h1>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.75rem;">Sign in to view your announcements, attendance, and assigned work.</p>
 
         <form id="employee-login-form" class="login-form" novalidate>
           <label>
             Employee Email
-            <input type="email" id="employee-email" required />
+            <input type="email" id="employee-email" placeholder="your@email.com" required />
           </label>
           <label>
             Password
-            <input type="password" id="employee-password" minlength="6" required />
+            <input type="password" id="employee-password" minlength="6" placeholder="Your password" required />
           </label>
           <button type="submit" class="btn btn-solid full-width">Login to Dashboard</button>
         </form>
 
-        <p class="demo-note">Account credentials are provided by your manager.</p>
+        <p class="demo-note" style="margin-top:1.25rem;">
+          Account credentials are provided by your manager.
+        </p>
+
         <p class="switch-auth">
-          Manager?
+          Are you a manager?
           <a href="./manager-login.html">Open manager login</a>
         </p>
         <p id="employee-auth-status" class="form-status" aria-live="polite"></p>
-      </section>
-    </main>
+      </div>
+    </div>
 
     <script type="module" src="./js/employee-login.js"></script>
   </body>

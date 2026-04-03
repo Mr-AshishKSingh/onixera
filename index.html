@@ -3,604 +3,498 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Onixera Technologies | Software, Marketing, Student Services</title>
+    <title>Onixera | Enterprise Software & Digital Growth Solutions</title>
     <meta
       name="description"
-      content="Onixera Technologies builds software for businesses, delivers digital marketing services, and supports students with research papers and free software resources."
+      content="Onixera builds enterprise software, digital marketing solutions, and empowers students with world-class guidance and resources."
     />
+    <meta name="theme-color" content="#5b5fed" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body class="landing-page">
-    <section class="intro-gate" id="intro-gate" aria-label="Onixera intro">
+
+    <!-- Intro Gate -->
+    <div class="intro-gate" id="intro-gate" role="dialog" aria-modal="true" aria-label="Welcome to Onixera">
       <div class="intro-surface">
         <div class="intro-shutter intro-shutter-left" aria-hidden="true"></div>
         <div class="intro-shutter intro-shutter-right" aria-hidden="true"></div>
-
         <div class="intro-content">
-          <img
-            class="intro-logo"
-            src="./assets/light.png"
-            alt="Onixera Technologies emblem"
-            onerror="this.style.display='none';"
-          />
+          <img class="intro-logo" src="./assets/light.png" alt="Onixera Technologies" onerror="this.style.display='none'" />
           <p class="intro-title">Onixera Technologies</p>
-          <p class="intro-subtitle">Software. Marketing. Student Services.</p>
-          <p class="intro-hint">Scroll to enter</p>
+          <p class="intro-subtitle">Enterprise Software & Digital Growth</p>
+          <p class="intro-hint">Click to continue</p>
           <button class="intro-enter" id="intro-enter" type="button">Enter Site</button>
         </div>
       </div>
-    </section>
+    </div>
 
-    <div class="grain-overlay" aria-hidden="true"></div>
-
-    <header class="site-header" id="top">
-      <a class="brand" href="#top">
-        <img
-          class="brand-logo"
-          src="./assets/light.png"
-          alt="Onixera Technologies logo"
-          onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
-        />
-        <span class="brand-mark" style="display: none">O</span>
-        <span class="brand-text">Onixera Technologies</span>
-      </a>
-      <button
-        id="nav-sidebar-toggle"
-        class="btn btn-outline nav-sidebar-toggle"
-        type="button"
-        aria-controls="nav-sidebar"
-        aria-expanded="true"
-      >
-        Menu
-      </button>
-      <nav id="nav-sidebar" class="nav-sidebar section-reveal" aria-label="Primary navigation">
-        <a href="#services">Services</a>
-        <a href="#students">Students</a>
-        <a href="#jobs">Jobs</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <div class="nav-sidebar-divider"></div>
-        <a class="btn btn-ghost" href="./manager-login.html">Manager Login</a>
-        <a class="btn btn-ghost" href="./employee-login.html">Employee Login</a>
-        <a class="btn btn-outline" href="./login.html">Client Login</a>
-      </nav>
-      <div class="header-actions">
-        <a class="btn btn-ghost" href="./manager-login.html">Manager Login</a>
-        <a class="btn btn-ghost" href="./employee-login.html">Employee Login</a>
-        <a class="btn btn-outline" href="./login.html">Client Login</a>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-container" style="display:contents;">
+        <a class="brand" href="#top">
+          <img
+            class="brand-logo"
+            src="./assets/light.png"
+            alt="Onixera logo"
+            onerror="this.style.display='none';"
+          />
+          <span class="brand-text">Onixera</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#work">Work</a>
+          <a href="#research">Services</a>
+          <a href="#company">Company</a>
+          <a href="#careers">Careers</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="btn btn-ghost" href="./manager-login.html">Manager</a>
+          <a class="btn btn-ghost" href="./employee-login.html">Employee</a>
+          <a class="btn btn-solid" href="./login.html">Client Portal</a>
+          <button
+            id="nav-sidebar-toggle"
+            class="btn-menu"
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+        </div>
       </div>
     </header>
 
+    <!-- Mobile Nav Sidebar -->
     <div id="nav-sidebar-backdrop" class="nav-sidebar-backdrop" hidden></div>
+    <nav id="nav-sidebar" class="nav-sidebar is-collapsed" aria-label="Mobile navigation">
+      <a href="#work">Work</a>
+      <a href="#research">Services</a>
+      <a href="#company">Company</a>
+      <a href="#careers">Careers</a>
+      <div class="nav-sidebar-divider"></div>
+      <a class="btn btn-ghost" href="./manager-login.html">Manager Login</a>
+      <a class="btn btn-ghost" href="./employee-login.html">Employee Login</a>
+      <a class="btn btn-solid" href="./login.html">Client Portal</a>
+    </nav>
 
     <main>
-      <section class="hero section-reveal">
-        <p class="eyebrow">Build. Grow. Empower.</p>
-        <div class="hero-head">
+      <!-- Hero Section -->
+      <section class="hero-minimal" id="top">
+        <div class="hero-content section-reveal">
+          <span class="eyebrow" style="margin-bottom:1.5rem;">Early-Stage Software Studio</span>
           <h1>
-            Modern Software and Digital Growth Solutions
-            <span>for companies and students</span>
+            Build smarter tools for
+            <span class="highlight">modern business workflows</span>
           </h1>
-          <img
-            class="hero-logo"
-            src="./assets/light.png"
-            alt="Onixera Technologies logo"
-            onerror="this.style.display='none';"
-          />
-        </div>
-        <p class="hero-copy">
-          We help businesses launch high-performance digital products, run smart marketing
-          campaigns, and support students through research, project guidance, and software access.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-solid" href="#contact">Start Your Project</a>
-          <a class="btn btn-ghost" href="#services">Explore Services</a>
-        </div>
-        <p class="hero-note">Trusted by startups, local businesses, and student communities.</p>
-        <ul class="hero-metrics" aria-label="Company highlights">
-          <li>
-            <strong>50+</strong>
-            <span>Client Projects</span>
-          </li>
-          <li>
-            <strong>8+</strong>
-            <span>Digital Domains</span>
-          </li>
-          <li>
-            <strong>24/7</strong>
-            <span>Support Priority</span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="trust-strip section-reveal" aria-label="Core strengths">
-        <p>End-to-End Product Delivery</p>
-        <p>Data-Driven Marketing Execution</p>
-        <p>Student-Centric Academic Support</p>
-        <p>Reliable Post-Launch Assistance</p>
-      </section>
-
-      <section class="client-proof section-reveal" aria-label="Trusted by organizations">
-        <div class="section-head">
-          <p class="eyebrow">Trusted Partners</p>
-          <h2>Teams We Support Across Domains</h2>
-        </div>
-        <div class="logo-wall" role="list" aria-label="Client categories">
-          <span role="listitem">EdTech Startups</span>
-          <span role="listitem">Retail Brands</span>
-          <span role="listitem">Healthcare Clinics</span>
-          <span role="listitem">Local Enterprises</span>
-          <span role="listitem">Student Communities</span>
-          <span role="listitem">Coaching Institutes</span>
-        </div>
-      </section>
-
-      <section class="services section-reveal" id="services">
-        <div class="section-head">
-          <p class="eyebrow">What We Do</p>
-          <h2>Services Built for Real Results</h2>
-        </div>
-        <div class="card-grid">
-          <article class="service-card">
-            <h3>Custom Software Development</h3>
-            <p>
-              From web platforms to business automation tools, we create tailored software that
-              scales with your goals.
-            </p>
-          </article>
-          <article class="service-card">
-            <h3>Digital Marketing</h3>
-            <p>
-              Performance marketing, social media growth, content strategy, and conversion-focused
-              campaigns for modern brands.
-            </p>
-          </article>
-          <article class="service-card">
-            <h3>Product Consulting</h3>
-            <p>
-              We help founders and teams shape product roadmaps, UX strategy, and launch plans that
-              reduce risk and increase impact.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="students section-reveal" id="students">
-        <div class="section-head">
-          <p class="eyebrow">For Students</p>
-          <h2>Academic and Career Support Programs</h2>
-        </div>
-        <div class="student-layout">
-          <div class="student-panel">
-            <h3>Research Paper Assistance</h3>
-            <p>
-              Topic ideation, structure guidance, editing support, and publication-oriented quality
-              checks for students and scholars.
-            </p>
-          </div>
-          <div class="student-panel">
-            <h3>Free Software Access</h3>
-            <p>
-              We curate and provide useful no-cost tools to help students build skills,
-              productivity, and practical project experience.
-            </p>
-          </div>
-          <div class="student-panel accent">
-            <h3>Project Mentorship</h3>
-            <p>
-              End-to-end support for final-year projects, portfolio work, and internship-ready
-              deliverables.
-            </p>
+          <p class="hero-subtitle">
+            We are a startup team building practical web tools, internal dashboards, and growth systems for small businesses and new ventures — fast, well-built, and built to last.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-solid" href="#contact">Discuss your project</a>
+            <a class="btn btn-ghost" href="#work">See our work</a>
           </div>
         </div>
-        <div class="student-offer-cta" hidden style="display: none !important;">
-          <p>Need an internship offer letter quickly? Generate it online after a secure ₹50 payment.</p>
-          <button class="btn btn-solid" id="open-offer-letter-modal" type="button" onclick="window.openOfferLetterModalFallback && window.openOfferLetterModalFallback()">Generate Your Offer Letter</button>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="featured-data">
+        <div class="featured-content">
+          <h2>Building with early clients and pilot teams</h2>
+          <p>
+            We are in the first phase of growth — focused on shipping reliable work with clear communication and fast iteration.
+          </p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card section-reveal" style="animation-delay:0ms">
+            <div class="stat-number">6+</div>
+            <div class="stat-label">Projects Delivered</div>
+          </div>
+          <div class="stat-card section-reveal" style="animation-delay:80ms">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Active Pilots</div>
+          </div>
+          <div class="stat-card section-reveal" style="animation-delay:160ms">
+            <div class="stat-number">2–4w</div>
+            <div class="stat-label">Typical MVP Timeline</div>
+          </div>
+          <div class="stat-card section-reveal" style="animation-delay:240ms">
+            <div class="stat-number">1</div>
+            <div class="stat-label">Dedicated Point of Contact</div>
+          </div>
         </div>
       </section>
 
-      <section class="jobs section-reveal" id="jobs">
-        <div class="section-head">
-          <p class="eyebrow">Careers</p>
-          <h2>Join Our Team</h2>
+      <!-- Startup Updates -->
+      <section class="announcements" id="work">
+        <div class="section-header">
+          <h2>Startup Updates</h2>
+          <p>What we are currently building and shipping</p>
         </div>
-        <p class="contact-direct">
-          We are hiring across engineering, design, marketing, and business operations. Apply below
-          and our HR team will review your profile.
-        </p>
-
-        <form id="job-application-form" class="jobs-form" novalidate>
-          <label>
-            Full Name
-            <input type="text" id="job-name" name="jobName" maxlength="100" required />
-          </label>
-          <label>
-            Email Address
-            <input type="email" id="job-email" name="jobEmail" maxlength="120" required />
-          </label>
-          <label>
-            Phone Number
-            <input type="tel" id="job-phone" name="jobPhone" maxlength="20" required />
-          </label>
-          <label>
-            Job Role
-            <select id="job-role" name="jobRole" required>
-              <option value="">Select role</option>
-              <option value="Frontend Developer">Frontend Developer</option>
-              <option value="Backend Developer">Backend Developer</option>
-              <option value="Full Stack Developer">Full Stack Developer</option>
-              <option value="UI/UX Designer">UI/UX Designer</option>
-              <option value="Digital Marketing Executive">Digital Marketing Executive</option>
-              <option value="Business Development">Business Development</option>
-              <option value="Cold Calling Executive">Cold Calling Executive</option>
-              <option value="HR Intern">HR Intern</option>
-            </select>
-          </label>
-          <label>
-            Experience Level
-            <select id="job-experience" name="jobExperience" required>
-              <option value="">Select experience</option>
-              <option value="Fresher">Fresher</option>
-              <option value="0-1 Years">0-1 Years</option>
-              <option value="1-3 Years">1-3 Years</option>
-              <option value="3-5 Years">3-5 Years</option>
-              <option value="5+ Years">5+ Years</option>
-            </select>
-          </label>
-          <label>
-            Resume Link (Google Drive / Portfolio)
-            <input type="url" id="job-resume-link" name="jobResumeLink" maxlength="300" placeholder="https://..." required />
-          </label>
-          <label class="job-full-row">
-            Referral Code
-            <input
-              type="text"
-              id="job-referral-code"
-              name="jobReferralCode"
-              maxlength="50"
-              placeholder="Enter referral code, if any"
-            />
-          </label>
-          <button class="btn btn-solid" type="submit">Apply for Job</button>
-          <p id="job-application-status" class="form-status" aria-live="polite"></p>
-        </form>
-      </section>
-
-      <section class="about section-reveal" id="about">
-        <div class="section-head">
-          <p class="eyebrow">Who We Are</p>
-          <h2>A Partner Focused on Long-Term Value</h2>
-        </div>
-        <p>
-          Onixera Technologies combines engineering, design, and growth strategy to solve practical
-          business challenges. We work closely with founders, teams, and students to deliver clear,
-          measurable outcomes with speed and quality.
-        </p>
-      </section>
-
-      <section class="testimonials section-reveal" aria-label="Client feedback">
-        <div class="section-head">
-          <p class="eyebrow">Client Voice</p>
-          <h2>What Partners Say About Working With Us</h2>
-        </div>
-        <div class="testimonial-grid">
-          <article class="testimonial-card">
+        <div class="announcements-grid">
+          <article class="announcement-card section-reveal">
+            <div class="announcement-meta">
+              <span class="date">April 2026</span>
+              <span class="category">Now Building</span>
+            </div>
+            <h3>Internal Dashboard Package</h3>
             <p>
-              "Onixera helped us launch our student portal in record time. Their team was
-              responsive, practical, and highly reliable post-launch."
+              We are packaging reusable dashboard modules for attendance, task tracking, and team reporting — ready to deploy for any growing team.
             </p>
-            <p class="testimonial-author">Operations Lead, Regional Institute</p>
+            <a href="#contact" class="read-more">Ask for a demo →</a>
           </article>
-          <article class="testimonial-card">
+
+          <article class="announcement-card section-reveal" style="animation-delay:80ms">
+            <div class="announcement-meta">
+              <span class="date">March 2026</span>
+              <span class="category">Case Snapshot</span>
+            </div>
+            <h3>Website + Lead Funnel for Local Business</h3>
             <p>
-              "Our ad performance and landing page conversions improved significantly within weeks.
-              Execution quality and reporting were consistently strong."
+              Delivered a conversion-focused website and lead capture workflow for a regional service business in under 3 weeks.
             </p>
-            <p class="testimonial-author">Founder, D2C Brand</p>
+            <a href="#contact" class="read-more">View approach →</a>
           </article>
-          <article class="testimonial-card">
+
+          <article class="announcement-card section-reveal" style="animation-delay:160ms">
+            <div class="announcement-meta">
+              <span class="date">March 2026</span>
+              <span class="category">Product</span>
+            </div>
+            <h3>Client Portal in Development</h3>
             <p>
-              "Their mentoring and project support made a big difference for our final-year team.
-              Guidance was clear and genuinely useful."
+              Rolling out secure login, project updates, and document sharing for seamless client communication and collaboration.
             </p>
-            <p class="testimonial-author">Student Project Coordinator</p>
+            <a href="#contact" class="read-more">Join beta list →</a>
+          </article>
+
+          <article class="announcement-card section-reveal" style="animation-delay:240ms">
+            <div class="announcement-meta">
+              <span class="date">Ongoing</span>
+              <span class="category">Hiring</span>
+            </div>
+            <h3>Intern and Junior Talent Program</h3>
+            <p>
+              We are onboarding interns and entry-level contributors who want real hands-on startup experience across engineering and design.
+            </p>
+            <a href="#careers" class="read-more">Apply now →</a>
           </article>
         </div>
       </section>
 
-      <section class="process section-reveal" id="process">
-        <div class="section-head">
-          <p class="eyebrow">How We Work</p>
-          <h2>A Clear 3-Step Delivery Process</h2>
+      <!-- Services Section -->
+      <section class="services-section" id="research">
+        <div class="section-header">
+          <h2>What We Do Right Now</h2>
+          <p>Focused services for early-stage and growing teams</p>
         </div>
-        <div class="process-grid">
-          <article class="process-card">
-            <span class="process-step">01</span>
-            <h3>Discovery and Planning</h3>
-            <p>
-              We define goals, audience needs, and project scope with practical milestones and
-              execution clarity.
-            </p>
-          </article>
-          <article class="process-card">
-            <span class="process-step">02</span>
-            <h3>Execution and Iteration</h3>
-            <p>
-              Our team builds, tests, and refines software or campaigns using measurable feedback
-              loops and weekly updates.
-            </p>
-          </article>
-          <article class="process-card">
-            <span class="process-step">03</span>
-            <h3>Launch and Support</h3>
-            <p>
-              We help you launch confidently, track outcomes, and optimize performance through
-              ongoing support.
-            </p>
-          </article>
+        <div class="services-grid">
+          <div class="service-card section-reveal">
+            <div class="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3" />
+              </svg>
+            </div>
+            <h3>Custom Web Apps</h3>
+            <p>We build practical internal tools and customer-facing web apps tailored precisely to your workflow and team.</p>
+            <ul>
+              <li>Dashboard Development</li>
+              <li>Workflow Automation</li>
+              <li>API Integrations</li>
+            </ul>
+          </div>
+
+          <div class="service-card section-reveal" style="animation-delay:80ms">
+            <div class="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+            </div>
+            <h3>Website + Lead Systems</h3>
+            <p>Landing pages, forms, and CRM-ready lead pipelines built for measurable, consistent growth.</p>
+            <ul>
+              <li>Business Websites</li>
+              <li>Lead Capture Flows</li>
+              <li>Conversion Tracking</li>
+            </ul>
+          </div>
+
+          <div class="service-card section-reveal" style="animation-delay:160ms">
+            <div class="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
+              </svg>
+            </div>
+            <h3>Student Programs</h3>
+            <p>Practical mentoring and project experience for students and fresh graduates entering the tech industry.</p>
+            <ul>
+              <li>Internship Tracks</li>
+              <li>Project Mentorship</li>
+              <li>Career Preparation</li>
+            </ul>
+          </div>
+
+          <div class="service-card section-reveal" style="animation-delay:240ms">
+            <div class="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+              </svg>
+            </div>
+            <h3>Technical Consulting</h3>
+            <p>Need help choosing your stack, scoping your project, or creating an execution plan? We help you move from idea to build roadmap.</p>
+            <ul>
+              <li>MVP Planning</li>
+              <li>Architecture Reviews</li>
+              <li>Execution Support</li>
+            </ul>
+          </div>
         </div>
       </section>
 
+      <!-- Core Values Section -->
+      <section class="values-section" id="company">
+        <div class="section-header">
+          <h2>Our Principles</h2>
+          <p>The values that guide every decision we make</p>
+        </div>
+        <div class="values-grid">
+          <div class="value-item section-reveal">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+              </svg>
+            </div>
+            <div>
+              <h3>Build Fast, Build Well</h3>
+              <p>We ship quickly, but never skip core quality and maintainability. Speed without craft is waste.</p>
+            </div>
+          </div>
+          <div class="value-item section-reveal" style="animation-delay:80ms">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+              </svg>
+            </div>
+            <div>
+              <h3>Honest Communication</h3>
+              <p>Clear timelines, realistic estimates, and transparent progress updates — no surprises, no fluff.</p>
+            </div>
+          </div>
+          <div class="value-item section-reveal" style="animation-delay:160ms">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+            </div>
+            <div>
+              <h3>User-Centered Decisions</h3>
+              <p>We prioritize what actually helps your users and team day to day — not just what looks good in a demo.</p>
+            </div>
+          </div>
+          <div class="value-item section-reveal" style="animation-delay:240ms">
+            <div class="value-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+              </svg>
+            </div>
+            <div>
+              <h3>Long-Term Partnerships</h3>
+              <p>We aim to become your reliable tech partner, not a one-off vendor. We grow with you.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-section section-reveal">
+        <div class="cta-content">
+          <h2>Need a reliable startup tech partner?</h2>
+          <p>Tell us what you are building and we will suggest a practical first milestone.</p>
+          <a class="btn btn-solid" href="#contact">Book a discovery call</a>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
       <section class="contact section-reveal" id="contact">
         <div class="section-head">
           <p class="eyebrow">Get In Touch</p>
-          <h2>Tell Us What You Need</h2>
+          <h2>Let's Talk</h2>
         </div>
         <p class="contact-direct">
-          Email:
-          <a href="mailto:hr.ashish@onixeratechnologies.com">hr.ashish@onixeratechnologies.com</a>
-          | Mobile:
-          <a href="tel:+917457008912">7457008912</a>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="display:inline;vertical-align:middle;margin-right:4px;color:var(--primary)"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+            <a href="mailto:hr.ashish@onixeratechnologies.com">hr.ashish@onixeratechnologies.com</a>
+          </span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="display:inline;vertical-align:middle;margin-right:4px;color:var(--primary)"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" /></svg>
+            <a href="tel:+917457008912">+91 7457008912</a>
+          </span>
         </p>
-        <form id="lead-form" class="lead-form" novalidate>
+        <form class="lead-form" id="lead-form" novalidate>
           <label>
             Full Name
-            <input type="text" id="name" name="name" required />
+            <input type="text" name="name" autocomplete="name" placeholder="Your full name" required />
           </label>
           <label>
             Email Address
-            <input type="email" id="email" name="email" required />
+            <input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
           </label>
           <label>
-            Service Interest
-            <select id="service" name="service" required>
+            Service Interested In
+            <select name="service" required>
               <option value="">Select a service</option>
-              <option value="Software Development">Software Development</option>
+              <option value="Enterprise Software">Enterprise Software</option>
               <option value="Digital Marketing">Digital Marketing</option>
-              <option value="Student Support">Student Support</option>
-              <option value="Other">Other</option>
+              <option value="Student Success">Student Success</option>
+              <option value="Consulting">Consulting</option>
             </select>
           </label>
           <label>
-            Message
-            <textarea id="message" name="message" rows="4" required></textarea>
+            Project Details
+            <textarea name="message" rows="4" placeholder="Tell us about your project or idea..." required></textarea>
           </label>
           <button class="btn btn-solid" type="submit">Submit Request</button>
           <p id="form-status" class="form-status" aria-live="polite"></p>
         </form>
       </section>
-    </main>
 
-    <footer class="site-footer">
-      <div class="footer-meta" aria-label="Operational trust indicators">
-        <p><strong>Response SLA:</strong> Within 24 business hours</p>
-        <p><strong>Delivery Updates:</strong> Weekly progress checkpoints</p>
-        <p><strong>Support Model:</strong> Launch + Post-launch assistance</p>
-      </div>
-      <div class="footer-grid">
-        <div>
-          <p class="footer-title">Onixera Technologies</p>
-          <p class="footer-copy">
-            Building software, driving digital growth, and supporting students with practical,
-            high-quality solutions.
-          </p>
+      <!-- Careers Section -->
+      <section class="careers-section" id="careers">
+        <div class="section-head">
+          <p class="eyebrow">Careers</p>
+          <h2>Join Our Team</h2>
+          <p style="color:var(--text-light);margin-top:0.5rem;font-size:0.95rem;">Build the future with innovative minds across engineering, design, and business.</p>
         </div>
-        <div>
-          <p class="footer-heading">Quick Links</p>
-          <div class="footer-links">
-            <a href="#services">Services</a>
-            <a href="#students">Students</a>
-            <a href="#jobs">Jobs</a>
-            <a href="#contact">Contact</a>
-            <a href="./manager-login.html">Manager Login</a>
-            <a href="./employee-login.html">Employee Login</a>
-            <a href="./login.html">Client Login</a>
-          </div>
-        </div>
-        <div>
-          <p class="footer-heading">Business Focus</p>
-          <p class="footer-copy">Custom Software</p>
-          <p class="footer-copy">Digital Marketing</p>
-          <p class="footer-copy">Research &amp; Student Projects</p>
-        </div>
-        <div>
-          <p class="footer-heading">Contact</p>
-          <p class="footer-copy">
-            <a href="mailto:hr.ashish@onixeratechnologies.com">hr.ashish@onixeratechnologies.com</a>
-          </p>
-          <p class="footer-copy"><a href="tel:+917457008912">+91 7457008912</a></p>
-        </div>
-      </div>
-      <p class="footer-bottom">© <span id="year"></span> Onixera Technologies. All rights reserved.</p>
-    </footer>
-
-    <div class="offer-letter-modal" id="offer-letter-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="offer-letter-title">
-      <div class="offer-letter-modal-backdrop" id="offer-letter-backdrop" onclick="window.closeOfferLetterModalFallback && window.closeOfferLetterModalFallback()"></div>
-      <div class="offer-letter-dialog">
-        <div class="offer-letter-head">
-          <h3 id="offer-letter-title">Generate Internship Offer Letter</h3>
-          <button class="btn btn-ghost" id="close-offer-letter-modal" type="button" aria-label="Close offer letter form" onclick="window.closeOfferLetterModalFallback && window.closeOfferLetterModalFallback()">Close</button>
-        </div>
-        <form id="offer-letter-form" class="offer-letter-form" novalidate>
+        <form class="jobs-form" id="job-application-form" novalidate>
           <label>
             Full Name
-            <input id="offer-name" name="offerName" type="text" maxlength="100" required />
+            <input type="text" name="jobName" autocomplete="name" placeholder="Your full name" required />
           </label>
           <label>
-            Domain
-            <input id="offer-domain" name="offerDomain" type="text" maxlength="80" required />
+            Email Address
+            <input type="email" name="jobEmail" autocomplete="email" placeholder="you@example.com" required />
           </label>
           <label>
-            Internship Duration
-            <input id="offer-duration" name="offerDuration" type="text" maxlength="40" placeholder="e.g. 3 Months" required />
+            Phone Number
+            <input type="tel" name="jobPhone" autocomplete="tel" placeholder="+91 XXXXX XXXXX" required />
           </label>
           <label>
-            Start Date
-            <input id="offer-start-date" name="offerStartDate" type="date" required />
+            Role Applying For
+            <input type="text" name="jobRole" placeholder="e.g. Frontend Developer, UI Designer" required />
           </label>
           <label>
-            End Date
-            <input id="offer-end-date" name="offerEndDate" type="date" required />
+            Years of Experience
+            <input type="text" name="jobExperience" placeholder="e.g. 0–1 years, Fresher" required />
           </label>
-          <button class="btn btn-solid" type="submit">Pay ₹50 & Generate Letter</button>
-          <p id="offer-letter-status" class="form-status" aria-live="polite"></p>
+          <label>
+            Resume Link (Drive/Portfolio URL)
+            <input type="url" name="jobResumeLink" placeholder="https://" required />
+          </label>
+          <label class="job-full-row">
+            Referral Code (Optional)
+            <input type="text" name="jobReferralCode" placeholder="Leave blank if none" />
+          </label>
+          <button class="btn btn-solid" type="submit">Apply Now</button>
+          <p id="job-application-status" class="form-status" aria-live="polite"></p>
         </form>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#research">Custom Web Apps</a></li>
+            <li><a href="#research">Lead Systems</a></li>
+            <li><a href="#research">Consulting</a></li>
+            <li><a href="#careers">Intern Program</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#company">About</a></li>
+            <li><a href="#work">Updates</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#careers">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>For Clients</h4>
+          <ul>
+            <li><a href="#contact">Project Inquiry</a></li>
+            <li><a href="#contact">Support Request</a></li>
+            <li><a href="#work">Current Work</a></li>
+            <li><a href="./login.html">Client Portal</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="./SECURITY.md">Security</a></li>
+            <li><a href="./README.md">Project Info</a></li>
+          </ul>
+        </div>
+        <div class="footer-section social">
+          <h4>Connect</h4>
+          <div class="social-links">
+            <a href="mailto:hr.ashish@onixeratechnologies.com">Email Us</a>
+            <a href="tel:+917457008912">Call Us</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Onixera Technologies. Built by a growing startup team.</p>
+        <p style="font-size:0.78rem;color:rgba(255,255,255,0.2);">Shipping fast. Building well.</p>
+      </div>
+    </footer>
 
+    <script type="module" src="./js/main.js"></script>
     <script>
+      // Mobile nav sidebar toggle
       (function () {
-        const introGate = document.getElementById("intro-gate");
-        const enterBtn = document.getElementById("intro-enter");
+        var toggle = document.getElementById("nav-sidebar-toggle");
+        var sidebar = document.getElementById("nav-sidebar");
+        var backdrop = document.getElementById("nav-sidebar-backdrop");
+        if (!toggle || !sidebar || !backdrop) return;
 
-        if (!introGate) {
-          return;
+        function openNav() {
+          sidebar.classList.remove("is-collapsed");
+          sidebar.classList.add("is-open");
+          backdrop.hidden = false;
+          backdrop.classList.add("is-visible");
+          toggle.setAttribute("aria-expanded", "true");
         }
 
-        document.body.classList.add("intro-locked");
-
-        let opened = false;
-        const openIntroGate = function () {
-          if (opened) {
-            return;
-          }
-
-          opened = true;
-          document.body.classList.remove("intro-locked");
-          document.body.classList.add("intro-open");
-          introGate.setAttribute("aria-hidden", "true");
-
-          window.setTimeout(function () {
-            if (introGate.parentElement) {
-              introGate.parentElement.removeChild(introGate);
-            }
-          }, 1000);
-        };
-
-        window.__openIntroGate = openIntroGate;
-
-        enterBtn && enterBtn.addEventListener("click", openIntroGate);
-        introGate.addEventListener("click", openIntroGate);
-
-        window.addEventListener(
-          "wheel",
-          function (event) {
-            if (event.deltaY > 0) {
-              openIntroGate();
-            }
-          },
-          { passive: true }
-        );
-
-        window.setTimeout(openIntroGate, 6000);
-      })();
-    </script>
-    <script>
-      (function () {
-        function getOfferModal() {
-          return document.getElementById("offer-letter-modal");
+        function closeNav() {
+          sidebar.classList.add("is-collapsed");
+          sidebar.classList.remove("is-open");
+          backdrop.hidden = true;
+          backdrop.classList.remove("is-visible");
+          toggle.setAttribute("aria-expanded", "false");
         }
 
-        window.openOfferLetterModalFallback = function () {
-          const modal = getOfferModal();
-          if (!modal) {
-            return;
-          }
-          modal.hidden = false;
-          modal.setAttribute("aria-hidden", "false");
-          document.body.classList.add("modal-open");
-        };
-
-        window.closeOfferLetterModalFallback = function () {
-          const modal = getOfferModal();
-          if (!modal) {
-            return;
-          }
-          modal.hidden = true;
-          modal.setAttribute("aria-hidden", "true");
-          document.body.classList.remove("modal-open");
-        };
-      })();
-    </script>
-    <script src="./js/runtime-config.js"></script>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-      (function() {
-        const navSidebar = document.getElementById('nav-sidebar');
-        const navSidebarToggle = document.getElementById('nav-sidebar-toggle');
-        const navSidebarBackdrop = document.getElementById('nav-sidebar-backdrop');
-        const navSidebarQuery = window.matchMedia('(max-width: 980px)');
-
-        function setNavSidebarOpen(isOpen) {
-          if (!navSidebar) return;
-          navSidebar.classList.toggle('is-open', isOpen);
-          navSidebar.classList.toggle('is-collapsed', !isOpen);
-          if (navSidebarToggle) {
-            navSidebarToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-          }
-          if (navSidebarBackdrop) {
-            const showBackdrop = navSidebarQuery.matches && isOpen;
-            navSidebarBackdrop.hidden = !showBackdrop;
-            navSidebarBackdrop.classList.toggle('is-visible', showBackdrop);
-          }
-        }
-
-        function syncNavSidebarState() {
-          if (!navSidebar) return;
-          if (navSidebarQuery.matches) {
-            setNavSidebarOpen(false);
-          } else {
-            setNavSidebarOpen(true);
-          }
-        }
-
-        function toggleNavSidebar() {
-          if (!navSidebar) return;
-          setNavSidebarOpen(!navSidebar.classList.contains('is-open'));
-        }
-
-        if (navSidebarToggle) {
-          navSidebarToggle.addEventListener('click', toggleNavSidebar);
-        }
-
-        if (navSidebarBackdrop) {
-          navSidebarBackdrop.addEventListener('click', () => setNavSidebarOpen(false));
-        }
-
-        const navLinks = document.querySelectorAll('#nav-sidebar a[href^="#"]');
-        navLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            if (navSidebarQuery.matches) {
-              setNavSidebarOpen(false);
-            }
-          });
+        toggle.addEventListener("click", function () {
+          if (sidebar.classList.contains("is-open")) closeNav();
+          else openNav();
         });
 
-        syncNavSidebarState();
+        backdrop.addEventListener("click", closeNav);
 
-        if (typeof navSidebarQuery.addEventListener === 'function') {
-          navSidebarQuery.addEventListener('change', syncNavSidebarState);
-        } else if (typeof navSidebarQuery.addListener === 'function') {
-          navSidebarQuery.addListener(syncNavSidebarState);
-        }
+        sidebar.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", closeNav);
+        });
       })();
     </script>
-    <script type="module" src="./js/main.js"></script>
   </body>
 </html>

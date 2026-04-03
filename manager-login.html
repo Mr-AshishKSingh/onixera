@@ -4,48 +4,106 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Onixera Technologies | Manager Login</title>
+    <meta name="theme-color" content="#5b5fed" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body class="login-body">
-    <main class="login-main section-reveal">
-      <a class="back-link" href="./index.html">← Back to Home</a>
-      <section class="login-card employee-login-card">
-        <a class="brand login-brand" href="./index.html" aria-label="Onixera Technologies home">
+
+    <!-- Left branded panel -->
+    <div class="login-brand-panel">
+      <div class="login-brand-inner">
+        <div class="login-panel-logo">
           <img
-            class="brand-logo"
             src="./assets/light.png"
             alt="Onixera Technologies logo"
-            onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
+            onerror="this.style.display='none';"
           />
-          <span class="brand-mark" style="display: none">O</span>
-          <span class="brand-text">Onixera Technologies</span>
+          <span>Onixera</span>
+        </div>
+
+        <h1 class="login-panel-headline">
+          Manager control,<br />
+          <span>fully in your hands</span>
+        </h1>
+        <p class="login-panel-desc">
+          Access the manager dashboard to register employees, manage attendance, post announcements, assign tasks, and communicate with your team.
+        </p>
+
+        <div class="login-panel-features">
+          <div class="login-feature">
+            <div class="login-feature-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+              </svg>
+            </div>
+            <div class="login-feature-text">
+              <strong>Employee management</strong>
+              <span>Register, edit, and manage team members</span>
+            </div>
+          </div>
+          <div class="login-feature">
+            <div class="login-feature-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+              </svg>
+            </div>
+            <div class="login-feature-text">
+              <strong>Attendance control</strong>
+              <span>Mark and publish daily attendance records</span>
+            </div>
+          </div>
+          <div class="login-feature">
+            <div class="login-feature-dot">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
+              </svg>
+            </div>
+            <div class="login-feature-text">
+              <strong>Task assignment</strong>
+              <span>Assign work and track task completion</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="login-form-panel">
+      <div class="login-form-inner section-reveal">
+        <a class="back-link" href="./index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" /></svg>
+          Back to Home
         </a>
+
         <p class="eyebrow">Manager Portal</p>
-        <h1>Manager Login</h1>
-        <p>Manager can mark attendance and publish it for employee dashboards.</p>
+        <h1 style="font-size:1.85rem;color:var(--text);margin-bottom:0.4rem;">Manager Login</h1>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.75rem;">Manage your team's attendance, tasks, and communications.</p>
 
         <form id="manager-login-form" class="login-form" novalidate>
           <label>
             Manager Email
-            <input type="email" id="manager-email" required />
+            <input type="email" id="manager-email" placeholder="manager@onixera.com" required />
           </label>
           <label>
             Password
-            <input type="password" id="manager-password" minlength="6" required />
+            <input type="password" id="manager-password" minlength="6" placeholder="Your password" required />
           </label>
           <button type="submit" class="btn btn-solid full-width">Open Manager Dashboard</button>
         </form>
 
-        <p class="demo-note">Only authorized manager credentials can access this portal.</p>
+        <p class="demo-note" style="margin-top:1.25rem;">
+          Only authorized manager credentials can access this portal.
+        </p>
+
         <p id="manager-auth-status" class="form-status" aria-live="polite"></p>
-      </section>
-    </main>
+      </div>
+    </div>
 
     <script type="module" src="./js/manager-login.js"></script>
   </body>

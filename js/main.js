@@ -396,6 +396,69 @@ function initOfferLetterFlow() {
   });
 }
 
+function initLandingAnimations() {
+  const revealTargets = Array.from(
+    document.querySelectorAll(
+      ".hero-minimal, .featured-data, .announcements, .services-section, .values-section, .cta-section, .contact, .careers-section"
+    )
+  );
+
+  if (!revealTargets.length) {
+    return;
+  }
+
+  revealTargets.forEach((element, index) => {
+    element.classList.add("motion-reveal");
+    element.style.setProperty("--reveal-index", `${index}`);
+  });
+
+  const staggerGroups = [
+    ".announcements-grid > *",
+    ".services-grid > *",
+    ".values-grid > *",
+    ".stats-grid > *",
+    ".footer-content > *"
+  ];
+
+  staggerGroups.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      element.classList.add("stagger-item");
+      element.style.setProperty("--stagger-index", `${index}`);
+    });
+  });
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const allAnimatedElements = document.querySelectorAll(".motion-reveal, .stagger-item");
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    allAnimatedElements.forEach((element) => {
+      element.classList.add("is-visible");
+    });
+    return;
+  }
+
+  const animationObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0.14
+    }
+  );
+
+  allAnimatedElements.forEach((element) => {
+    animationObserver.observe(element);
+  });
+}
+
 async function initLeadForm() {
   if (!leadForm) {
     return;
@@ -571,3 +634,4 @@ async function initJobApplicationForm() {
 initLeadForm();
 initJobApplicationForm();
 initOfferLetterFlow();
+initLandingAnimations();
