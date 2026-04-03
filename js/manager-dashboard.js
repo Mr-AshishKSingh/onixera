@@ -23,6 +23,9 @@ import { auth, db, firebaseConfig } from "./firebase-config.js";
 const managerSessionRaw = localStorage.getItem("onixeraManagerSession");
 const managerNameEl = document.getElementById("manager-name");
 const managerLogoutBtn = document.getElementById("manager-logout");
+const managerSidebar = document.getElementById("manager-sidebar");
+const managerSidebarToggle = document.getElementById("manager-sidebar-toggle");
+const managerSidebarBackdrop = document.getElementById("manager-sidebar-backdrop");
 const employeeSelect = document.getElementById("manager-employee-select");
 const managerSelectedEmployeeEl = document.getElementById("manager-selected-employee");
 const managerOptionButtons = Array.from(document.querySelectorAll(".manager-option-btn"));
@@ -128,6 +131,45 @@ let attendanceMonthCursor = new Date(new Date().getFullYear(), new Date().getMon
 let managerAlertsState = [];
 let managerPersonalMessagesState = [];
 let managerProfileLoaded = false;
+const managerSidebarQuery = window.matchMedia("(max-width: 920px)");
+
+function setManagerSidebarOpen(isOpen) {
+  if (!managerSidebar) {
+    return;
+  }
+
+  managerSidebar.classList.toggle("is-open", isOpen);
+  managerSidebar.classList.toggle("is-collapsed", !isOpen);
+
+  if (managerSidebarToggle) {
+    managerSidebarToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  }
+
+  if (managerSidebarBackdrop) {
+    managerSidebarBackdrop.hidden = !isOpen;
+    managerSidebarBackdrop.classList.toggle("is-visible", isOpen);
+  }
+}
+
+function syncManagerSidebarState() {
+  if (!managerSidebar) {
+    return;
+  }
+
+  if (managerSidebarQuery.matches) {
+    setManagerSidebarOpen(false);
+  } else {
+    setManagerSidebarOpen(true);
+  }
+}
+
+function toggleManagerSidebar() {
+  if (!managerSidebar) {
+    return;
+  }
+
+  setManagerSidebarOpen(!managerSidebar.classList.contains("is-open"));
+}
 
 function activateManagerModule(targetId) {
   managerModules.forEach((moduleEl) => {
@@ -144,6 +186,10 @@ function activateManagerModule(targetId) {
 
   if (managerOptionsNoteEl) {
     managerOptionsNoteEl.style.display = targetId ? "none" : "block";
+  }
+
+  if (managerSidebarQuery.matches && targetId) {
+    setManagerSidebarOpen(false);
   }
 }
 
@@ -1613,6 +1659,14 @@ managerLogoutBtn.addEventListener("click", () => {
   window.location.href = "./manager-login.html";
 });
 
+if (managerSidebarToggle) {
+  managerSidebarToggle.addEventListener("click", toggleManagerSidebar);
+}
+
+if (managerSidebarBackdrop) {
+  managerSidebarBackdrop.addEventListener("click", () => setManagerSidebarOpen(false));
+}
+
 managerOptionButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const targetId = button.getAttribute("data-target");
@@ -1698,6 +1752,14 @@ if (managerPasswordForm) {
 }
 
 (async function init() {
+  syncManagerSidebarState();
+
+  if (typeof managerSidebarQuery.addEventListener === "function") {
+    managerSidebarQuery.addEventListener("change", syncManagerSidebarState);
+  } else if (typeof managerSidebarQuery.addListener === "function") {
+    managerSidebarQuery.addListener(syncManagerSidebarState);
+  }
+
   activateManagerModule("");
 
   await loadManagerProfile();

@@ -27,6 +27,25 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Employee data
+const managersData = [
+  {
+    name: "Ashish Manager",
+    email: "ashish.manager@onixeratechnologies.com",
+    password: "123456",
+    department: "Management",
+    domain: "Operations",
+    joinedOn: "2024-04-01"
+  },
+  {
+    name: "Harshita Manager",
+    email: "harshita.manager@onixeratechnologies.com",
+    password: "123456",
+    department: "Management",
+    domain: "Operations",
+    joinedOn: "2024-04-01"
+  }
+];
+
 const employeesData = [
   {
     name: "Rahul Kumar",
@@ -209,7 +228,35 @@ function generateTasksForEmployee(email, department) {
 
 // Main seeding function
 async function seedEmployees() {
-  console.log("🌱 Starting employee seeding...\n");
+  console.log("🌱 Starting manager and employee seeding...\n");
+
+  for (const managerData of managersData) {
+    try {
+      console.log(`📝 Creating manager: ${managerData.email}`);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        managerData.email,
+        managerData.password
+      );
+
+      const uid = userCredential.user.uid;
+
+      console.log(`💾 Saving manager profile for ${managerData.name}`);
+      await setDoc(doc(db, "users", uid), {
+        name: managerData.name,
+        email: managerData.email,
+        department: managerData.department,
+        domain: managerData.domain,
+        joinedOn: managerData.joinedOn,
+        role: "manager",
+        createdAt: serverTimestamp()
+      });
+
+      console.log(`✨ Successfully seeded manager: ${managerData.name}\n`);
+    } catch (error) {
+      console.error(`❌ Error seeding manager ${managerData.name}:`, error.message);
+    }
+  }
 
   for (const employeeData of employeesData) {
     try {
@@ -266,6 +313,10 @@ async function seedEmployees() {
   }
 
   console.log("🎉 Employee seeding completed!");
+  console.log("\n📋 Seeded Managers:");
+  managersData.forEach((manager) => {
+    console.log(`  • ${manager.name} (${manager.department}) - ${manager.email}`);
+  });
   console.log("\n📋 Seeded Employees:");
   employeesData.forEach((emp) => {
     console.log(`  • ${emp.name} (${emp.department}) - ${emp.email}`);

@@ -142,6 +142,48 @@ function setOfferLetterStatus(text, type) {
   }
 }
 
+function getFirebaseErrorCode(error) {
+  if (!error || typeof error !== "object") {
+    return "";
+  }
+  const code = error.code || "";
+  return typeof code === "string" ? code.replace(/^firebase\//, "") : "";
+}
+
+function getPublicFormErrorMessage(error, fallbackMessage) {
+  const code = getFirebaseErrorCode(error);
+
+  if (code === "permission-denied") {
+    return "Submission is temporarily unavailable. Please try again shortly.";
+  }
+
+  if (code === "network-request-failed" || code === "unavailable" || code === "deadline-exceeded") {
+    return "Network issue detected. Please check your internet connection and try again.";
+  }
+
+  return fallbackMessage;
+}
+
+async function ensurePublicFormAuth(auth, signInAnonymously) {
+  if (!auth || !signInAnonymously || auth.currentUser) {
+    return;
+  }
+
+  try {
+    await signInAnonymously(auth);
+  } catch (error) {
+    const code = getFirebaseErrorCode(error);
+
+    if (code === "operation-not-allowed") {
+      // Keep forms usable if Firestore rules allow public writes without auth.
+      console.warn("Anonymous auth is disabled in Firebase Auth.");
+      return;
+    }
+
+    console.warn("Anonymous auth setup failed:", error);
+  }
+}
+
 function openOfferLetterModal() {
   if (!offerLetterModal) {
     return;
@@ -363,10 +405,15 @@ async function initLeadForm() {
   let collection;
   let serverTimestamp;
   let db;
+  let auth;
+  let signInAnonymously;
 
   try {
     const firestoreModule = await import(
       "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js"
+    );
+    const authModule = await import(
+      "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js"
     );
     const firebaseConfigModule = await import("./firebase-config.js");
 
@@ -374,6 +421,10 @@ async function initLeadForm() {
     collection = firestoreModule.collection;
     serverTimestamp = firestoreModule.serverTimestamp;
     db = firebaseConfigModule.db;
+    auth = firebaseConfigModule.auth;
+    signInAnonymously = authModule.signInAnonymously;
+
+    await ensurePublicFormAuth(auth, signInAnonymously);
   } catch (error) {
     console.error("Firebase modules failed to load:", error);
   }
@@ -407,8 +458,16 @@ async function initLeadForm() {
       leadForm.reset();
       setStatus("Thanks! Your request has been submitted successfully.", "success");
     } catch (error) {
-      setStatus("Could not submit right now. Please try again in a moment.", "error");
+      const message = getPublicFormErrorMessage(
+        error,
+        "Could not submit right now. Please try again in a moment."
+      );
+      setStatus(message, "error");
       console.error(error);
+
+      if (getFirebaseErrorCode(error) === "permission-denied") {
+        await ensurePublicFormAuth(auth, signInAnonymously);
+      }
     }
   });
 }
@@ -422,10 +481,15 @@ async function initJobApplicationForm() {
   let collection;
   let serverTimestamp;
   let db;
+  let auth;
+  let signInAnonymously;
 
   try {
     const firestoreModule = await import(
       "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js"
+    );
+    const authModule = await import(
+      "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js"
     );
     const firebaseConfigModule = await import("./firebase-config.js");
 
@@ -433,6 +497,10 @@ async function initJobApplicationForm() {
     collection = firestoreModule.collection;
     serverTimestamp = firestoreModule.serverTimestamp;
     db = firebaseConfigModule.db;
+    auth = firebaseConfigModule.auth;
+    signInAnonymously = authModule.signInAnonymously;
+
+    await ensurePublicFormAuth(auth, signInAnonymously);
   } catch (error) {
     console.error("Firebase modules failed to load for jobs:", error);
   }
@@ -487,7 +555,15 @@ async function initJobApplicationForm() {
       setJobApplicationStatus("Application submitted successfully. Our team will contact you soon.", "success");
     } catch (error) {
       console.error(error);
-      setJobApplicationStatus("Could not submit right now. Please try again in a moment.", "error");
+      const message = getPublicFormErrorMessage(
+        error,
+        "Could not submit right now. Please try again in a moment."
+      );
+      setJobApplicationStatus(message, "error");
+
+      if (getFirebaseErrorCode(error) === "permission-denied") {
+        await ensurePublicFormAuth(auth, signInAnonymously);
+      }
     }
   });
 }

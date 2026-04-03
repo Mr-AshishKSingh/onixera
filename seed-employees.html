@@ -311,6 +311,25 @@
     };
 
     // Employee data
+    const managersData = [
+      {
+        name: "Ashish Manager",
+        email: "ashish.manager@onixeratechnologies.com",
+        password: "123456",
+        department: "Management",
+        domain: "Operations",
+        joinedOn: "2024-04-01"
+      },
+      {
+        name: "Harshita Manager",
+        email: "harshita.manager@onixeratechnologies.com",
+        password: "123456",
+        department: "Management",
+        domain: "Operations",
+        joinedOn: "2024-04-01"
+      }
+    ];
+
     const employeesData = [
       {
         name: "Rahul Kumar",
@@ -510,8 +529,45 @@
       statusText.style.display = "flex";
       stats = { success: 0, error: 0, total: 0 };
 
-      log("🌱 Starting employee seeding...", "info");
+      log("🌱 Starting manager and employee seeding...", "info");
       log("", "info");
+
+      for (const managerData of managersData) {
+        try {
+          statusMsg.textContent = `Seeding ${managerData.name}...`;
+
+          log(`📝 Creating manager: ${managerData.email}`, "info");
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            managerData.email,
+            managerData.password
+          );
+
+          const uid = userCredential.user.uid;
+
+          log(`💾 Saving profile for ${managerData.name}`, "info");
+          await setDoc(doc(db, "users", uid), {
+            name: managerData.name,
+            email: managerData.email,
+            department: managerData.department,
+            domain: managerData.domain,
+            joinedOn: managerData.joinedOn,
+            role: "manager",
+            createdAt: serverTimestamp()
+          });
+
+          log(`✨ Successfully seeded manager: ${managerData.name}`, "success");
+          log("", "info");
+          stats.success++;
+          stats.total++;
+          updateStats();
+        } catch (error) {
+          log(`❌ Error: ${managerData.name} - ${error.message}`, "error");
+          stats.error++;
+          stats.total++;
+          updateStats();
+        }
+      }
 
       for (const employeeData of employeesData) {
         try {
@@ -573,6 +629,7 @@
       }
 
       log("🎉 Seeding completed!", "success");
+      log("Managers and employees are registered in Firebase Auth and Firestore.", "success");
       log("All employees registered with attendance and tasks.", "success");
       
       statusText.classList.add("success");

@@ -1690,7 +1690,9 @@ textarea:focus {
 }
 
 .manager-main {
-  grid-template-columns: minmax(240px, 290px) minmax(0, 1fr);
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  align-items: start;
+  position: relative;
 }
 
 .manager-content {
@@ -1704,6 +1706,25 @@ textarea:focus {
   top: 1.2rem;
   border: 1.5px solid rgba(15, 92, 86, 0.14);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 253, 249, 0.98) 100%);
+  max-height: calc(100vh - 2.8rem);
+  overflow: auto;
+  transition: transform 260ms ease;
+}
+
+.manager-sidebar.is-collapsed {
+  transform: translateX(calc(-100% - 1.5rem));
+}
+
+.manager-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.manager-sidebar-toggle {
+  display: none;
+}
+
+.manager-sidebar-backdrop {
+  display: none;
 }
 
 .manager-sidebar label {
@@ -1729,6 +1750,10 @@ textarea:focus {
   gap: 0.75rem;
 }
 
+.manager-workspace-tools {
+  margin-top: 1rem;
+}
+
 .manager-profile-card {
   border: 1.5px solid rgba(15, 92, 86, 0.16);
   border-radius: 12px;
@@ -1750,14 +1775,9 @@ textarea:focus {
   gap: 0.65rem;
 }
 
-.manager-options {
-  border: 1.5px solid rgba(15, 92, 86, 0.14);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 253, 249, 0.98) 100%);
-}
-
 .manager-options-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 0.8rem;
   min-width: 0;
 }
@@ -1908,7 +1928,7 @@ button.calendar-cell {
   font-weight: 800;
   color: var(--text);
   font-size: 0.95rem;
-  letter-spacing: 0.01em;
+    grid-template-columns: 1fr;
 }
 
 .calendar-state,
@@ -2297,9 +2317,8 @@ body.employee-body .section-head h2 {
     grid-template-columns: 1fr;
   }
 
-  .manager-options-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.8rem;
+  .manager-sidebar-toggle {
+    display: inline-flex;
   }
 
   .manager-main {
@@ -2307,7 +2326,25 @@ body.employee-body .section-head h2 {
   }
 
   .manager-sidebar {
-    position: static;
+    position: fixed;
+    z-index: 19;
+    top: 1rem;
+    left: 1rem;
+    width: min(88vw, 360px);
+    max-height: calc(100vh - 2rem);
+    transform: translateX(calc(-100% - 2rem));
+  }
+
+  .manager-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .manager-sidebar-backdrop.is-visible {
+    display: block;
+  }
+
+  .manager-options-grid {
+    grid-template-columns: 1fr;
   }
 
   /* Improved input/button sizing */

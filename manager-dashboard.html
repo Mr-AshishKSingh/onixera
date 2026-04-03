@@ -25,6 +25,15 @@
         <span class="brand-text">Onixera Manager Dashboard</span>
       </a>
       <div class="dashboard-actions">
+        <button
+          id="manager-sidebar-toggle"
+          class="btn btn-outline manager-sidebar-toggle"
+          type="button"
+          aria-controls="manager-sidebar"
+          aria-expanded="true"
+        >
+          Menu
+        </button>
         <span id="manager-name" class="employee-name">Manager</span>
         <button
           id="manager-logout"
@@ -38,7 +47,7 @@
     </header>
 
     <main class="employee-main manager-main">
-      <aside class="employee-panel manager-sidebar section-reveal" aria-label="Employee switcher">
+      <aside id="manager-sidebar" class="employee-panel manager-sidebar section-reveal" aria-label="Manager workspace panel">
         <div class="section-head">
           <p class="eyebrow">Active Employee</p>
           <h2>Switch Employee</h2>
@@ -84,37 +93,37 @@
             <p id="manager-password-status" class="form-status" aria-live="polite"></p>
           </form>
         </div>
+
+        <div class="manager-account-tools manager-workspace-tools" aria-label="Manager workspace tools">
+          <div class="section-head">
+            <p class="eyebrow">Manager Workspace</p>
+            <h2>Select an Operation</h2>
+          </div>
+          <div class="manager-options-grid" role="tablist" aria-label="Manager modules">
+            <button class="manager-option-btn" type="button" data-target="module-onboarding" role="tab" aria-selected="false">
+              Register Employee
+            </button>
+            <button class="manager-option-btn" type="button" data-target="module-profile" role="tab" aria-selected="false">
+              Change Employee Details
+            </button>
+            <button class="manager-option-btn" type="button" data-target="module-attendance" role="tab" aria-selected="false">
+              Manage Attendance
+            </button>
+            <button class="manager-option-btn" type="button" data-target="module-alerts" role="tab" aria-selected="false">
+              Post Alerts
+            </button>
+            <button class="manager-option-btn" type="button" data-target="module-personal-msg" role="tab" aria-selected="false">
+              Send Personal Messages
+            </button>
+            <button class="manager-option-btn" type="button" data-target="module-tasks" role="tab" aria-selected="false">
+              Assign Tasks
+            </button>
+          </div>
+          <p class="manager-options-note" id="manager-options-note">Select one option to continue.</p>
+        </div>
       </aside>
 
       <div class="manager-content">
-      <section class="employee-panel manager-options section-reveal" aria-label="Manager modules">
-        <div class="section-head">
-          <p class="eyebrow">Manager Workspace</p>
-          <h2>Select an Operation</h2>
-        </div>
-        <div class="manager-options-grid" role="tablist" aria-label="Manager modules">
-          <button class="manager-option-btn" type="button" data-target="module-onboarding" role="tab" aria-selected="false">
-            Register Employee
-          </button>
-          <button class="manager-option-btn" type="button" data-target="module-profile" role="tab" aria-selected="false">
-            Change Employee Details
-          </button>
-          <button class="manager-option-btn" type="button" data-target="module-attendance" role="tab" aria-selected="false">
-            Manage Attendance
-          </button>
-          <button class="manager-option-btn" type="button" data-target="module-alerts" role="tab" aria-selected="false">
-            Post Alerts
-          </button>
-          <button class="manager-option-btn" type="button" data-target="module-personal-msg" role="tab" aria-selected="false">
-            Send Personal Messages
-          </button>
-          <button class="manager-option-btn" type="button" data-target="module-tasks" role="tab" aria-selected="false">
-            Assign Tasks
-          </button>
-        </div>
-        <p class="manager-options-note" id="manager-options-note">Select one option to continue.</p>
-      </section>
-
       <section id="module-onboarding" class="employee-panel manager-module section-reveal" aria-label="Employee onboarding" hidden>
         <div class="section-head">
           <p class="eyebrow">Employee Onboarding</p>
@@ -368,54 +377,7 @@
       </section>
       </div>
     </main>
-
-    <script>
-      (function () {
-        const buttons = Array.from(document.querySelectorAll(".manager-option-btn"));
-        const modules = Array.from(document.querySelectorAll(".manager-module"));
-        const note = document.getElementById("manager-options-note");
-
-        function showModule(targetId) {
-          modules.forEach((section) => {
-            const isActive = Boolean(targetId) && section.id === targetId;
-            section.hidden = !isActive;
-            section.classList.toggle("is-active", isActive);
-          });
-
-          buttons.forEach((button) => {
-            const isActive = button.getAttribute("data-target") === targetId;
-            button.classList.toggle("is-active", isActive);
-            button.setAttribute("aria-selected", isActive ? "true" : "false");
-          });
-
-          if (note) {
-            note.style.display = targetId ? "none" : "block";
-          }
-        }
-
-        buttons.forEach((button) => {
-          button.addEventListener("click", function () {
-            showModule(button.getAttribute("data-target") || "");
-          });
-        });
-
-        showModule("");
-
-        // Fallback handler for create employee form
-        const createForm = document.getElementById("manager-create-employee-form");
-        if (createForm) {
-          createForm.addEventListener("submit", (e) => {
-            // This is a fallback to ensure the form shows feedback
-            const statusEl = document.getElementById("create-employee-status");
-            if (statusEl) {
-              statusEl.textContent = "Processing... Please wait.";
-              statusEl.classList.remove("success", "error");
-              statusEl.style.display = "block";
-            }
-          });
-        }
-      })();
-    </script>
+    <div id="manager-sidebar-backdrop" class="manager-sidebar-backdrop" hidden></div>
     <script type="module" src="./js/manager-dashboard.js"></script>
   </body>
 </html>
