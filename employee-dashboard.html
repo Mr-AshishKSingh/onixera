@@ -25,6 +25,15 @@
         <span class="brand-text">Onixera Employee Dashboard</span>
       </a>
       <div class="dashboard-actions">
+        <button
+          id="employee-sidebar-toggle"
+          class="btn btn-outline employee-sidebar-toggle"
+          type="button"
+          aria-controls="employee-sidebar"
+          aria-expanded="true"
+        >
+          Menu
+        </button>
         <span id="employee-name" class="employee-name">Employee</span>
         <button
           id="employee-logout"
@@ -38,7 +47,7 @@
     </header>
 
     <main class="employee-main">
-      <aside class="employee-sidebar section-reveal" aria-label="Employee details">
+      <aside id="employee-sidebar" class="employee-sidebar section-reveal" aria-label="Employee details">
         <section class="employee-panel employee-profile-panel">
           <div class="employee-avatar" id="employee-avatar" aria-hidden="true">E</div>
           <p class="eyebrow">Employee Details</p>
@@ -158,7 +167,7 @@
         </section>
       </div>
     </main>
-
+    <div id="employee-sidebar-backdrop" class="employee-sidebar-backdrop" hidden></div>
     <script type="module" src="./js/employee-dashboard.js"></script>
   </body>
 </html>

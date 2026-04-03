@@ -50,12 +50,25 @@
         <span class="brand-mark" style="display: none">O</span>
         <span class="brand-text">Onixera Technologies</span>
       </a>
-      <nav class="nav-links" aria-label="Primary">
+      <button
+        id="nav-sidebar-toggle"
+        class="btn btn-outline nav-sidebar-toggle"
+        type="button"
+        aria-controls="nav-sidebar"
+        aria-expanded="true"
+      >
+        Menu
+      </button>
+      <nav id="nav-sidebar" class="nav-sidebar section-reveal" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#students">Students</a>
         <a href="#jobs">Jobs</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
+        <div class="nav-sidebar-divider"></div>
+        <a class="btn btn-ghost" href="./manager-login.html">Manager Login</a>
+        <a class="btn btn-ghost" href="./employee-login.html">Employee Login</a>
+        <a class="btn btn-outline" href="./login.html">Client Login</a>
       </nav>
       <div class="header-actions">
         <a class="btn btn-ghost" href="./manager-login.html">Manager Login</a>
@@ -63,6 +76,8 @@
         <a class="btn btn-outline" href="./login.html">Client Login</a>
       </div>
     </header>
+
+    <div id="nav-sidebar-backdrop" class="nav-sidebar-backdrop" hidden></div>
 
     <main>
       <section class="hero section-reveal">
@@ -525,6 +540,66 @@
     </script>
     <script src="./js/runtime-config.js"></script>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      (function() {
+        const navSidebar = document.getElementById('nav-sidebar');
+        const navSidebarToggle = document.getElementById('nav-sidebar-toggle');
+        const navSidebarBackdrop = document.getElementById('nav-sidebar-backdrop');
+        const navSidebarQuery = window.matchMedia('(max-width: 980px)');
+
+        function setNavSidebarOpen(isOpen) {
+          if (!navSidebar) return;
+          navSidebar.classList.toggle('is-open', isOpen);
+          navSidebar.classList.toggle('is-collapsed', !isOpen);
+          if (navSidebarToggle) {
+            navSidebarToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          }
+          if (navSidebarBackdrop) {
+            navSidebarBackdrop.hidden = !isOpen;
+            navSidebarBackdrop.classList.toggle('is-visible', isOpen);
+          }
+        }
+
+        function syncNavSidebarState() {
+          if (!navSidebar) return;
+          if (navSidebarQuery.matches) {
+            setNavSidebarOpen(false);
+          } else {
+            setNavSidebarOpen(true);
+          }
+        }
+
+        function toggleNavSidebar() {
+          if (!navSidebar) return;
+          setNavSidebarOpen(!navSidebar.classList.contains('is-open'));
+        }
+
+        if (navSidebarToggle) {
+          navSidebarToggle.addEventListener('click', toggleNavSidebar);
+        }
+
+        if (navSidebarBackdrop) {
+          navSidebarBackdrop.addEventListener('click', () => setNavSidebarOpen(false));
+        }
+
+        const navLinks = document.querySelectorAll('#nav-sidebar a[href^="#"]');
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            if (navSidebarQuery.matches) {
+              setNavSidebarOpen(false);
+            }
+          });
+        });
+
+        syncNavSidebarState();
+
+        if (typeof navSidebarQuery.addEventListener === 'function') {
+          navSidebarQuery.addEventListener('change', syncNavSidebarState);
+        } else if (typeof navSidebarQuery.addListener === 'function') {
+          navSidebarQuery.addListener(syncNavSidebarState);
+        }
+      })();
+    </script>
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>

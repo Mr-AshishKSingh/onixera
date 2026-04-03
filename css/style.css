@@ -1210,6 +1210,73 @@ textarea:focus {
 .employee-sidebar {
   position: sticky;
   top: 1.2rem;
+  max-height: calc(100vh - 2.8rem);
+  overflow: auto;
+  transition: transform 260ms ease;
+}
+
+.employee-sidebar.is-collapsed {
+  transform: translateX(calc(-100% - 1.5rem));
+}
+
+.employee-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.employee-sidebar-toggle {
+  display: none;
+}
+
+.employee-sidebar-backdrop {
+  display: none;
+}
+
+.employee-sidebar-backdrop.is-visible {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 4, 9, 0.46);
+  backdrop-filter: blur(2px);
+  z-index: 18;
+}
+
+.nav-sidebar {
+  position: sticky;
+  top: 1.2rem;
+  max-height: calc(100vh - 2.8rem);
+  overflow: auto;
+  transition: transform 260ms ease;
+}
+
+.nav-sidebar.is-collapsed {
+  transform: translateX(calc(-100% - 1.5rem));
+}
+
+.nav-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.nav-sidebar-toggle {
+  display: none;
+}
+
+.nav-sidebar-backdrop {
+  display: none;
+}
+
+.nav-sidebar-backdrop.is-visible {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 4, 9, 0.46);
+  backdrop-filter: blur(2px);
+  z-index: 18;
+}
+
+.nav-sidebar-divider {
+  height: 1px;
+  background: rgba(15, 92, 86, 0.1);
+  margin: 0.8rem 0;
 }
 
 .employee-profile-panel {
@@ -2321,6 +2388,36 @@ body.employee-body .section-head h2 {
     display: inline-flex;
   }
 
+  .employee-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .nav-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .employee-main {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-sidebar {
+    position: fixed;
+    z-index: 19;
+    top: 1rem;
+    left: 1rem;
+    width: min(88vw, 360px);
+    max-height: calc(100vh - 2rem);
+    transform: translateX(calc(-100% - 2rem));
+  }
+
+  .employee-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .employee-sidebar-backdrop.is-visible {
+    display: block;
+  }
+
   .manager-main {
     grid-template-columns: 1fr;
   }
@@ -2340,6 +2437,24 @@ body.employee-body .section-head h2 {
   }
 
   .manager-sidebar-backdrop.is-visible {
+    display: block;
+  }
+
+  .nav-sidebar {
+    position: fixed;
+    z-index: 19;
+    top: 1rem;
+    left: 1rem;
+    width: min(88vw, 360px);
+    max-height: calc(100vh - 2rem);
+    transform: translateX(calc(-100% - 2rem));
+  }
+
+  .nav-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .nav-sidebar-backdrop.is-visible {
     display: block;
   }
 
@@ -2449,7 +2564,7 @@ body.employee-body .section-head h2 {
   }
 
   .employee-sidebar {
-    position: static;
+    width: min(92vw, 340px);
   }
 
   .dashboard-actions {

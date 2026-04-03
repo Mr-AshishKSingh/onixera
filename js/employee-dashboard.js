@@ -20,6 +20,9 @@ import { auth, db } from "./firebase-config.js";
 const sessionRaw = localStorage.getItem("onixeraEmployeeSession");
 const employeeNameEl = document.getElementById("employee-name");
 const logoutBtn = document.getElementById("employee-logout");
+const employeeSidebar = document.getElementById("employee-sidebar");
+const employeeSidebarToggle = document.getElementById("employee-sidebar-toggle");
+const employeeSidebarBackdrop = document.getElementById("employee-sidebar-backdrop");
 const updatesList = document.getElementById("company-updates");
 const announcementReaderEl = document.getElementById("announcement-reader");
 const announcementReaderTitleEl = document.getElementById("announcement-reader-title");
@@ -57,6 +60,54 @@ const session = sessionRaw ? JSON.parse(sessionRaw) : null;
 
 if (session && employeeNameEl) {
   employeeNameEl.textContent = session.name || session.email;
+}
+
+const employeeSidebarQuery = window.matchMedia("(max-width: 920px)");
+
+function setEmployeeSidebarOpen(isOpen) {
+  if (!employeeSidebar) {
+    return;
+  }
+
+  employeeSidebar.classList.toggle("is-open", isOpen);
+  employeeSidebar.classList.toggle("is-collapsed", !isOpen);
+
+  if (employeeSidebarToggle) {
+    employeeSidebarToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  }
+
+  if (employeeSidebarBackdrop) {
+    employeeSidebarBackdrop.hidden = !isOpen;
+    employeeSidebarBackdrop.classList.toggle("is-visible", isOpen);
+  }
+}
+
+function syncEmployeeSidebarState() {
+  if (!employeeSidebar) {
+    return;
+  }
+
+  if (employeeSidebarQuery.matches) {
+    setEmployeeSidebarOpen(false);
+  } else {
+    setEmployeeSidebarOpen(true);
+  }
+}
+
+function toggleEmployeeSidebar() {
+  if (!employeeSidebar) {
+    return;
+  }
+
+  setEmployeeSidebarOpen(!employeeSidebar.classList.contains("is-open"));
+}
+
+if (employeeSidebarToggle) {
+  employeeSidebarToggle.addEventListener("click", toggleEmployeeSidebar);
+}
+
+if (employeeSidebarBackdrop) {
+  employeeSidebarBackdrop.addEventListener("click", () => setEmployeeSidebarOpen(false));
 }
 
 const fallbackUpdates = [
@@ -700,3 +751,11 @@ listenAttendance();
 listenCompanyUpdates();
 listenPersonalNotifications();
 listenTasks();
+
+syncEmployeeSidebarState();
+
+if (typeof employeeSidebarQuery.addEventListener === "function") {
+  employeeSidebarQuery.addEventListener("change", syncEmployeeSidebarState);
+} else if (typeof employeeSidebarQuery.addListener === "function") {
+  employeeSidebarQuery.addListener(syncEmployeeSidebarState);
+}
