@@ -7,23 +7,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body class="employee-body">
+  <body class="employee-body mgr-portal">
+
+    <!-- ══ App Bar ══════════════════════════════════════════ -->
     <header class="site-header employee-header" id="top">
-      <a class="brand" href="./index.html" aria-label="Onixera home">
-        <img
-          class="brand-logo"
-          src="./assets/light.png"
-          alt="Onixera Technologies logo"
-          onerror="this.style.display='none';this.parentElement.querySelector('.brand-mark').style.display='grid';"
-        />
-        <span class="brand-mark" style="display: none">O</span>
-        <span class="brand-text">Onixera Manager Dashboard</span>
-      </a>
+      <div class="mgr-appbar-brand">
+        <a class="brand" href="./index.html" aria-label="Onixera home">
+          <img
+            class="brand-logo"
+            src="./assets/light.png"
+            alt="Onixera Technologies logo"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='grid';"
+          />
+          <span class="brand-mark" style="display:none">O</span>
+          <span class="brand-text">Onixera</span>
+        </a>
+        <span class="mgr-portal-badge">Manager Portal</span>
+      </div>
+
       <div class="dashboard-actions">
         <button
           id="manager-sidebar-toggle"
@@ -32,352 +38,513 @@
           aria-controls="manager-sidebar"
           aria-expanded="true"
         >
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
           Menu
         </button>
-        <span id="manager-name" class="employee-name">Manager</span>
+
+        <div class="mgr-name-pill">
+          <div class="mgr-name-pill-av">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+          </div>
+          <span id="manager-name" class="mgr-name-pill-label">Manager</span>
+        </div>
+
         <button
           id="manager-logout"
           class="btn btn-outline"
           type="button"
           onclick="localStorage.removeItem('onixeraManagerSession');localStorage.removeItem('onixeraEmployeeSession');window.location.href='./manager-login.html';"
         >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
           Logout
         </button>
       </div>
     </header>
 
+    <!-- ══ Layout ════════════════════════════════════════════ -->
     <main class="employee-main manager-main">
-      <aside id="manager-sidebar" class="employee-panel manager-sidebar section-reveal" aria-label="Manager workspace panel">
-        <div class="section-head">
-          <p class="eyebrow">Active Employee</p>
-          <h2>Switch Employee</h2>
+
+      <!-- ══ Sidebar ══════════════════════════════════════════ -->
+      <aside id="manager-sidebar" class="manager-sidebar section-reveal" aria-label="Manager workspace panel">
+
+        <!-- Employee Selector -->
+        <div class="mgr-sb-group">
+          <p class="mgr-sb-label">Active Employee</p>
+          <label class="mgr-select-wrap">
+            Select Employee
+            <select id="manager-employee-select"></select>
+          </label>
+          <div class="mgr-emp-chip">
+            <div class="mgr-emp-chip-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+            </div>
+            <span id="manager-selected-employee" class="mgr-emp-chip-name">No employee selected</span>
+          </div>
         </div>
-        <label>
-          Select Employee
-          <select id="manager-employee-select"></select>
-        </label>
-        <p id="manager-selected-employee" class="manager-selected-employee">No employee selected</p>
 
-        <div class="manager-account-tools" aria-label="Manager account tools">
-          <div class="section-head">
-            <p class="eyebrow">Manager Account</p>
-            <h2>Profile and Security</h2>
+        <!-- Manager Account -->
+        <div class="mgr-sb-group">
+          <p class="mgr-sb-label">My Account</p>
+
+          <button id="manager-view-profile-btn" class="mgr-sb-btn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+            View My Profile
+          </button>
+
+          <div id="manager-profile-card" class="mgr-profile-card" hidden>
+            <div class="mgr-profile-row">
+              <span class="mgr-profile-key">Name</span>
+              <span id="manager-profile-name" class="mgr-profile-val">--</span>
+            </div>
+            <div class="mgr-profile-row">
+              <span class="mgr-profile-key">Email</span>
+              <span id="manager-profile-email" class="mgr-profile-val">--</span>
+            </div>
+            <div class="mgr-profile-row">
+              <span class="mgr-profile-key">Role</span>
+              <span id="manager-profile-role" class="mgr-profile-val">--</span>
+            </div>
+            <div class="mgr-profile-row">
+              <span class="mgr-profile-key">Department</span>
+              <span id="manager-profile-department" class="mgr-profile-val">--</span>
+            </div>
+            <div class="mgr-profile-row">
+              <span class="mgr-profile-key">Domain</span>
+              <span id="manager-profile-domain" class="mgr-profile-val">--</span>
+            </div>
+            <div class="mgr-profile-row">
+              <span class="mgr-profile-key">Joined On</span>
+              <span id="manager-profile-joined" class="mgr-profile-val">--</span>
+            </div>
           </div>
 
-          <button id="manager-view-profile-btn" class="btn btn-outline" type="button">View My Profile</button>
-
-          <div id="manager-profile-card" class="manager-profile-card" hidden>
-            <p><strong>Name:</strong> <span id="manager-profile-name">--</span></p>
-            <p><strong>Email:</strong> <span id="manager-profile-email">--</span></p>
-            <p><strong>Role:</strong> <span id="manager-profile-role">--</span></p>
-            <p><strong>Department:</strong> <span id="manager-profile-department">--</span></p>
-            <p><strong>Domain:</strong> <span id="manager-profile-domain">--</span></p>
-            <p><strong>Joined On:</strong> <span id="manager-profile-joined">--</span></p>
-          </div>
           <p id="manager-account-status" class="form-status" aria-live="polite"></p>
 
-          <form id="manager-password-form" class="manager-password-form" novalidate>
+          <form id="manager-password-form" class="mgr-pass-form" novalidate>
+            <p class="mgr-pass-label">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 0 1 21.75 8.25Z"/></svg>
+              Change Password
+            </p>
             <label>
               Current Password
-              <input id="manager-current-password" type="password" minlength="6" required />
+              <input id="manager-current-password" type="password" placeholder="Current password" minlength="6" required />
             </label>
             <label>
               New Password
-              <input id="manager-new-password" type="password" minlength="6" required />
+              <input id="manager-new-password" type="password" placeholder="New password" minlength="6" required />
             </label>
             <label>
               Confirm New Password
-              <input id="manager-confirm-password" type="password" minlength="6" required />
+              <input id="manager-confirm-password" type="password" placeholder="Confirm new password" minlength="6" required />
             </label>
-            <button class="btn btn-solid" type="submit">Change Password</button>
+            <button class="btn btn-solid" type="submit">Update Password</button>
             <p id="manager-password-status" class="form-status" aria-live="polite"></p>
           </form>
         </div>
 
-        <div class="manager-account-tools manager-workspace-tools" aria-label="Manager workspace tools">
-          <div class="section-head">
-            <p class="eyebrow">Manager Workspace</p>
-            <h2>Select an Operation</h2>
+        <!-- Workspace Navigation -->
+        <div class="mgr-sb-group">
+          <p class="mgr-sb-label">Workspace</p>
+          <div class="mgr-nav-grid manager-options-grid" role="tablist" aria-label="Manager modules">
+
+            <button class="manager-option-btn mgr-nav-btn" type="button" data-target="module-onboarding" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/></svg>
+              <span>Register Employee</span>
+            </button>
+
+            <button class="manager-option-btn mgr-nav-btn" type="button" data-target="module-profile" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg>
+              <span>Employee Details</span>
+            </button>
+
+            <button class="manager-option-btn mgr-nav-btn" type="button" data-target="module-attendance" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+              <span>Manage Attendance</span>
+            </button>
+
+            <button class="manager-option-btn mgr-nav-btn" type="button" data-target="module-alerts" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 1 8.835-2.535m0 0A23.74 23.74 0 0 1 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"/></svg>
+              <span>Post Alerts</span>
+            </button>
+
+            <button class="manager-option-btn mgr-nav-btn" type="button" data-target="module-personal-msg" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
+              <span>Personal Messages</span>
+            </button>
+
+            <button class="manager-option-btn mgr-nav-btn" type="button" data-target="module-tasks" role="tab" aria-selected="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg>
+              <span>Assign Tasks</span>
+            </button>
+
           </div>
-          <div class="manager-options-grid" role="tablist" aria-label="Manager modules">
-            <button class="manager-option-btn" type="button" data-target="module-onboarding" role="tab" aria-selected="false">
-              Register Employee
-            </button>
-            <button class="manager-option-btn" type="button" data-target="module-profile" role="tab" aria-selected="false">
-              Change Employee Details
-            </button>
-            <button class="manager-option-btn" type="button" data-target="module-attendance" role="tab" aria-selected="false">
-              Manage Attendance
-            </button>
-            <button class="manager-option-btn" type="button" data-target="module-alerts" role="tab" aria-selected="false">
-              Post Alerts
-            </button>
-            <button class="manager-option-btn" type="button" data-target="module-personal-msg" role="tab" aria-selected="false">
-              Send Personal Messages
-            </button>
-            <button class="manager-option-btn" type="button" data-target="module-tasks" role="tab" aria-selected="false">
-              Assign Tasks
-            </button>
-          </div>
-          <p class="manager-options-note" id="manager-options-note">Select one option to continue.</p>
+          <p class="manager-options-note" id="manager-options-note">Select an operation to continue.</p>
         </div>
+
       </aside>
 
+      <!-- ══ Content Area ════════════════════════════════════ -->
       <div class="manager-content">
-      <section id="module-onboarding" class="employee-panel manager-module section-reveal" aria-label="Employee onboarding" hidden>
-        <div class="section-head">
-          <p class="eyebrow">Employee Onboarding</p>
-          <h2>Create Employee Login and Profile</h2>
-        </div>
 
-        <form id="manager-create-employee-form" class="manager-update-form" novalidate>
-          <label>
-            Employee Name
-            <input id="create-employee-name" type="text" maxlength="80" required />
-          </label>
-          <label>
-            Gmail
-            <input id="create-employee-email" type="email" maxlength="120" required />
-          </label>
-          <label>
-            Password
-            <input id="create-employee-password" type="password" minlength="6" required />
-          </label>
-          <label>
-            Confirm Password
-            <input id="create-employee-confirm-password" type="password" minlength="6" required />
-          </label>
-          <label>
-            Employee ID
-            <input id="create-employee-id" type="text" maxlength="30" required />
-          </label>
-          <label>
-            Date of Joining
-            <input id="create-employee-joined" type="date" required />
-          </label>
-          <label>
-            Salary
-            <input id="create-employee-salary" type="number" min="0" step="0.01" required />
-          </label>
-          <label>
-            Domain
-            <input id="create-employee-domain" type="text" maxlength="60" required />
-          </label>
-          <label>
-            Department
-            <input id="create-employee-department" type="text" maxlength="60" />
-          </label>
-          <button class="btn btn-solid" type="submit">Create Employee Account</button>
-          <p id="create-employee-status" class="form-status" aria-live="polite"></p>
-        </form>
-      </section>
-
-      <section id="module-attendance" class="employee-panel manager-module section-reveal" aria-label="Attendance control" hidden>
-        <div class="section-head">
-          <p class="eyebrow">Attendance Control</p>
-          <h2>Mark Employee Attendance</h2>
-        </div>
-
-        <div class="calendar-toolbar">
-          <button class="btn btn-ghost" id="attendance-prev-month" type="button">Previous</button>
-          <p class="calendar-month" id="attendance-month-label">Month</p>
-          <button class="btn btn-ghost" id="attendance-next-month" type="button">Next</button>
-        </div>
-
-        <div class="attendance-calendar" id="manager-attendance-calendar" aria-label="Attendance calendar"></div>
-
-        <div class="attendance-editor">
-          <p class="attendance-selected" id="attendance-selected-date">Select dates to edit attendance</p>
-          <label>
-            Status
-            <select id="attendance-day-status">
-              <option value="Pending">Pending</option>
-              <option value="Present">Present</option>
-              <option value="Absent">Absent</option>
-            </select>
-          </label>
-          <label>
-            Check-In Time
-            <input id="attendance-day-checkin" type="time" />
-          </label>
-          <div class="attendance-button-group">
-            <button class="btn btn-outline" id="apply-day-attendance" type="button">Apply to All Selected</button>
-            <button class="btn btn-ghost" id="clear-attendance-selection" type="button">Clear Selection</button>
+        <!-- Welcome / Overview (default state) -->
+        <section id="module-welcome" class="manager-module is-active mgr-welcome-section" aria-label="Dashboard overview">
+          <div class="mgr-welcome-inner">
+            <div class="mgr-welcome-orb">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5m.75-9 3-3 2.148 2.148A12.061 12.061 0 0 1 16.5 7.605"/></svg>
+            </div>
+            <h2>Manager Dashboard</h2>
+            <p>Select a workspace operation from the sidebar to manage your team. You can register employees, track attendance, assign tasks, and communicate with your team.</p>
+            <div class="mgr-welcome-grid">
+              <button class="mgr-quick-tile" type="button" data-target="module-onboarding">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/></svg>
+                <strong>Register Employee</strong>
+                <span>Add new team members and create credentials</span>
+              </button>
+              <button class="mgr-quick-tile" type="button" data-target="module-attendance">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+                <strong>Manage Attendance</strong>
+                <span>Mark and publish daily attendance records</span>
+              </button>
+              <button class="mgr-quick-tile" type="button" data-target="module-tasks">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg>
+                <strong>Assign Tasks</strong>
+                <span>Assign work and track completion progress</span>
+              </button>
+              <button class="mgr-quick-tile" type="button" data-target="module-alerts">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 1 8.835-2.535m0 0A23.74 23.74 0 0 1 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"/></svg>
+                <strong>Post Alerts</strong>
+                <span>Broadcast announcements to all employees</span>
+              </button>
+              <button class="mgr-quick-tile" type="button" data-target="module-personal-msg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
+                <strong>Send Messages</strong>
+                <span>Direct personal communication with employees</span>
+              </button>
+              <button class="mgr-quick-tile" type="button" data-target="module-profile">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg>
+                <strong>Edit Profile</strong>
+                <span>Update and manage employee details</span>
+              </button>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <button class="btn btn-solid" id="save-attendance" type="button">Save Attendance</button>
-        <p id="manager-status" class="form-status" aria-live="polite"></p>
-      </section>
-
-      <section id="module-profile" class="employee-panel manager-module section-reveal" aria-label="Employee profile control" hidden>
-        <div class="section-head">
-          <p class="eyebrow">Profile Management</p>
-          <h2>Change Employee Details</h2>
-        </div>
-
-        <form id="manager-employee-form" class="manager-update-form" novalidate>
-          <label>
-            Employee Name
-            <input id="edit-employee-name" type="text" maxlength="80" required />
-          </label>
-          <label>
-            Employee ID
-            <input id="edit-employee-id" type="text" maxlength="30" />
-          </label>
-          <label>
-            Department
-            <input id="edit-employee-department" type="text" maxlength="60" />
-          </label>
-          <label>
-            Domain
-            <input id="edit-employee-domain" type="text" maxlength="60" />
-          </label>
-          <label>
-            Salary
-            <input id="edit-employee-salary" type="number" min="0" step="0.01" />
-          </label>
-          <label>
-            Joined On
-            <input id="edit-employee-joined" type="date" />
-          </label>
-          <div class="form-actions">
-            <button class="btn btn-outline" id="save-employee-profile" type="submit">
-              Save Employee Details
-            </button>
-            <button class="btn btn-ghost danger" id="delete-employee-btn" type="button">
-              Delete Employee
-            </button>
+        <!-- ── Register Employee ───────────────────────── -->
+        <section id="module-onboarding" class="employee-panel manager-module section-reveal" aria-label="Employee onboarding" hidden>
+          <div class="mgr-mod-hd">
+            <div class="mgr-mod-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/></svg>
+            </div>
+            <div>
+              <p class="eyebrow">Employee Onboarding</p>
+              <h2>Create Employee Login &amp; Profile</h2>
+            </div>
           </div>
 
-          <div class="manager-employee-password-tools">
-            <p class="eyebrow">Access Control</p>
-            <h3>Reset Employee Password</h3>
+          <form id="manager-create-employee-form" class="manager-update-form" novalidate>
+            <div class="mgr-form-2">
+              <label>
+                Employee Name
+                <input id="create-employee-name" type="text" maxlength="80" placeholder="Full name" required />
+              </label>
+              <label>
+                Gmail
+                <input id="create-employee-email" type="email" maxlength="120" placeholder="employee@gmail.com" required />
+              </label>
+              <label>
+                Password
+                <input id="create-employee-password" type="password" minlength="6" placeholder="Min 6 characters" required />
+              </label>
+              <label>
+                Confirm Password
+                <input id="create-employee-confirm-password" type="password" minlength="6" placeholder="Repeat password" required />
+              </label>
+              <label>
+                Employee ID
+                <input id="create-employee-id" type="text" maxlength="30" placeholder="e.g. EMP-001" required />
+              </label>
+              <label>
+                Date of Joining
+                <input id="create-employee-joined" type="date" required />
+              </label>
+              <label>
+                Salary
+                <input id="create-employee-salary" type="number" min="0" step="0.01" placeholder="Monthly salary" required />
+              </label>
+              <label>
+                Domain
+                <input id="create-employee-domain" type="text" maxlength="60" placeholder="e.g. Frontend Development" required />
+              </label>
+              <label class="mgr-full">
+                Department
+                <input id="create-employee-department" type="text" maxlength="60" placeholder="e.g. Engineering" />
+              </label>
+            </div>
+            <button class="btn btn-solid" type="submit">Create Employee Account</button>
+            <p id="create-employee-status" class="form-status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <!-- ── Manage Attendance ───────────────────────── -->
+        <section id="module-attendance" class="employee-panel manager-module section-reveal" aria-label="Attendance control" hidden>
+          <div class="mgr-mod-hd">
+            <div class="mgr-mod-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+            </div>
+            <div>
+              <p class="eyebrow">Attendance Control</p>
+              <h2>Mark Employee Attendance</h2>
+            </div>
+          </div>
+
+          <div class="calendar-toolbar">
+            <button class="btn btn-ghost" id="attendance-prev-month" type="button">← Previous</button>
+            <p class="calendar-month" id="attendance-month-label">Month</p>
+            <button class="btn btn-ghost" id="attendance-next-month" type="button">Next →</button>
+          </div>
+
+          <div class="attendance-calendar" id="manager-attendance-calendar" aria-label="Attendance calendar"></div>
+
+          <div class="attendance-editor">
+            <p class="attendance-selected" id="attendance-selected-date">Select dates to edit attendance</p>
             <label>
-              New Temporary Password
-              <input id="manager-reset-employee-password" type="password" minlength="6" />
+              Status
+              <select id="attendance-day-status">
+                <option value="Pending">Pending</option>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+              </select>
             </label>
             <label>
-              Confirm Temporary Password
-              <input id="manager-reset-employee-confirm-password" type="password" minlength="6" />
+              Check-In Time
+              <input id="attendance-day-checkin" type="time" />
             </label>
-            <button class="btn btn-solid" id="manager-reset-employee-password-btn" type="button">
-              Set Employee Password
-            </button>
+            <div class="attendance-button-group">
+              <button class="btn btn-outline" id="apply-day-attendance" type="button">Apply to All Selected</button>
+              <button class="btn btn-ghost" id="clear-attendance-selection" type="button">Clear Selection</button>
+            </div>
           </div>
 
-          <p id="employee-profile-status" class="form-status" aria-live="polite"></p>
-        </form>
-      </section>
+          <button class="btn btn-solid" id="save-attendance" type="button">Save Attendance</button>
+          <p id="manager-status" class="form-status" aria-live="polite"></p>
+        </section>
 
-      <section id="module-alerts" class="employee-panel manager-module section-reveal" aria-label="Company alerts control" hidden>
-        <div class="section-head">
-          <p class="eyebrow">Alert Broadcast</p>
-          <h2>Post Update for All Employees</h2>
-        </div>
+        <!-- ── Change Employee Details ─────────────────── -->
+        <section id="module-profile" class="employee-panel manager-module section-reveal" aria-label="Employee profile control" hidden>
+          <div class="mgr-mod-hd">
+            <div class="mgr-mod-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg>
+            </div>
+            <div>
+              <p class="eyebrow">Profile Management</p>
+              <h2>Change Employee Details</h2>
+            </div>
+          </div>
 
-        <form id="manager-alert-form" class="manager-update-form" novalidate>
-          <label>
-            Alert Title
-            <input id="alert-title" type="text" maxlength="80" required />
-          </label>
-          <label>
-            Alert Message
-            <textarea id="alert-message" rows="4" maxlength="400" required></textarea>
-          </label>
-          <label>
-            Priority
-            <select id="alert-priority" required>
-              <option value="normal">Normal</option>
-              <option value="high">High</option>
-            </select>
-          </label>
-          <button class="btn btn-solid" type="submit">Publish Alert</button>
-          <p id="alert-status" class="form-status" aria-live="polite"></p>
-        </form>
+          <form id="manager-employee-form" class="manager-update-form" novalidate>
+            <div class="mgr-form-2">
+              <label>
+                Employee Name
+                <input id="edit-employee-name" type="text" maxlength="80" required />
+              </label>
+              <label>
+                Employee ID
+                <input id="edit-employee-id" type="text" maxlength="30" />
+              </label>
+              <label>
+                Department
+                <input id="edit-employee-department" type="text" maxlength="60" />
+              </label>
+              <label>
+                Domain
+                <input id="edit-employee-domain" type="text" maxlength="60" />
+              </label>
+              <label>
+                Salary
+                <input id="edit-employee-salary" type="number" min="0" step="0.01" />
+              </label>
+              <label>
+                Joined On
+                <input id="edit-employee-joined" type="date" />
+              </label>
+            </div>
 
-        <div class="manager-alert-list" id="manager-alert-list"></div>
-      </section>
+            <div class="form-actions">
+              <button class="btn btn-outline" id="save-employee-profile" type="submit">Save Employee Details</button>
+              <button class="btn btn-ghost danger" id="delete-employee-btn" type="button">Delete Employee</button>
+            </div>
 
-      <section id="module-personal-msg" class="employee-panel manager-module section-reveal" aria-label="Personal message control" hidden>
-        <div class="section-head">
-          <p class="eyebrow">Direct Communication</p>
-          <h2>Send Personal Message to Employee</h2>
-        </div>
+            <div class="manager-employee-password-tools">
+              <p class="eyebrow">Access Control</p>
+              <h3>Reset Employee Password</h3>
+              <div class="mgr-form-2" style="margin-top:0.5rem">
+                <label>
+                  New Temporary Password
+                  <input id="manager-reset-employee-password" type="password" minlength="6" />
+                </label>
+                <label>
+                  Confirm Temporary Password
+                  <input id="manager-reset-employee-confirm-password" type="password" minlength="6" />
+                </label>
+              </div>
+              <button class="btn btn-solid" id="manager-reset-employee-password-btn" type="button">Set Employee Password</button>
+            </div>
 
-        <form id="manager-personal-msg-form" class="manager-update-form" novalidate>
-          <label>
-            Select Employee
-            <select id="personal-msg-employee" required>
-              <option value="">Choose an employee...</option>
-            </select>
-          </label>
-          <label>
-            Message Title
-            <input id="personal-msg-title" type="text" maxlength="80" required />
-          </label>
-          <label>
-            Message Content
-            <textarea id="personal-msg-content" rows="5" maxlength="500" required></textarea>
-          </label>
-          <label>
-            Priority
-            <select id="personal-msg-priority" required>
-              <option value="normal">Normal</option>
-              <option value="high">High</option>
-              <option value="urgent">Urgent</option>
-            </select>
-          </label>
-          <button class="btn btn-solid" type="submit">Send Message</button>
-          <p id="personal-msg-status" class="form-status" aria-live="polite"></p>
-        </form>
+            <p id="employee-profile-status" class="form-status" aria-live="polite"></p>
+          </form>
+        </section>
 
-        <div class="manager-personal-msg-list" id="manager-personal-msg-list"></div>
-      </section>
+        <!-- ── Post Alerts ────────────────────────────── -->
+        <section id="module-alerts" class="employee-panel manager-module section-reveal" aria-label="Company alerts control" hidden>
+          <div class="mgr-mod-hd">
+            <div class="mgr-mod-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 1 8.835-2.535m0 0A23.74 23.74 0 0 1 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"/></svg>
+            </div>
+            <div>
+              <p class="eyebrow">Alert Broadcast</p>
+              <h2>Post Update for All Employees</h2>
+            </div>
+          </div>
 
-      <section id="module-tasks" class="employee-panel manager-module section-reveal" aria-label="Task assignment control" hidden>
-        <div class="section-head">
-          <p class="eyebrow">Task Assignment</p>
-          <h2>Assign Tasks Employee-Wise</h2>
-        </div>
+          <form id="manager-alert-form" class="manager-update-form" novalidate>
+            <label>
+              Alert Title
+              <input id="alert-title" type="text" maxlength="80" placeholder="e.g. Holiday Notice" required />
+            </label>
+            <label>
+              Alert Message
+              <textarea id="alert-message" rows="4" maxlength="400" placeholder="Type your announcement here..." required></textarea>
+            </label>
+            <div class="mgr-form-2">
+              <label>
+                Priority
+                <select id="alert-priority" required>
+                  <option value="normal">Normal</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+              <label style="justify-content:flex-end">
+                &nbsp;
+                <button class="btn btn-solid" type="submit">Publish Alert</button>
+              </label>
+            </div>
+            <p id="alert-status" class="form-status" aria-live="polite"></p>
+          </form>
 
-        <form id="manager-task-form" class="manager-update-form" novalidate>
-          <label>
-            Task Title
-            <input id="task-title" type="text" maxlength="120" required />
-          </label>
-          <label>
-            Assigned Date
-            <input id="task-assigned-date" type="date" required />
-          </label>
-          <label>
-            Due Date
-            <input id="task-due-date" type="date" required />
-          </label>
-          <button class="btn btn-solid" type="submit">Assign Task</button>
-          <p id="task-assign-status" class="form-status" aria-live="polite"></p>
-        </form>
+          <div class="manager-alert-list" id="manager-alert-list"></div>
+        </section>
 
-        <div class="table-wrap">
-          <table class="employee-table">
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Assigned Date</th>
-                <th>Due Date</th>
-                <th>Status</th>
-                <th>Last Update</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="manager-tasks-body"></tbody>
-          </table>
-        </div>
-        <button class="btn btn-outline" id="save-manager-tasks" type="button">Save Task Updates</button>
-      </section>
-      </div>
+        <!-- ── Personal Messages ──────────────────────── -->
+        <section id="module-personal-msg" class="employee-panel manager-module section-reveal" aria-label="Personal message control" hidden>
+          <div class="mgr-mod-hd">
+            <div class="mgr-mod-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/></svg>
+            </div>
+            <div>
+              <p class="eyebrow">Direct Communication</p>
+              <h2>Send Personal Message to Employee</h2>
+            </div>
+          </div>
+
+          <form id="manager-personal-msg-form" class="manager-update-form" novalidate>
+            <label>
+              Select Employee
+              <select id="personal-msg-employee" required>
+                <option value="">Choose an employee...</option>
+              </select>
+            </label>
+            <label>
+              Message Title
+              <input id="personal-msg-title" type="text" maxlength="80" placeholder="Subject line" required />
+            </label>
+            <label>
+              Message Content
+              <textarea id="personal-msg-content" rows="5" maxlength="500" placeholder="Type your message..." required></textarea>
+            </label>
+            <div class="mgr-form-2">
+              <label>
+                Priority
+                <select id="personal-msg-priority" required>
+                  <option value="normal">Normal</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </label>
+              <label style="justify-content:flex-end">
+                &nbsp;
+                <button class="btn btn-solid" type="submit">Send Message</button>
+              </label>
+            </div>
+            <p id="personal-msg-status" class="form-status" aria-live="polite"></p>
+          </form>
+
+          <div class="manager-personal-msg-list" id="manager-personal-msg-list"></div>
+        </section>
+
+        <!-- ── Assign Tasks ────────────────────────────── -->
+        <section id="module-tasks" class="employee-panel manager-module section-reveal" aria-label="Task assignment control" hidden>
+          <div class="mgr-mod-hd">
+            <div class="mgr-mod-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg>
+            </div>
+            <div>
+              <p class="eyebrow">Task Assignment</p>
+              <h2>Assign Tasks Employee-Wise</h2>
+            </div>
+          </div>
+
+          <form id="manager-task-form" class="manager-update-form" novalidate>
+            <label>
+              Task Title
+              <input id="task-title" type="text" maxlength="120" placeholder="Describe the task clearly" required />
+            </label>
+            <div class="mgr-form-2">
+              <label>
+                Assigned Date
+                <input id="task-assigned-date" type="date" required />
+              </label>
+              <label>
+                Due Date
+                <input id="task-due-date" type="date" required />
+              </label>
+            </div>
+            <button class="btn btn-solid" type="submit">Assign Task</button>
+            <p id="task-assign-status" class="form-status" aria-live="polite"></p>
+          </form>
+
+          <div class="table-wrap">
+            <table class="employee-table">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Assigned</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                  <th>Last Update</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="manager-tasks-body"></tbody>
+            </table>
+          </div>
+          <button class="btn btn-outline" id="save-manager-tasks" type="button" style="margin-top:0.85rem">Save Task Updates</button>
+        </section>
+
+      </div><!-- /manager-content -->
     </main>
+
     <div id="manager-sidebar-backdrop" class="manager-sidebar-backdrop" hidden></div>
+
     <script type="module" src="./js/manager-dashboard.js"></script>
+
+    <!-- Quick-tile delegation: clicks sidebar buttons to trigger existing JS listeners -->
+    <script type="module">
+      document.querySelectorAll('.mgr-quick-tile[data-target]').forEach(tile => {
+        tile.addEventListener('click', () => {
+          const btn = document.querySelector(`.manager-option-btn[data-target="${tile.dataset.target}"]`);
+          if (btn) btn.click();
+        });
+      });
+    </script>
   </body>
 </html>

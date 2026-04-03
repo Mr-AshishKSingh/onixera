@@ -2174,3 +2174,474 @@ body.employee-body .section-head h2 {
   .hero-minimal::before, .hero-minimal::after,
   .intro-surface::before, .intro-surface::after { animation: none; transition: none; }
 }
+
+/* ════════════════════════════════════════════════════════════
+   Manager Portal v3 — Professional Redesign
+   All new classes prefixed with mgr- to avoid conflicts
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Shell override ──────────────────────────────────────── */
+body.mgr-portal { background: #f4f6fb; }
+
+/* Full-width app bar (overrides floating pill header) */
+body.mgr-portal .site-header {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  top: 0;
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  padding: 0 1.75rem;
+  height: 62px;
+}
+
+/* Full-width main layout */
+body.mgr-portal .employee-main.manager-main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 1.75rem 1.75rem 2.5rem;
+  min-height: calc(100vh - 62px);
+}
+
+/* Sidebar offset for full-width header */
+body.mgr-portal .manager-sidebar {
+  top: 5rem;
+  max-height: calc(100vh - 5.5rem);
+  padding: 0;
+  background: #ffffff;
+  border: 1px solid rgba(91,95,237,0.1);
+}
+
+/* ── Portal badge in header ──────────────────────────────── */
+.mgr-appbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.mgr-portal-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: 1px solid rgba(91,95,237,0.25);
+  border-radius: var(--radius-full);
+  padding: 0.22rem 0.65rem;
+  white-space: nowrap;
+}
+
+/* ── Manager name pill in header ─────────────────────────── */
+.mgr-name-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--primary-light);
+  border: 1.5px solid rgba(91,95,237,0.2);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.9rem 0.3rem 0.35rem;
+}
+
+.mgr-name-pill-av {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.mgr-name-pill-av svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+}
+
+.mgr-name-pill-label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* ── Sidebar sections ────────────────────────────────────── */
+.mgr-sb-group {
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.mgr-sb-group:last-child { border-bottom: none; }
+
+.mgr-sb-label {
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+  padding-left: 0.2rem;
+}
+
+/* ── Employee selector in sidebar ────────────────────────── */
+.mgr-select-wrap {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.mgr-emp-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: linear-gradient(135deg, #eef0ff 0%, #f4f0ff 100%);
+  border: 1.5px solid rgba(91,95,237,0.22);
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.8rem;
+  margin-top: 0.65rem;
+}
+
+.mgr-emp-chip-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(91,95,237,0.28);
+}
+
+.mgr-emp-chip-icon svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.75;
+}
+
+.mgr-emp-chip-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+/* ── Sidebar account tools ───────────────────────────────── */
+.mgr-sb-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.87rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 200ms, background 200ms, color 200ms;
+  font-family: inherit;
+}
+
+.mgr-sb-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  opacity: 0.7;
+}
+
+.mgr-sb-btn:hover {
+  border-color: rgba(91,95,237,0.4);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.mgr-sb-btn:hover svg { opacity: 1; }
+
+/* Profile card in sidebar */
+.mgr-profile-card {
+  margin-top: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card-strong);
+  padding: 0.85rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.mgr-profile-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.mgr-profile-key {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mgr-profile-val {
+  font-size: 0.87rem;
+  font-weight: 600;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+/* Password form label in sidebar */
+.mgr-pass-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.mgr-pass-label svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.75;
+  flex-shrink: 0;
+}
+
+.mgr-pass-form {
+  display: grid;
+  gap: 0.7rem;
+}
+
+/* ── Nav buttons with icons ──────────────────────────────── */
+.mgr-nav-grid {
+  display: grid;
+  gap: 0.22rem;
+}
+
+.mgr-nav-btn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  text-align: left !important;
+  padding: 0.65rem 0.85rem !important;
+  font-size: 0.87rem !important;
+}
+
+.mgr-nav-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  opacity: 0.7;
+}
+
+.mgr-nav-btn:hover svg,
+.mgr-nav-btn.is-active svg { opacity: 1; }
+
+.mgr-nav-btn span { flex: 1; }
+
+/* ── Module headers with icon ────────────────────────────── */
+.mgr-mod-hd {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.mgr-mod-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--primary-light);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(91,95,237,0.15);
+}
+
+.mgr-mod-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.75;
+}
+
+.mgr-mod-hd > div:not(.mgr-mod-icon) { min-width: 0; }
+
+.mgr-mod-hd .eyebrow { margin-bottom: 0.3rem; }
+
+.mgr-mod-hd h2 {
+  font-size: clamp(1.05rem, 2.5vw, 1.45rem);
+  color: var(--primary-dark);
+  margin: 0;
+}
+
+/* ── 2-column form grid ──────────────────────────────────── */
+.mgr-form-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.mgr-form-2 .mgr-full { grid-column: 1 / -1; }
+
+@media (max-width: 640px) {
+  .mgr-form-2 { grid-template-columns: 1fr; }
+  .mgr-form-2 .mgr-full { grid-column: auto; }
+}
+
+/* ── Welcome / overview panel ────────────────────────────── */
+.mgr-welcome-section {
+  min-width: 0;
+}
+
+.mgr-welcome-inner {
+  text-align: center;
+  padding: 3rem 2rem 2.5rem;
+  background: linear-gradient(150deg, #f5f6ff 0%, #fdf8ff 60%, #f5f6ff 100%);
+  border: 1px solid rgba(91,95,237,0.1);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.mgr-welcome-orb {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-primary);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1.4rem;
+}
+
+.mgr-welcome-orb svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.75;
+}
+
+.mgr-welcome-inner h2 {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--text);
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.02em;
+}
+
+.mgr-welcome-inner > p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  max-width: 440px;
+  margin: 0 auto 2.25rem;
+  line-height: 1.75;
+}
+
+.mgr-welcome-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.mgr-quick-tile {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 200ms ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: inherit;
+}
+
+.mgr-quick-tile:hover {
+  border-top-color: var(--primary);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-2px);
+}
+
+.mgr-quick-tile svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.75;
+  display: block;
+}
+
+.mgr-quick-tile strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.mgr-quick-tile span {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .mgr-welcome-grid { grid-template-columns: 1fr 1fr; }
+  .mgr-welcome-inner { padding: 2rem 1.25rem; }
+}
+
+@media (max-width: 400px) {
+  .mgr-welcome-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Manager portal responsive ───────────────────────────── */
+@media (max-width: 980px) {
+  body.mgr-portal .employee-main.manager-main {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 560px) {
+  body.mgr-portal .site-header {
+    padding: 0 1rem;
+    height: 56px;
+  }
+  .mgr-portal-badge { display: none; }
+}
