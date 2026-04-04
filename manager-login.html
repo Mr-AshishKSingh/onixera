@@ -8,259 +8,686 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
     <style>
-      /* ── Login page refinements ────────────────────────── */
+      /* ── Page shell ──────────────────────────────────── */
+      body.login-body {
+        font-family: "Inter", -apple-system, sans-serif;
+      }
+
+      /* ── Left branded panel ──────────────────────────── */
+      .login-brand-panel {
+        background: linear-gradient(145deg, #05071a 0%, #0d0c2b 40%, #160828 75%, #0a0f22 100%);
+        padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      /* Top: logo */
+      .lp-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .lp-logo img {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        object-fit: contain;
+        background: rgba(255,255,255,0.96);
+        padding: 4px;
+      }
+
+      .lp-logo-name {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.01em;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+
+      .lp-logo-tag {
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(165,180,252,0.8);
+        background: rgba(91,95,237,0.18);
+        border: 1px solid rgba(91,95,237,0.35);
+        border-radius: 100px;
+        padding: 0.2rem 0.6rem;
+      }
+
+      /* Middle: headline block */
+      .lp-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.75rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .lp-headline {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: clamp(1.85rem, 2.8vw, 2.6rem);
+        font-weight: 800;
+        color: #f1f5f9;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+
+      .lp-headline em {
+        font-style: normal;
+        background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .lp-subtext {
+        color: rgba(255,255,255,0.45);
+        font-size: 0.93rem;
+        line-height: 1.75;
+        max-width: 360px;
+        margin: 0;
+      }
+
+      /* Feature cards */
+      .lp-features {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+
+      .lp-feat {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 12px;
+        padding: 0.85rem 1rem;
+        transition: background 200ms, border-color 200ms;
+      }
+
+      .lp-feat:hover {
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(255,255,255,0.12);
+      }
+
+      .lp-feat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        background: rgba(91,95,237,0.25);
+        border: 1px solid rgba(91,95,237,0.4);
+      }
+
+      .lp-feat-icon svg {
+        width: 17px;
+        height: 17px;
+        fill: none;
+        stroke: #a5b4fc;
+        stroke-width: 1.75;
+      }
+
+      .lp-feat-body { min-width: 0; }
+
+      .lp-feat-title {
+        font-size: 0.87rem;
+        font-weight: 700;
+        color: rgba(255,255,255,0.85);
+        display: block;
+        margin-bottom: 0.12rem;
+      }
+
+      .lp-feat-desc {
+        font-size: 0.78rem;
+        color: rgba(255,255,255,0.35);
+        display: block;
+        line-height: 1.4;
+      }
+
+      /* Bottom stats bar */
+      .lp-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        position: relative;
+        z-index: 1;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .lp-stat {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 10px;
+        padding: 0.75rem 0.9rem;
+        text-align: center;
+      }
+
+      .lp-stat-val {
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: -0.03em;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+
+      .lp-stat-label {
+        display: block;
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.35);
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      /* Glow orbs on left panel */
+      .login-brand-panel::before {
+        background: radial-gradient(circle, rgba(91,95,237,0.22) 0%, transparent 65%);
+        top: 5%;
+        right: -25%;
+        width: 500px;
+        height: 500px;
+      }
+
+      .login-brand-panel::after {
+        background: radial-gradient(circle, rgba(167,139,250,0.15) 0%, transparent 65%);
+        bottom: 8%;
+        left: -20%;
+        width: 380px;
+        height: 380px;
+      }
+
+      /* ── Right form panel ────────────────────────────── */
       .login-form-panel {
+        background: #f7f8fc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem 2rem;
         position: relative;
         overflow: hidden;
       }
 
-      /* Subtle dot grid on the right panel */
+      /* Subtle dot grid */
       .login-form-panel::before {
         content: "";
         position: absolute;
         inset: 0;
-        background-image: radial-gradient(rgba(91,95,237,0.08) 1px, transparent 1px);
-        background-size: 28px 28px;
+        background-image: radial-gradient(rgba(91,95,237,0.07) 1px, transparent 1px);
+        background-size: 26px 26px;
         pointer-events: none;
         z-index: 0;
       }
 
-      .login-form-inner { position: relative; z-index: 1; }
-
-      /* Manager-specific brand panel accent */
-      .mgr-login-panel-accent {
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255,255,255,0.1);
-      }
-
-      .mgr-login-stat {
-        display: flex;
-        flex-direction: column;
-        gap: 0.2rem;
-      }
-
-      .mgr-login-stat strong {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #ffffff;
-        letter-spacing: -0.03em;
-      }
-
-      .mgr-login-stat span {
-        font-size: 0.82rem;
-        color: rgba(255,255,255,0.45);
-        font-weight: 500;
-      }
-
-      .mgr-login-stats-row {
-        display: flex;
-        gap: 2.5rem;
-        flex-wrap: wrap;
-      }
-
-      /* Refined form heading */
-      .mgr-login-eyebrow {
+      /* Back link — top-left of panel */
+      .mgrl-back {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.75rem;
         display: inline-flex;
         align-items: center;
-        gap: 0.45rem;
-        padding: 0.32rem 0.85rem 0.32rem 0.5rem;
-        border-radius: var(--radius-full);
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--primary);
-        background: var(--primary-light);
-        border: 1px solid rgba(91,95,237,0.2);
-        margin-bottom: 1rem;
+        gap: 0.4rem;
+        font-size: 0.83rem;
+        font-weight: 600;
+        color: var(--text-light);
+        text-decoration: none;
+        transition: color 200ms;
+        z-index: 2;
       }
 
-      .mgr-login-eyebrow svg {
-        width: 13px;
-        height: 13px;
+      .mgrl-back svg {
+        width: 14px;
+        height: 14px;
         fill: none;
         stroke: currentColor;
-        stroke-width: 2;
+        stroke-width: 2.2;
         flex-shrink: 0;
+        transition: transform 200ms;
       }
 
-      /* Security note badge */
-      .mgr-security-note {
+      .mgrl-back:hover { color: var(--primary); }
+      .mgrl-back:hover svg { transform: translateX(-3px); }
+
+      /* Form card */
+      .mgrl-card {
+        position: relative;
+        z-index: 1;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.08);
+        border-radius: 20px;
+        padding: 2.4rem 2.25rem 2rem;
+        box-shadow:
+          0 1px 2px rgba(0,0,0,0.04),
+          0 8px 24px rgba(0,0,0,0.07),
+          0 32px 64px rgba(0,0,0,0.06);
+        width: 100%;
+        max-width: 420px;
+      }
+
+      /* Card top accent line */
+      .mgrl-card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 2rem; right: 2rem;
+        height: 3px;
+        background: var(--gradient-primary);
+        border-radius: 0 0 4px 4px;
+      }
+
+      /* Card header */
+      .mgrl-card-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .mgrl-icon-wrap {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: var(--gradient-primary);
+        box-shadow: 0 8px 20px rgba(91,95,237,0.35);
+        display: grid;
+        place-items: center;
+        margin: 0 auto 1.1rem;
+      }
+
+      .mgrl-icon-wrap svg {
+        width: 25px;
+        height: 25px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 1.75;
+      }
+
+      .mgrl-card-title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: -0.025em;
+        margin: 0 0 0.4rem;
+        line-height: 1.2;
+      }
+
+      .mgrl-card-sub {
+        font-size: 0.87rem;
+        color: var(--muted);
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      /* Divider */
+      .mgrl-divider {
+        height: 1px;
+        background: var(--line);
+        margin: 1.5rem 0;
+      }
+
+      /* Form fields */
+      .mgrl-form {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .mgrl-field {
+        display: grid;
+        gap: 0.45rem;
+      }
+
+      .mgrl-field-label {
+        font-size: 0.84rem;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: 0.005em;
+      }
+
+      .mgrl-input-wrap {
+        position: relative;
+      }
+
+      .mgrl-input-icon {
+        position: absolute;
+        left: 0.875rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+      }
+
+      .mgrl-input-icon svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.75;
+      }
+
+      .mgrl-input-wrap input {
+        padding-left: 2.65rem !important;
+        padding-right: 0.95rem;
+        background: #f9fafc;
+        border-color: rgba(0,0,0,0.1);
+        font-size: 0.92rem;
+        transition: border-color 200ms, box-shadow 200ms, background 200ms;
+      }
+
+      .mgrl-input-wrap input:focus {
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(91,95,237,0.12);
+      }
+
+      /* Password field with eye toggle */
+      .mgrl-pw-wrap input {
+        padding-right: 2.8rem !important;
+      }
+
+      .mgrl-eye-btn {
+        position: absolute;
+        right: 0.6rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--muted);
+        padding: 0.3rem;
+        border-radius: 6px;
+        display: grid;
+        place-items: center;
+        transition: color 200ms, background 200ms;
+      }
+
+      .mgrl-eye-btn:hover {
+        color: var(--primary);
+        background: var(--primary-light);
+      }
+
+      .mgrl-eye-btn svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.75;
+        pointer-events: none;
+      }
+
+      /* Submit button */
+      .mgrl-submit {
+        margin-top: 0.5rem;
+        height: 46px;
+        font-size: 0.93rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border-radius: var(--radius-md);
+        transition: all 220ms ease;
+      }
+
+      .mgrl-submit svg {
+        width: 15px;
+        height: 15px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.2;
+        flex-shrink: 0;
+        transition: transform 200ms;
+      }
+
+      .mgrl-submit:hover svg { transform: translateX(3px); }
+
+      /* Security note */
+      .mgrl-security {
         display: flex;
         align-items: flex-start;
-        gap: 0.5rem;
-        margin-top: 1.1rem;
-        padding: 0.7rem 0.9rem;
-        background: #f9fafb;
+        gap: 0.55rem;
+        margin-top: 1.25rem;
+        padding: 0.75rem 0.9rem;
+        background: #f8f9fb;
         border: 1px solid var(--line);
         border-radius: var(--radius-md);
-        font-size: 0.83rem;
-        color: var(--text-light);
-        line-height: 1.5;
+        font-size: 0.79rem;
+        color: var(--muted);
+        line-height: 1.55;
       }
 
-      .mgr-security-note svg {
+      .mgrl-security svg {
         width: 14px;
         height: 14px;
         fill: none;
         stroke: var(--muted);
         stroke-width: 1.75;
         flex-shrink: 0;
-        margin-top: 0.1rem;
+        margin-top: 0.12rem;
       }
 
-      /* Submit button with icon */
-      .mgr-submit-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
+      /* Auth status */
+      .mgrl-status {
+        min-height: 1.2rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-top: 0.75rem;
+        text-align: center;
+        letter-spacing: 0.01em;
       }
+      .mgrl-status.error   { color: var(--error); }
+      .mgrl-status.success { color: var(--success); }
 
-      .mgr-submit-btn svg {
-        width: 15px;
-        height: 15px;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 2;
-        flex-shrink: 0;
-      }
-
-      /* Form input enhancements */
-      .login-form label {
-        font-size: 0.88rem;
-      }
-
-      /* Brand panel feature refinements */
-      .login-feature-dot {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(255,255,255,0.12);
-      }
-
-      .login-feature-dot svg { color: rgba(255,255,255,0.7); }
-
+      /* ── Responsive ──────────────────────────────────── */
       @media (max-width: 768px) {
-        .mgr-login-stats-row { display: none; }
+        .login-brand-panel { display: none; }
+        body.login-body { grid-template-columns: 1fr; }
+        .login-form-panel { padding: 2rem 1.25rem; }
+        .mgrl-back { top: 1.1rem; left: 1.25rem; }
+        .mgrl-card { padding: 2rem 1.5rem 1.75rem; max-width: 100%; }
+        .lp-stats { display: none; }
+      }
+
+      @media (max-width: 420px) {
+        .mgrl-card { padding: 1.75rem 1.25rem 1.5rem; border-radius: 16px; }
       }
     </style>
   </head>
   <body class="login-body">
 
-    <!-- ══ Left branded panel ════════════════════════════════ -->
+    <!-- ══ Left Panel ════════════════════════════════════════ -->
     <div class="login-brand-panel">
-      <div class="login-brand-inner">
-        <div class="login-panel-logo">
-          <img
-            src="./assets/light.png"
-            alt="Onixera Technologies logo"
-            onerror="this.style.display='none';"
-          />
-          <span>Onixera</span>
+
+      <!-- Logo -->
+      <div class="lp-logo">
+        <img src="./assets/light.png" alt="Onixera logo" onerror="this.style.display='none';" />
+        <span class="lp-logo-name">Onixera</span>
+        <span class="lp-logo-tag">Manager</span>
+      </div>
+
+      <!-- Headline + features -->
+      <div class="lp-body">
+        <div>
+          <h1 class="lp-headline">
+            Your team,<br />
+            <em>your command.</em>
+          </h1>
+          <p class="lp-subtext">
+            The manager portal gives you full control — register employees, track attendance, assign tasks, and communicate with your entire team from one place.
+          </p>
         </div>
 
-        <h1 class="login-panel-headline">
-          Manager control,<br />
-          <span>fully in your hands</span>
-        </h1>
-        <p class="login-panel-desc">
-          Access the manager dashboard to register employees, manage attendance, post announcements, assign tasks, and communicate with your team.
-        </p>
-
-        <div class="login-panel-features">
-          <div class="login-feature">
-            <div class="login-feature-dot">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" /></svg>
+        <div class="lp-features">
+          <div class="lp-feat">
+            <div class="lp-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"/></svg>
             </div>
-            <div class="login-feature-text">
-              <strong>Employee management</strong>
-              <span>Register, edit, and manage team members</span>
+            <div class="lp-feat-body">
+              <span class="lp-feat-title">Employee Onboarding</span>
+              <span class="lp-feat-desc">Register employees and set up their login credentials</span>
             </div>
           </div>
-          <div class="login-feature">
-            <div class="login-feature-dot">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" /></svg>
+          <div class="lp-feat">
+            <div class="lp-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
             </div>
-            <div class="login-feature-text">
-              <strong>Attendance control</strong>
-              <span>Mark and publish daily attendance records</span>
-            </div>
-          </div>
-          <div class="login-feature">
-            <div class="login-feature-dot">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
-            </div>
-            <div class="login-feature-text">
-              <strong>Task assignment</strong>
-              <span>Assign work and track task completion</span>
+            <div class="lp-feat-body">
+              <span class="lp-feat-title">Attendance Control</span>
+              <span class="lp-feat-desc">Mark, edit and publish daily attendance with a calendar UI</span>
             </div>
           </div>
-        </div>
-
-        <div class="mgr-login-panel-accent">
-          <div class="mgr-login-stats-row">
-            <div class="mgr-login-stat">
-              <strong>6</strong>
-              <span>Workspace modules</span>
+          <div class="lp-feat">
+            <div class="lp-feat-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"/></svg>
             </div>
-            <div class="mgr-login-stat">
-              <strong>Real-time</strong>
-              <span>Team updates</span>
-            </div>
-            <div class="mgr-login-stat">
-              <strong>Secure</strong>
-              <span>Role-based access</span>
+            <div class="lp-feat-body">
+              <span class="lp-feat-title">Task &amp; Alerts</span>
+              <span class="lp-feat-desc">Assign tasks and broadcast announcements to the whole team</span>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Stats -->
+      <div class="lp-stats">
+        <div class="lp-stat">
+          <span class="lp-stat-val">6</span>
+          <span class="lp-stat-label">Workspace modules</span>
+        </div>
+        <div class="lp-stat">
+          <span class="lp-stat-val">Live</span>
+          <span class="lp-stat-label">Real-time sync</span>
+        </div>
+        <div class="lp-stat">
+          <span class="lp-stat-val">256</span>
+          <span class="lp-stat-label">Bit encryption</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- ══ Right form panel ══════════════════════════════════ -->
+    <!-- ══ Right Form Panel ══════════════════════════════════ -->
     <div class="login-form-panel">
-      <div class="login-form-inner section-reveal">
-        <a class="back-link" href="./index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" /></svg>
-          Back to Home
-        </a>
 
-        <div class="mgr-login-eyebrow">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
-          Manager Portal
+      <a class="mgrl-back" href="./index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+        Back to Home
+      </a>
+
+      <!-- Form card -->
+      <div class="mgrl-card section-reveal">
+
+        <!-- Card header -->
+        <div class="mgrl-card-header">
+          <div class="mgrl-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+          </div>
+          <h1 class="mgrl-card-title">Welcome back</h1>
+          <p class="mgrl-card-sub">Sign in to your manager dashboard</p>
         </div>
 
-        <h1 style="font-size:1.9rem;color:var(--text);margin-bottom:0.45rem;letter-spacing:-0.02em;font-family:'Plus Jakarta Sans',sans-serif;">Sign in to Dashboard</h1>
-        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1.85rem;line-height:1.6;">Manage your team's attendance, tasks, and communications.</p>
+        <div class="mgrl-divider"></div>
 
-        <form id="manager-login-form" class="login-form" novalidate>
-          <label>
-            Manager Email
-            <input type="email" id="manager-email" placeholder="manager@onixera.com" autocomplete="email" required />
-          </label>
-          <label>
-            Password
-            <input type="password" id="manager-password" minlength="6" placeholder="Your password" autocomplete="current-password" required />
-          </label>
-          <button type="submit" class="btn btn-solid full-width mgr-submit-btn">
-            Open Manager Dashboard
+        <!-- Login form -->
+        <form id="manager-login-form" class="mgrl-form" novalidate>
+
+          <div class="mgrl-field">
+            <label class="mgrl-field-label" for="manager-email">Manager Email</label>
+            <div class="mgrl-input-wrap">
+              <span class="mgrl-input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+              </span>
+              <input
+                type="email"
+                id="manager-email"
+                placeholder="manager@onixera.com"
+                autocomplete="email"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="mgrl-field">
+            <label class="mgrl-field-label" for="manager-password">Password</label>
+            <div class="mgrl-input-wrap mgrl-pw-wrap">
+              <span class="mgrl-input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+              </span>
+              <input
+                type="password"
+                id="manager-password"
+                placeholder="Your password"
+                minlength="6"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="mgrl-eye-btn" id="mgrl-eye" aria-label="Toggle password visibility" title="Show / hide password">
+                <!-- Eye icon (show) -->
+                <svg id="mgrl-eye-show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                <!-- Eye-slash icon (hide) - hidden by default -->
+                <svg id="mgrl-eye-hide" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" style="display:none"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-solid full-width mgrl-submit">
+            Sign in to Dashboard
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
           </button>
+
         </form>
 
-        <div class="mgr-security-note">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
-          Only authorized manager credentials can access this portal. Your session is protected with Firebase Authentication.
+        <!-- Security note -->
+        <div class="mgrl-security">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
+          Only authorized manager accounts can access this portal. Your session is secured with Firebase Authentication.
         </div>
 
-        <p id="manager-auth-status" class="form-status" aria-live="polite" style="margin-top:0.85rem"></p>
-      </div>
-    </div>
+        <p id="manager-auth-status" class="mgrl-status" aria-live="polite"></p>
+
+      </div><!-- /mgrl-card -->
+
+    </div><!-- /login-form-panel -->
 
     <script type="module" src="./js/manager-login.js"></script>
+
+    <!-- Password show/hide toggle -->
+    <script>
+      (function () {
+        const btn = document.getElementById('mgrl-eye');
+        const input = document.getElementById('manager-password');
+        const iconShow = document.getElementById('mgrl-eye-show');
+        const iconHide = document.getElementById('mgrl-eye-hide');
+        if (!btn || !input) return;
+        btn.addEventListener('click', function () {
+          const isPassword = input.type === 'password';
+          input.type = isPassword ? 'text' : 'password';
+          iconShow.style.display = isPassword ? 'none' : '';
+          iconHide.style.display = isPassword ? '' : 'none';
+          btn.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+        });
+      })();
+    </script>
   </body>
 </html>
