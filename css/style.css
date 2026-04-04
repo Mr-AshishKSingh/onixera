@@ -68,7 +68,7 @@ html, body {
 body { position: relative; line-height: 1.65; }
 
 h1, h2, h3, h4 {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2921,4 +2921,423 @@ body.mgr-portal .employee-main.manager-main {
     height: 56px;
   }
   .mgr-portal-badge { display: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   Landing Page Visual Enhancements
+   ════════════════════════════════════════════════════════════ */
+
+/* ─── Scroll Progress Bar ─────────────────────────────────── */
+#scroll-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #5b5fed, #7c3aed, #c084fc);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(91,95,237,0.55);
+  border-radius: 0 2px 2px 0;
+}
+
+/* ─── Live Hero Badge ────────────────────────────────────── */
+.hero-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.38rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-light);
+  border: 1px solid rgba(91,95,237,0.25);
+  margin-bottom: 1.5rem;
+}
+
+.live-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16,185,129,0.5);
+  animation: livePulse 1.6s ease-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes livePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+/* ─── Hero Trust Strip ───────────────────────────────────── */
+.hero-trust {
+  margin-top: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.hero-trust-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero-trust-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trust-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-full);
+  padding: 0.28rem 0.85rem;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.04em;
+  transition: color 200ms, border-color 200ms, background 200ms;
+}
+
+.trust-badge:hover {
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+}
+
+/* ─── Marquee Ticker Strip ───────────────────────────────── */
+.marquee-strip {
+  overflow: hidden;
+  background: linear-gradient(135deg, #5b5fed 0%, #7c3aed 100%);
+  padding: 0.75rem 0;
+  margin: 2rem 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+}
+
+.marquee-strip::before,
+.marquee-strip::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+.marquee-strip::before { left: 0;  background: linear-gradient(to right, #5b5fed, transparent); }
+.marquee-strip::after  { right: 0; background: linear-gradient(to left,  #7c3aed, transparent); }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+.marquee-track span {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 1.5rem;
+}
+
+.marquee-dot {
+  color: rgba(255,255,255,0.35) !important;
+  font-size: 0.65rem !important;
+  padding: 0 0.25rem !important;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Cursor Spotlight on Cards ──────────────────────────── */
+.service-card, .announcement-card, .value-item {
+  --mx: -200px; --my: -200px;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(280px circle at var(--mx) var(--my), rgba(91,95,237,0.08), transparent 60%);
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 300ms;
+  z-index: 0;
+}
+
+/* ─── Service Card Number Badge ──────────────────────────── */
+.service-num {
+  position: absolute;
+  top: 1.25rem; right: 1.5rem;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: rgba(91,95,237,0.07);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  pointer-events: none;
+  user-select: none;
+  transition: color 220ms ease;
+}
+
+.service-card:hover .service-num {
+  color: rgba(91,95,237,0.12);
+}
+
+/* ─── Section Heading Underline Draw-in ──────────────────── */
+.section-header h2,
+.section-head h2,
+.featured-content h2 {
+  display: inline-block;
+  position: relative;
+}
+
+.section-header h2::after,
+.section-head h2::after,
+.featured-content h2::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -6px;
+  height: 3px;
+  width: 0;
+  border-radius: 2px;
+  background: var(--gradient-primary);
+  transition: width 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heading-revealed::after { width: 100%; }
+
+/* ─── Hero Typewriter Word Reveal ────────────────────────── */
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroWordReveal 550ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--wi, 0) * 65ms + 300ms);
+}
+
+@keyframes heroWordReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Nav Active Link ────────────────────────────────────── */
+.nav-links a.nav-active {
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* ─── Stat Card Count Pop ────────────────────────────────── */
+.stat-card.counted {
+  animation: statPop 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes statPop {
+  0%   { transform: translateY(-4px) scale(1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* ─── Back-to-Top Button ─────────────────────────────────── */
+#back-to-top {
+  position: fixed;
+  bottom: 1.75rem; right: 1.75rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 20px rgba(91,95,237,0.4);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 250ms ease, transform 250ms ease, box-shadow 200ms ease;
+  pointer-events: none;
+  z-index: 200;
+}
+
+#back-to-top svg {
+  width: 18px; height: 18px;
+  stroke: #fff;
+  stroke-width: 2.2;
+}
+
+#back-to-top.btt-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#back-to-top:hover {
+  box-shadow: 0 8px 28px rgba(91,95,237,0.55);
+  transform: translateY(-2px);
+}
+
+/* ─── Footer Brand Row ───────────────────────────────────── */
+.footer-brand {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-brand-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 280px;
+}
+
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+
+.footer-brand-logo img {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.95);
+  padding: 3px;
+  object-fit: contain;
+}
+
+.footer-brand-logo span {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.footer-brand-tagline {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-social-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.footer-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: background 200ms, color 200ms, border-color 200ms;
+}
+
+.footer-social-btn:hover {
+  background: rgba(91,95,237,0.2);
+  border-color: rgba(91,95,237,0.4);
+  color: #fff;
+}
+
+/* ─── Responsive tweaks for enhancements ─────────────────── */
+@media (max-width: 640px) {
+  .marquee-strip { border-radius: var(--radius-md); }
+  .footer-brand  { flex-direction: column; }
+  #back-to-top   { bottom: 1.25rem; right: 1.25rem; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   Floating Tech Icons Layer
+   ════════════════════════════════════════════════════════════ */
+
+/* Ensure page content renders above the fixed floating layer */
+.landing-page main,
+.landing-page .site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+#floating-tech-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ft-icon {
+  position: absolute;
+  color: var(--primary);
+  will-change: transform;
+  animation: ftDrift var(--dur, 30s) var(--del, 0s) ease-in-out infinite alternate;
+  filter: blur(0.4px);
+  transition: opacity 0.3s;
+}
+
+/* subtle glow on some icons via drop-shadow */
+.ft-icon:nth-child(3n) {
+  filter: drop-shadow(0 0 6px rgba(91,95,237,0.35)) blur(0.3px);
+}
+.ft-icon:nth-child(5n) {
+  color: #7c3aed;
+  filter: drop-shadow(0 0 8px rgba(124,58,237,0.3)) blur(0.3px);
+}
+.ft-icon:nth-child(7n) {
+  color: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(16,185,129,0.3)) blur(0.3px);
+}
+
+@keyframes ftDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  33% {
+    transform: translate(calc(var(--dx) * 0.4), calc(var(--dy) * 0.3)) rotate(calc(var(--rot) * 0.5)) scale(1.04);
+  }
+  66% {
+    transform: translate(calc(var(--dx) * 0.8), calc(var(--dy) * 0.7)) rotate(calc(var(--rot) * -0.3)) scale(0.97);
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.02);
+  }
+}
+
+/* Fade out when user is interacting with forms / focused content */
+body:has(input:focus, textarea:focus, select:focus) #floating-tech-layer {
+  opacity: 0.35;
+}
+
+/* Keep icons from overlapping the header & intro */
+.intro-gate ~ #floating-tech-layer,
+body.intro-visible #floating-tech-layer {
+  opacity: 0;
 }

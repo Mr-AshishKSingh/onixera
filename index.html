@@ -12,12 +12,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body class="landing-page">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-bar" aria-hidden="true"></div>
 
     <!-- Intro Gate -->
     <div class="intro-gate" id="intro-gate" role="dialog" aria-modal="true" aria-label="Welcome to Onixera">
@@ -86,6 +89,10 @@
       <!-- Hero Section -->
       <section class="hero-minimal" id="top">
         <div class="hero-content section-reveal">
+          <div class="hero-live-badge">
+            <span class="live-dot" aria-hidden="true"></span>
+            Now Onboarding Clients
+          </div>
           <span class="eyebrow" style="margin-bottom:1.5rem;">Early-Stage Software Studio</span>
           <h1>
             Build smarter tools for
@@ -97,6 +104,15 @@
           <div class="hero-cta">
             <a class="btn btn-solid" href="#contact">Discuss your project</a>
             <a class="btn btn-ghost" href="#work">See our work</a>
+          </div>
+          <div class="hero-trust">
+            <span class="hero-trust-label">Trusted by</span>
+            <div class="hero-trust-badges">
+              <span class="trust-badge">Startups</span>
+              <span class="trust-badge">Local Businesses</span>
+              <span class="trust-badge">Student Teams</span>
+              <span class="trust-badge">New Ventures</span>
+            </div>
           </div>
         </div>
       </section>
@@ -111,11 +127,11 @@
         </div>
         <div class="stats-grid">
           <div class="stat-card section-reveal" style="animation-delay:0ms">
-            <div class="stat-number">6+</div>
+            <div class="stat-number" data-count="6" data-suffix="+">6+</div>
             <div class="stat-label">Projects Delivered</div>
           </div>
           <div class="stat-card section-reveal" style="animation-delay:80ms">
-            <div class="stat-number">3</div>
+            <div class="stat-number" data-count="3">3</div>
             <div class="stat-label">Active Pilots</div>
           </div>
           <div class="stat-card section-reveal" style="animation-delay:160ms">
@@ -123,11 +139,33 @@
             <div class="stat-label">Typical MVP Timeline</div>
           </div>
           <div class="stat-card section-reveal" style="animation-delay:240ms">
-            <div class="stat-number">1</div>
+            <div class="stat-number" data-count="1">1</div>
             <div class="stat-label">Dedicated Point of Contact</div>
           </div>
         </div>
       </section>
+
+      <!-- Marquee Strip -->
+      <div class="marquee-strip" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Custom Web Apps</span><span class="marquee-dot">·</span>
+          <span>Dashboard Development</span><span class="marquee-dot">·</span>
+          <span>Lead Capture Systems</span><span class="marquee-dot">·</span>
+          <span>MVP Planning</span><span class="marquee-dot">·</span>
+          <span>API Integrations</span><span class="marquee-dot">·</span>
+          <span>Student Mentorship</span><span class="marquee-dot">·</span>
+          <span>Workflow Automation</span><span class="marquee-dot">·</span>
+          <span>Technical Consulting</span><span class="marquee-dot">·</span>
+          <span>Custom Web Apps</span><span class="marquee-dot">·</span>
+          <span>Dashboard Development</span><span class="marquee-dot">·</span>
+          <span>Lead Capture Systems</span><span class="marquee-dot">·</span>
+          <span>MVP Planning</span><span class="marquee-dot">·</span>
+          <span>API Integrations</span><span class="marquee-dot">·</span>
+          <span>Student Mentorship</span><span class="marquee-dot">·</span>
+          <span>Workflow Automation</span><span class="marquee-dot">·</span>
+          <span>Technical Consulting</span><span class="marquee-dot">·</span>
+        </div>
+      </div>
 
       <!-- Startup Updates -->
       <section class="announcements" id="work">
@@ -194,6 +232,7 @@
         </div>
         <div class="services-grid">
           <div class="service-card section-reveal">
+            <span class="service-num" aria-hidden="true">01</span>
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0H3" />
@@ -209,6 +248,7 @@
           </div>
 
           <div class="service-card section-reveal" style="animation-delay:80ms">
+            <span class="service-num" aria-hidden="true">02</span>
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
@@ -224,6 +264,7 @@
           </div>
 
           <div class="service-card section-reveal" style="animation-delay:160ms">
+            <span class="service-num" aria-hidden="true">03</span>
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 3.741-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
@@ -239,6 +280,7 @@
           </div>
 
           <div class="service-card section-reveal" style="animation-delay:240ms">
+            <span class="service-num" aria-hidden="true">04</span>
             <div class="service-icon">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
@@ -404,9 +446,31 @@
       </section>
     </main>
 
+    <!-- Back-to-Top Button -->
+    <button id="back-to-top" aria-label="Back to top">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+      </svg>
+    </button>
+
     <!-- Footer -->
     <footer class="site-footer">
       <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-brand-left">
+            <a class="footer-brand-logo" href="#top">
+              <img src="./assets/light.png" alt="Onixera logo" onerror="this.style.display='none'" />
+              <span>Onixera</span>
+            </a>
+            <p class="footer-brand-tagline">Early-stage software studio building practical tools for modern business workflows.</p>
+            <div class="footer-social-row">
+              <a class="footer-social-btn" href="mailto:hr.ashish@onixeratechnologies.com" title="Email">@</a>
+              <a class="footer-social-btn" href="tel:+917457008912" title="Call">☎</a>
+              <a class="footer-social-btn" href="#" title="LinkedIn">in</a>
+              <a class="footer-social-btn" href="#" title="GitHub">gh</a>
+            </div>
+          </div>
+        </div>
         <div class="footer-section">
           <h4>Services</h4>
           <ul>
@@ -443,15 +507,6 @@
             <li><a href="./README.md">Project Info</a></li>
           </ul>
         </div>
-        <div class="footer-section social">
-          <h4>Connect</h4>
-          <div class="social-links">
-            <a href="mailto:hr.ashish@onixeratechnologies.com">Email Us</a>
-            <a href="tel:+917457008912">Call Us</a>
-            <a href="#">LinkedIn</a>
-            <a href="#">GitHub</a>
-          </div>
-        </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Onixera Technologies. Built by a growing startup team.</p>
@@ -461,6 +516,7 @@
 
     <script type="module" src="./js/main.js"></script>
     <script src="./js/animations.js"></script>
+    <script src="./js/floating-tech.js"></script>
     <script>
       // Mobile nav sidebar toggle
       (function () {
