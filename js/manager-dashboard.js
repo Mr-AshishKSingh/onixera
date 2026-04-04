@@ -623,18 +623,18 @@ function renderManagerTasks() {
     const row = document.createElement("tr");
     row.className = `manager-task-row ${statusClass}`;
     row.innerHTML = `
-      <td>${task.title}</td>
-      <td>${task.assignedDate}</td>
-      <td>${task.dueDate}</td>
-      <td>
+      <td data-label="Task">${task.title}</td>
+      <td data-label="Assigned">${task.assignedDate}</td>
+      <td data-label="Due Date">${task.dueDate}</td>
+      <td data-label="Status">
         <select class="manager-task-status ${statusClass}" data-id="${task.id}">
           <option value="Pending" ${task.status === "Pending" ? "selected" : ""}>Pending</option>
           <option value="In Progress" ${task.status === "In Progress" ? "selected" : ""}>In Progress</option>
           <option value="Done" ${task.status === "Done" ? "selected" : ""}>Done</option>
         </select>
       </td>
-      <td>${task.updatedAt || "--"}</td>
-      <td>
+      <td data-label="Last Update">${task.updatedAt || "--"}</td>
+      <td data-label="Actions">
         <div class="manager-task-actions">
           <button type="button" class="btn btn-outline manager-task-edit" data-id="${task.id}">Edit</button>
           <button type="button" class="btn btn-ghost manager-task-delete" data-id="${task.id}">Delete</button>

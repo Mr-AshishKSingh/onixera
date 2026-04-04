@@ -2247,9 +2247,60 @@ body.employee-body .section-head h2 {
   .offer-letter-dialog { padding: 1.25rem; }
   .offer-letter-head   { flex-direction: column; align-items: flex-start; }
 
-  .employee-table  { min-width: auto; font-size: 0.83rem; }
-  .employee-table th,
-  .employee-table td { padding: 0.6rem 0.5rem; }
+  /* ── Task table → card layout on mobile ── */
+  #module-tasks .table-wrap { overflow-x: visible; border-radius: 0; }
+
+  #module-tasks .employee-table,
+  #module-tasks .employee-table thead,
+  #module-tasks .employee-table tbody,
+  #module-tasks .employee-table th,
+  #module-tasks .employee-table td,
+  #module-tasks .employee-table tr { display: block; }
+
+  /* Hide column headers visually */
+  #module-tasks .employee-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /* Each row becomes a card */
+  #module-tasks .employee-table tbody tr {
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  /* Each cell: label + value side by side */
+  #module-tasks .employee-table td {
+    border: none;
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    word-break: break-word;
+  }
+
+  #module-tasks .employee-table td::before {
+    content: attr(data-label);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 80px;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  /* Actions cell: stack buttons */
+  #module-tasks .employee-table td:last-child { align-items: center; }
+  #module-tasks .manager-task-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  #module-tasks .manager-task-actions .btn { min-height: 34px; font-size: 0.8rem; padding: 0 0.75rem; }
 
   .intro-logo      { width: min(72vw, 300px); }
 }
