@@ -1668,6 +1668,11 @@ if (managerSidebarBackdrop) {
   managerSidebarBackdrop.addEventListener("click", () => setManagerSidebarOpen(false));
 }
 
+const managerSidebarClose = document.getElementById("manager-sidebar-close");
+if (managerSidebarClose) {
+  managerSidebarClose.addEventListener("click", () => setManagerSidebarOpen(false));
+}
+
 managerOptionButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const targetId = button.getAttribute("data-target");

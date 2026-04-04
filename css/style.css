@@ -1833,24 +1833,41 @@ button.calendar-cell.calendar-status-absent:hover  { border-color: rgba(220,38,3
   position: sticky;
   top: 5rem;
   border: 1px solid rgba(91,95,237,0.12);
-  background: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
+  background: #ffffff;
   max-height: calc(100vh - 6rem);
-  overflow: auto;
-  transition: transform 260ms ease;
+  overflow: hidden;           /* body inside scrolls */
+  display: flex;
+  flex-direction: column;
+  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
 }
 
+/* Desktop: sidebar is always visible, collapse/expand via transform */
 .manager-sidebar.is-collapsed { transform: translateX(calc(-100% - 1.5rem)); }
 .manager-sidebar.is-open      { transform: translateX(0); }
 .manager-sidebar-toggle { display: none; }
 
-.manager-sidebar-backdrop { display: none; }
+/* Sidebar header — hidden on desktop, shown as mobile drawer header */
+.mgr-sb-head {
+  display: none;
+}
+
+/* Sidebar scrollable body */
+.mgr-sb-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.manager-sidebar-backdrop { display: none; pointer-events: none; }
 .manager-sidebar-backdrop.is-visible {
   display: block;
+  pointer-events: auto;
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(2px); z-index: 18;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+  z-index: 190;
 }
 
 .manager-sidebar label { display: grid; gap: 0.4rem; margin-top: 0.2rem; }
@@ -2082,17 +2099,33 @@ body.employee-body .section-head h2 {
   .employee-sidebar-toggle   { display: inline-flex; }
   .employee-sidebar-backdrop.is-visible { display: block; }
 
-  .manager-sidebar {
+  /* ── Manager sidebar: full-height drawer on mobile ── */
+  .manager-sidebar,
+  body.mgr-portal .manager-sidebar {
     position: fixed;
-    z-index: 19;
-    top: 1rem; left: 1rem;
-    width: min(88vw, 360px);
-    max-height: calc(100vh - 2rem);
-    transform: translateX(calc(-100% - 2rem));
+    top: 0;
+    left: 0;
+    width: min(85vw, 320px);
+    height: 100vh;
+    max-height: 100vh;
+    z-index: 200;
+    border-radius: 0 16px 16px 0;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    box-shadow: 4px 0 32px rgba(0,0,0,0.18);
+    transform: translateX(-100%);
+    overflow: hidden;
   }
   .manager-sidebar.is-open  { transform: translateX(0); }
   .manager-sidebar-toggle   { display: inline-flex; }
-  .manager-sidebar-backdrop.is-visible { display: block; }
+  .manager-sidebar-backdrop.is-visible {
+    display: block;
+    z-index: 190;
+  }
+
+  /* Show sidebar header on mobile */
+  .mgr-sb-head { display: flex; }
 
   .nav-sidebar {
     position: fixed;
@@ -2225,6 +2258,52 @@ body.mgr-portal .manager-sidebar {
   padding: 0;
   background: #ffffff;
   border: 1px solid rgba(91,95,237,0.1);
+}
+
+/* ── Sidebar header & close button ──────────────────────── */
+.mgr-sb-head {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.1rem 0.85rem;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+}
+
+.mgr-sb-head-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.mgr-sb-head-brand svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.mgr-sb-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--text-light);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 150ms, color 150ms, border-color 150ms;
+  flex-shrink: 0;
+}
+
+.mgr-sb-close-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
 }
 
 /* ── Portal badge in header ──────────────────────────────── */

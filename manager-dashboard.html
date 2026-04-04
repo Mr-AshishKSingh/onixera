@@ -65,7 +65,21 @@
     <main class="employee-main manager-main">
 
       <!-- ══ Sidebar ══════════════════════════════════════════ -->
-      <aside id="manager-sidebar" class="manager-sidebar section-reveal" aria-label="Manager workspace panel">
+      <aside id="manager-sidebar" class="manager-sidebar" aria-label="Manager workspace panel">
+
+        <!-- Sidebar header — always visible on mobile, hidden on desktop -->
+        <div class="mgr-sb-head">
+          <div class="mgr-sb-head-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+            Workspace
+          </div>
+          <button id="manager-sidebar-close" class="mgr-sb-close-btn" type="button" aria-label="Close panel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Scrollable body -->
+        <div class="mgr-sb-body">
 
         <!-- Employee Selector -->
         <div class="mgr-sb-group">
@@ -179,8 +193,9 @@
 
           </div>
           <p class="manager-options-note" id="manager-options-note">Select an operation to continue.</p>
-        </div>
+        </div><!-- /mgr-sb-group -->
 
+        </div><!-- /mgr-sb-body -->
       </aside>
 
       <!-- ══ Content Area ════════════════════════════════════ -->
