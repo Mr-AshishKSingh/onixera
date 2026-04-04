@@ -1829,6 +1829,49 @@ button.calendar-cell.calendar-status-absent:hover  { border-color: rgba(220,38,3
 
 .manager-content { display: grid; gap: 1.25rem; min-width: 0; }
 
+/* Mobile nav bar — hidden on desktop, shown on mobile when module is active */
+.mgr-mobile-nav {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .mgr-mobile-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .mgr-mobile-nav-home,
+  .mgr-mobile-nav-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid;
+    transition: background 150ms, border-color 150ms;
+  }
+
+  .mgr-mobile-nav-home {
+    background: #f4f6fb;
+    border-color: var(--line);
+    color: var(--text);
+  }
+  .mgr-mobile-nav-home:hover { background: #e8ebf4; }
+
+  .mgr-mobile-nav-menu {
+    background: var(--primary-light);
+    border-color: rgba(91,95,237,0.3);
+    color: var(--primary);
+  }
+  .mgr-mobile-nav-menu:hover { background: rgba(91,95,237,0.15); }
+}
+
 .manager-sidebar {
   position: sticky;
   top: 5rem;
@@ -2100,8 +2143,7 @@ body.employee-body .section-head h2 {
   .employee-sidebar-backdrop.is-visible { display: block; }
 
   /* ── Manager sidebar: full-height drawer on mobile ── */
-  .manager-sidebar,
-  body.mgr-portal .manager-sidebar {
+  .manager-sidebar {
     position: fixed;
     top: 0;
     left: 0;
@@ -2117,7 +2159,9 @@ body.employee-body .section-head h2 {
     transform: translateX(-100%);
     overflow: hidden;
   }
-  .manager-sidebar.is-open  { transform: translateX(0); }
+  /* Both selectors get equal specificity boost so is-open always wins */
+  .manager-sidebar.is-open,
+  body.mgr-portal .manager-sidebar.is-open { transform: translateX(0) !important; }
   .manager-sidebar-toggle   { display: inline-flex; }
   .manager-sidebar-backdrop.is-visible {
     display: block;
@@ -2251,13 +2295,15 @@ body.mgr-portal .employee-main.manager-main {
   min-height: calc(100vh - 62px);
 }
 
-/* Sidebar offset for full-width header */
-body.mgr-portal .manager-sidebar {
-  top: 5rem;
-  max-height: calc(100vh - 5.5rem);
-  padding: 0;
-  background: #ffffff;
-  border: 1px solid rgba(91,95,237,0.1);
+/* Sidebar offset for full-width header (desktop only) */
+@media (min-width: 981px) {
+  body.mgr-portal .manager-sidebar {
+    top: 5rem;
+    max-height: calc(100vh - 5.5rem);
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid rgba(91,95,237,0.1);
+  }
 }
 
 /* ── Sidebar header & close button ──────────────────────── */
@@ -2306,12 +2352,75 @@ body.mgr-portal .manager-sidebar {
   border-color: #fca5a5;
 }
 
-/* ── Portal badge in header ──────────────────────────────── */
+/* ── App bar layout ──────────────────────────────────────── */
+.mgr-appbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .mgr-appbar-brand {
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  min-width: 0;
+  flex-shrink: 1;
 }
+
+.mgr-appbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+/* ── Menu toggle (hamburger) ─────────────────────────────── */
+.mgr-appbar-menu {
+  display: none;          /* hidden on desktop */
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(91,95,237,0.25);
+  background: var(--primary-light);
+  color: var(--primary);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 150ms, border-color 150ms;
+}
+
+.mgr-appbar-menu:hover {
+  background: rgba(91,95,237,0.15);
+  border-color: rgba(91,95,237,0.4);
+}
+
+/* ── Logout button ───────────────────────────────────────── */
+.mgr-appbar-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 1rem;
+  height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(220,38,38,0.25);
+  background: rgba(254,242,242,0.8);
+  color: #dc2626;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 150ms, border-color 150ms;
+}
+
+.mgr-appbar-logout:hover {
+  background: rgba(254,226,226,0.9);
+  border-color: rgba(220,38,38,0.45);
+}
+
+.mgr-appbar-logout svg { flex-shrink: 0; }
 
 .mgr-portal-badge {
   font-size: 0.68rem;
@@ -2724,9 +2833,29 @@ body.mgr-portal .manager-sidebar {
   body.mgr-portal .employee-main.manager-main {
     padding: 1.25rem;
   }
+
+  /* Show hamburger on mobile/tablet */
+  .mgr-appbar-menu {
+    display: inline-flex;
+  }
 }
 
 @media (max-width: 560px) {
+  /* Icon-only logout on small screens */
+  .mgr-logout-text { display: none; }
+  .mgr-appbar-logout { padding: 0; width: 36px; justify-content: center; }
+
+  /* Tighten gap */
+  .mgr-appbar-actions { gap: 0.45rem; }
+
+  /* Truncate manager name */
+  .mgr-name-pill-label {
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   body.mgr-portal .site-header {
     padding: 0 1rem;
     height: 56px;

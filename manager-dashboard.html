@@ -15,7 +15,9 @@
   <body class="employee-body mgr-portal">
 
     <!-- ══ App Bar ══════════════════════════════════════════ -->
-    <header class="site-header employee-header" id="top">
+    <header class="site-header employee-header mgr-appbar" id="top">
+
+      <!-- Left: brand -->
       <div class="mgr-appbar-brand">
         <a class="brand" href="./index.html" aria-label="Onixera home">
           <img
@@ -30,18 +32,22 @@
         <span class="mgr-portal-badge">Manager Portal</span>
       </div>
 
-      <div class="dashboard-actions">
+      <!-- Right: actions -->
+      <div class="mgr-appbar-actions">
+
+        <!-- Menu toggle — only visible on mobile -->
         <button
           id="manager-sidebar-toggle"
-          class="btn btn-outline manager-sidebar-toggle"
+          class="mgr-appbar-menu manager-sidebar-toggle"
           type="button"
           aria-controls="manager-sidebar"
-          aria-expanded="true"
+          aria-expanded="false"
+          aria-label="Open workspace panel"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
-          Menu
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
         </button>
 
+        <!-- Manager name pill -->
         <div class="mgr-name-pill">
           <div class="mgr-name-pill-av">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
@@ -49,15 +55,18 @@
           <span id="manager-name" class="mgr-name-pill-label">Manager</span>
         </div>
 
+        <!-- Logout -->
         <button
           id="manager-logout"
-          class="btn btn-outline"
+          class="mgr-appbar-logout"
           type="button"
+          title="Sign out"
           onclick="localStorage.removeItem('onixeraManagerSession');localStorage.removeItem('onixeraEmployeeSession');window.location.href='./manager-login.html';"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
-          Logout
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
+          <span class="mgr-logout-text">Logout</span>
         </button>
+
       </div>
     </header>
 
@@ -200,6 +209,18 @@
 
       <!-- ══ Content Area ════════════════════════════════════ -->
       <div class="manager-content">
+
+        <!-- Mobile module nav bar (shown when a module is active) -->
+        <div class="mgr-mobile-nav" id="mgr-mobile-nav" hidden>
+          <button class="mgr-mobile-nav-home" id="mgr-mobile-nav-home" type="button" aria-label="Back to overview">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+            Overview
+          </button>
+          <button class="mgr-mobile-nav-menu" id="mgr-mobile-nav-menu" type="button" aria-label="Switch module">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+            Switch Module
+          </button>
+        </div>
 
         <!-- Welcome / Overview (default state) -->
         <section id="module-welcome" class="manager-module is-active mgr-welcome-section" aria-label="Dashboard overview">

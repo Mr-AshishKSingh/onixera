@@ -26,6 +26,9 @@ const managerLogoutBtn = document.getElementById("manager-logout");
 const managerSidebar = document.getElementById("manager-sidebar");
 const managerSidebarToggle = document.getElementById("manager-sidebar-toggle");
 const managerSidebarBackdrop = document.getElementById("manager-sidebar-backdrop");
+const mgrMobileNav = document.getElementById("mgr-mobile-nav");
+const mgrMobileNavHome = document.getElementById("mgr-mobile-nav-home");
+const mgrMobileNavMenu = document.getElementById("mgr-mobile-nav-menu");
 const employeeSelect = document.getElementById("manager-employee-select");
 const managerSelectedEmployeeEl = document.getElementById("manager-selected-employee");
 const managerOptionButtons = Array.from(document.querySelectorAll(".manager-option-btn"));
@@ -174,7 +177,11 @@ function toggleManagerSidebar() {
 
 function activateManagerModule(targetId) {
   managerModules.forEach((moduleEl) => {
-    const isActive = moduleEl.id === targetId && Boolean(targetId);
+    // Welcome module is shown when nothing else is selected
+    const isWelcome = moduleEl.id === "module-welcome";
+    const isActive = isWelcome
+      ? !targetId
+      : moduleEl.id === targetId && Boolean(targetId);
     moduleEl.classList.toggle("is-active", isActive);
     moduleEl.hidden = !isActive;
   });
@@ -191,6 +198,11 @@ function activateManagerModule(targetId) {
 
   if (managerSidebarQuery.matches && targetId) {
     setManagerSidebarOpen(false);
+  }
+
+  // Show/hide mobile nav bar
+  if (mgrMobileNav) {
+    mgrMobileNav.hidden = !targetId || !managerSidebarQuery.matches;
   }
 }
 
@@ -1671,6 +1683,14 @@ if (managerSidebarBackdrop) {
 const managerSidebarClose = document.getElementById("manager-sidebar-close");
 if (managerSidebarClose) {
   managerSidebarClose.addEventListener("click", () => setManagerSidebarOpen(false));
+}
+
+// Mobile nav bar: "Overview" goes back to welcome, "Switch Module" opens sidebar
+if (mgrMobileNavHome) {
+  mgrMobileNavHome.addEventListener("click", () => activateManagerModule(""));
+}
+if (mgrMobileNavMenu) {
+  mgrMobileNavMenu.addEventListener("click", () => setManagerSidebarOpen(true));
 }
 
 managerOptionButtons.forEach((button) => {
