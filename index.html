@@ -88,6 +88,12 @@
     <main>
       <!-- Hero Section -->
       <section class="hero-minimal" id="top">
+        <!-- Gradient orbs -->
+        <div class="hero-orbs" aria-hidden="true">
+          <div class="hero-orb orb-a"></div>
+          <div class="hero-orb orb-b"></div>
+          <div class="hero-orb orb-c"></div>
+        </div>
         <div class="hero-content section-reveal">
           <div class="hero-live-badge">
             <span class="live-dot" aria-hidden="true"></span>
@@ -96,7 +102,9 @@
           <span class="eyebrow" style="margin-bottom:1.5rem;">Early-Stage Software Studio</span>
           <h1>
             Build smarter tools for
-            <span class="highlight">modern business workflows</span>
+            <span class="highlight hero-rotate-wrap">
+              <span class="hero-rotate rot-in" id="hero-rotate">startups</span>
+            </span>
           </h1>
           <p class="hero-subtitle">
             We are a startup team building practical web tools, internal dashboards, and growth systems for small businesses and new ventures — fast, well-built, and built to last.
@@ -297,6 +305,85 @@
         </div>
       </section>
 
+      <!-- How We Work -->
+      <section class="process-section" id="process">
+        <div class="section-header">
+          <h2>How We Work</h2>
+          <p>Simple, transparent process — from idea to live product</p>
+        </div>
+        <div class="process-track">
+          <div class="process-line" aria-hidden="true"></div>
+
+          <div class="process-step section-reveal" style="animation-delay:0ms">
+            <div class="process-bubble">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
+            <div class="process-step-body">
+              <span class="process-badge">Step 01</span>
+              <h3>Discover</h3>
+              <p>We understand your goal, constraints, and outcome in a focused 30-min call.</p>
+            </div>
+          </div>
+
+          <div class="process-step section-reveal" style="animation-delay:100ms">
+            <div class="process-bubble">
+              <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <div class="process-step-body">
+              <span class="process-badge">Step 02</span>
+              <h3>Design</h3>
+              <p>We map out the architecture, flows, and UI so you know exactly what we're building.</p>
+            </div>
+          </div>
+
+          <div class="process-step section-reveal" style="animation-delay:200ms">
+            <div class="process-bubble">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="process-step-body">
+              <span class="process-badge">Step 03</span>
+              <h3>Build</h3>
+              <p>We ship in focused sprints with weekly demos so you're never left in the dark.</p>
+            </div>
+          </div>
+
+          <div class="process-step section-reveal" style="animation-delay:300ms">
+            <div class="process-bubble">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="process-step-body">
+              <span class="process-badge">Step 04</span>
+              <h3>Launch</h3>
+              <p>We deploy, hand over docs, and stay available for follow-up iterations.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tech Stack -->
+      <section class="stack-section section-reveal">
+        <div class="section-header">
+          <h2>Our Stack</h2>
+          <p>The tools we use to build fast, reliable products</p>
+        </div>
+        <div class="stack-grid">
+          <span class="stack-pill" style="--c:#61dafb"><span class="stack-dot"></span>React</span>
+          <span class="stack-pill" style="--c:#68a063"><span class="stack-dot"></span>Node.js</span>
+          <span class="stack-pill" style="--c:#f7df1e; color:#7a6f00"><span class="stack-dot"></span>JavaScript</span>
+          <span class="stack-pill" style="--c:#3178c6"><span class="stack-dot"></span>TypeScript</span>
+          <span class="stack-pill" style="--c:#ff9800"><span class="stack-dot"></span>Firebase</span>
+          <span class="stack-pill" style="--c:#06b6d4"><span class="stack-dot"></span>Tailwind CSS</span>
+          <span class="stack-pill" style="--c:#3776ab"><span class="stack-dot"></span>Python</span>
+          <span class="stack-pill" style="--c:#336791"><span class="stack-dot"></span>PostgreSQL</span>
+          <span class="stack-pill" style="--c:#f05032"><span class="stack-dot"></span>Git</span>
+          <span class="stack-pill" style="--c:#00c7b7"><span class="stack-dot"></span>Netlify</span>
+          <span class="stack-pill" style="--c:#ff7262"><span class="stack-dot"></span>Figma</span>
+          <span class="stack-pill" style="--c:#6366f1"><span class="stack-dot"></span>REST APIs</span>
+          <span class="stack-pill" style="--c:#764abc"><span class="stack-dot"></span>Redux</span>
+          <span class="stack-pill" style="--c:#20232a"><span class="stack-dot"></span>Next.js</span>
+        </div>
+      </section>
+
       <!-- Core Values Section -->
       <section class="values-section" id="company">
         <div class="section-header">
@@ -348,6 +435,65 @@
               <p>We aim to become your reliable tech partner, not a one-off vendor. We grow with you.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section">
+        <div class="section-header" style="text-align:center">
+          <h2>Common Questions</h2>
+          <p>Answers to what most people ask before reaching out</p>
+        </div>
+        <div class="faq-list">
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              How long does a typical project take?
+              <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </summary>
+            <div class="faq-a">Most MVPs and internal tools take 2–4 weeks depending on scope. A landing page + lead system can be done in under 2 weeks. We scope precisely before starting so you always know what to expect.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              What's your pricing model?
+              <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </summary>
+            <div class="faq-a">We offer fixed-scope pricing for well-defined projects and retainer-based pricing for ongoing work. After your discovery call we provide a clear written quote — no hidden costs, no surprise invoices.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              Do you work with early-stage startups or solo founders?
+              <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </summary>
+            <div class="faq-a">Yes — that's our focus. Early-stage teams and solo founders are exactly who we built Onixera for. We understand lean budgets and fast timelines, and we help you prioritize what actually needs to ship first.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              Can I see examples of your previous work?
+              <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </summary>
+            <div class="faq-a">Absolutely. Book a discovery call and we'll walk you through relevant case snapshots, including the internal dashboard package and lead funnel system we've delivered for clients so far.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              What if I only have a rough idea and no technical spec?
+              <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </summary>
+            <div class="faq-a">Perfect — that's where we start. Our discovery process is specifically designed to take a rough idea and produce a clear, prioritized scope. You don't need a spec sheet to get started with us.</div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-q">
+              Do you offer support after the project is delivered?
+              <span class="faq-chevron"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </summary>
+            <div class="faq-a">Yes. Every delivery includes documentation and a handover session. We also offer optional retainer plans for ongoing maintenance, feature additions, and support — so your product keeps improving.</div>
+          </details>
+
         </div>
       </section>
 
@@ -446,6 +592,17 @@
       </section>
     </main>
 
+    <!-- Social Proof Toast -->
+    <div id="social-toast" class="social-toast" role="status" aria-live="polite" aria-atomic="true">
+      <div class="toast-avatar" id="toast-avatar">R</div>
+      <div class="toast-body">
+        <span class="toast-name" id="toast-name">Rahul from Delhi</span>
+        <span class="toast-msg" id="toast-msg">just booked a discovery call</span>
+        <span class="toast-time">just now</span>
+      </div>
+      <button class="toast-close" id="toast-close" aria-label="Dismiss notification">✕</button>
+    </div>
+
     <!-- Back-to-Top Button -->
     <button id="back-to-top" aria-label="Back to top">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -518,7 +675,73 @@
     <script src="./js/animations.js"></script>
     <script src="./js/floating-tech.js"></script>
     <script>
-      // Mobile nav sidebar toggle
+    /* ── Rotating hero headline words ───────────────────────── */
+    (function () {
+      var words   = ['startups', 'your team', 'new ventures', 'growing apps', 'your workflow'];
+      var idx     = 0;
+      var el      = document.getElementById('hero-rotate');
+      if (!el) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      function next() {
+        el.classList.remove('rot-in');
+        el.classList.add('rot-out');
+        setTimeout(function () {
+          idx = (idx + 1) % words.length;
+          el.textContent = words[idx];
+          el.classList.remove('rot-out');
+          el.classList.add('rot-in');
+        }, 290);
+      }
+      setInterval(next, 2600);
+    })();
+
+    /* ── Social Proof Toast ─────────────────────────────────── */
+    (function () {
+      var toasts = [
+        { name: 'Rahul from Delhi',     msg: 'just booked a discovery call',       avatar: 'R' },
+        { name: 'Priya from Bangalore', msg: 'joined the intern program',           avatar: 'P' },
+        { name: 'Arjun from Mumbai',    msg: 'submitted a project brief',           avatar: 'A' },
+        { name: 'A startup team',       msg: 'requested an MVP scope estimate',     avatar: 'S' },
+        { name: 'Vikram from Pune',     msg: 'booked a 30-min strategy call',       avatar: 'V' },
+        { name: 'Neha from Chennai',    msg: 'applied for the frontend intern role', avatar: 'N' },
+      ];
+
+      var toast     = document.getElementById('social-toast');
+      var nameEl    = document.getElementById('toast-name');
+      var msgEl     = document.getElementById('toast-msg');
+      var avatarEl  = document.getElementById('toast-avatar');
+      var closeBtn  = document.getElementById('toast-close');
+      if (!toast || !nameEl || !msgEl) return;
+
+      var idx = 0;
+      var dismissed = false;
+
+      function showToast() {
+        if (dismissed) return;
+        var t = toasts[idx % toasts.length];
+        nameEl.textContent   = t.name;
+        msgEl.textContent    = t.msg;
+        avatarEl.textContent = t.avatar;
+        toast.classList.add('toast-visible');
+        idx++;
+        setTimeout(hideToast, 4800);
+      }
+
+      function hideToast() {
+        toast.classList.remove('toast-visible');
+        if (!dismissed) setTimeout(showToast, 9000);
+      }
+
+      closeBtn.addEventListener('click', function () {
+        dismissed = true;
+        toast.classList.remove('toast-visible');
+      });
+
+      setTimeout(showToast, 4000);
+    })();
+
+    /* ── Mobile nav sidebar toggle ──────────────────────────── */
       (function () {
         var toggle = document.getElementById("nav-sidebar-toggle");
         var sidebar = document.getElementById("nav-sidebar");
